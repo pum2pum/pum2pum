@@ -1,0 +1,9 @@
+livedb.io forum application
+===
+A project in the TDDD09 course at Linköping University, spring 2012.
+
+### Prerequisties
+Node.js
+node-sqlite3
+socket.io
+
