@@ -1,0 +1,82 @@
+.DS_STORE
+*latexmk
+*.aux
+*.synctex.gz
+*.log
+~$*.docx
+.tmp
+
+# mer latex
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.nav
+*.nlo
+*.out
+*.pdfsync
+*.ps
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.maf
+*.mtc
+*.mtc0
+
+# Node
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+node_modules
+npm-debug.log
+
+# Textmate
+*.tmproj
+*.tmproject
+tmtags
+
+# OSX
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Windows
+# Windows image file caches
+Thumbs.db 
+
+# Folder config file
+Desktop.ini
+sqlite.db
+
+#database transactions
+transactions
+
+# latex cb
+*.cb*
