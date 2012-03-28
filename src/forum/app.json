@@ -1,0 +1,16 @@
+{
+	"db":
+	[
+		"/categories"
+	],
+	
+	"dependencies":
+	[
+		"api.js"
+	],
+	
+	"settings":
+	{
+		"index": "index.html"	
+	}
+}
