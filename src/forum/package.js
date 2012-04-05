@@ -1,4 +1,5 @@
 enyo.depends(
 	"/socket.io/socket.io.js",
-	"api.js"
+	"api.js",
+	"forumdatabase.js"
 );
