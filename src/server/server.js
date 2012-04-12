@@ -82,6 +82,7 @@ var startServer = function(readyCallback) {
     /******* SERVER ****/
     var server = http.createServer(function (req, res) {    
         var uriPath = url.parse(req.url).pathname;
+        var image = false;
         
         if(uriPath.endsWith("/")){
             uriPath += config.settings.index;
@@ -93,6 +94,7 @@ var startServer = function(readyCallback) {
             res.writeHead( 200, {'Content-Type': "text/css"});
         } else if( uriPath.endsWith( ".png" ) ) {
             res.writeHead( 200, { 'Content-Type': "image/png" } );
+            image = true;
         }
         else{
             res.writeHead( 200, {'Content-Type': "text/html"});
@@ -107,7 +109,7 @@ var startServer = function(readyCallback) {
         {
             res.end(depFiles[file]);
         }else{
-            fs.readFile(path.join(appRoot, uriPath), "utf8", function(err, data){
+            fs.readFile(path.join(appRoot, uriPath), function(err, data){
                 if(err){
                     res.writeHead(404);
                     res.end("404");
