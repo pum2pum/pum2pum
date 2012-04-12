@@ -91,14 +91,21 @@ var startServer = function(readyCallback) {
         }
         else if(uriPath.endsWith(".css")){
             res.writeHead( 200, {'Content-Type': "text/css"});
+        } else if( uriPath.endsWith( ".png" ) ) {
+            res.writeHead( 200, { 'Content-Type': "image/png" } );
         }
         else{
             res.writeHead( 200, {'Content-Type': "text/html"});
         }
-        
-        if(depFiles[uriPath.substr(1)])
+
+        file = uriPath.match( /.*\/([^\/]+)$/ );
+        if( file ) {
+            file = file[1];
+        }
+
+        if(depFiles[file])
         {
-            res.end(depFiles[uriPath.substr(1)]);
+            res.end(depFiles[file]);
         }else{
             fs.readFile(path.join(appRoot, uriPath), "utf8", function(err, data){
                 if(err){
