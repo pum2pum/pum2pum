@@ -1,0 +1,144 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{tabularx}
+
+\newcommand{\urequirement}[2]{
+	\subsubsection{}
+	\begin{tabular}{l p{10cm}}
+	\bf{How to measure} & 
+		#1\\
+	\bf{Requirement} & 
+		#2\\
+	\end{tabular}
+}
+
+\newcommand{\testcase}[3]{
+	\subsubsection{}
+	\begin{tabular}{l p{11cm}}
+	\bf{Input} & 
+		#1\\
+	\bf{Output} & 
+		#2\\
+	\end{tabular}
+}
+
+\newcommand{\ptestcase}[3]{
+	\subsubsection{}
+	\begin{tabular}{l p{10cm}}
+	\bf{Prerequisites} & 
+		#1\\
+	\bf{Input} & 
+		#2\\
+	\bf{Output} & 
+		#3\\
+	\end{tabular}
+}
+
+\begin{document}
+	
+	% Framsidan
+	\begin{titlepage}
+		
+		\includegraphics[scale=0.4]{logoNormal.png}
+		
+		\vspace{6cm}
+		
+		\begin{center}
+			\Huge{\textbf{Test cases}} % Ändra dokumentets titel
+			
+			\vspace{0.5cm}
+			
+			\huge{2012-04-10} % Datum senast ändrad
+		\end{center}
+		
+	\end{titlepage}
+	
+	% Innehållsförteckning
+	\tableofcontents
+	\newpage
+	
+	% Versioner (lägg till ändringar ni gör som en ny rad i tabellen nedan).
+	% Under Utförda av anges LiU-id.
+	\section*{Versions}
+	\begin{tabularx}{1\textwidth}{|l|l|X|l|}
+		\hline
+		\bf{Version} & \bf{Date} & \bf{Changes} & \bf{By} \\
+		\hline
+		0.1 & 2012-04-10 & First version. & nicol271 \\
+		\hline
+	\end{tabularx}
+	\newpage
+	
+	% Dokumentets innehåll nedanför här.
+	\section{System quality tests}
+	Tests overall, system-wide qualities.
+
+	\subsection{Usability}
+		\urequirement
+		{
+			A tester is given the following tasks: read a thread, reply to the thread, and create a new thread.
+		}{
+			3 out of 4 randomly chosen testers must be able to fullfill the tasks, see R.1.1.0.1
+		}
+
+	\subsection{Performance}
+		\urequirement
+		{
+			By navigating through the system, measuring the response time using the net-panel in the browser web developer tools.
+		}{
+			Response time less than 2 seconds, see R.1.2.0.1
+		}
+
+	\section{Testing the server}
+	\subsection{Argument handling}
+	Tests if the server handles incorrect command-line arguments.\\
+
+		\testcase
+		{
+			Server is called without giving an appname to run
+		}{
+			Fail: A message describing the usage is shown
+		}
+
+		\testcase
+		{
+			An incorrect appname is given
+		}{
+			Fail: A message saying that the app could not be found
+		}
+
+	\subsection{App configuration}
+	Tests if handling of the app-definitions is correct. [To be written]\\
+
+
+	\subsection{Networking}
+	Tests if the server really can serve requests correctly.\\
+	Prerequisties: The server is running an existing app which returns known data.
+
+		\testcase
+		{
+			A plain HTTP GET-request without data is sent to the port that the server is listening on
+		}{
+			Pass: A response with HTTP-status code 200
+		}
+
+		\testcase
+		{
+			A plain HTTP-request is sent to the port that the server is listening on
+		}{
+			Pass: The body of the HTTP response consists of the known data declared in the app
+		}
+
+		\testcase
+		{
+			A HTTP-request with a path to a non-existing file is sent to the server
+		}{
+			Fail:  A response with HTTP-status code 404
+		}
+
+
+\end{document}
