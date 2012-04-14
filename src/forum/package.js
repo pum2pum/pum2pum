@@ -1,7 +1,10 @@
 enyo.depends(
 	"/socket.io/socket.io.js",
 	"api.js",
-	"forumdatabase.js"
-	"forumMenu.js"
-	"forumView.js"
+	"forumdatabase.js",
+	"forumMenu.js",
+	"forumView.js",
+	"settingsView.js",
+	"usersView.js",
+	"repliesView.js"
 );
