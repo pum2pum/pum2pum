@@ -13,7 +13,7 @@ forumDatabase.prototype = {
 	* username 	- Username of the user
 	**/
 	login: function ( cb, username ) {
-		that = this;
+		var that = this;
 		
 		this.liveDB.login( function( arg ) {
 			that.loggedIn = true;
@@ -37,7 +37,7 @@ forumDatabase.prototype = {
 	newCategory: function ( cb, title, desc ) {
 		trans = this.liveDB.transaction( );
 		trans.create( '/categories', { title: title, description: desc, } );
-		that = this;
+		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -49,7 +49,7 @@ forumDatabase.prototype = {
 	* start 	- get entry number start first
 	**/
 	getCategories: function ( cb, num, start ) {
-		that = this;
+		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
 			'/categories', '->', null, { 'title': 1, 'description': 1 },
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
@@ -66,7 +66,7 @@ forumDatabase.prototype = {
 	newSubForum: function( cb, cat, title, desc ) {
 		trans = this.liveDB.transaction( );
 		trans.create( cat, { title: title, description: desc } );
-		that = this;
+		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -79,7 +79,7 @@ forumDatabase.prototype = {
 	* start 	- get entry number start first
 	**/
 	getSubForums: function( cb, cat, num, start ) {
-		that = this;
+		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
 			cat, '->', null, {'title': 1, 'description': 1 },
 			num, start, null, [{name:'title', dir: "desc", nocase: 1 }]);
@@ -97,7 +97,7 @@ forumDatabase.prototype = {
 	newThread: function( cb, subForum, title, desc, content ) {
 		trans = this.liveDB.transaction( );
 		trans.create( subForum, { title: title, description: desc } );
-		that = this;
+		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -110,7 +110,7 @@ forumDatabase.prototype = {
 	* start 	- get entry number start first
 	**/
 	getThreads: function( cb, subForum, num, start ) {
-		that = this;
+		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
 			subForum, '->', null, { 'title': 1, 'description': 1 },
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
@@ -126,7 +126,7 @@ forumDatabase.prototype = {
 	newPost: function( cb, thread, content ) {
 		trans = this.liveDB.transaction( );
 		trans.create( thread, { content: content } );
-		that = this;
+		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -139,7 +139,7 @@ forumDatabase.prototype = {
 	* start 	- get entry number start first
 	**/
 	getPosts: function( cb, thread, num, start ) {
-		that = this;
+		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
 			thread, '->', null, { 'content':1 },
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
@@ -155,7 +155,7 @@ forumDatabase.prototype = {
 	newAnswer: function( cb, post, content ) {
 		trans = this.liveDB.transaction( );
 		trans.create( post, { content: content } );
-		that = this;
+		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -168,7 +168,7 @@ forumDatabase.prototype = {
 	* start 	- get entry number start first
 	**/
 	getAnswers: function( cb, post, num, start ) {
-		that = this;
+		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
 			post, '->', null, { 'content': 1 },
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
