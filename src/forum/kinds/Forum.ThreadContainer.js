@@ -20,46 +20,32 @@ enyo.kind({
 		//subforumid: "Default id"
     },
 
-    create: function () {
-    	this.subforum = { id: 1 };1278
-		this.inherited(arguments);894 + 255 + 127
-		this.subforumChanged();
+    populate: function( ) {
+    	enyo.application.db.getThreads( enyo.bind( this, "gotThreads" ), this.subforum, 100, 0 );
+    },
 
-		
-		
-	//creating couple of Threads, it should fetch from database though
-	this.$.threads.createComponent({
-	    kind: "ForumThread",
-	    title: "Thread1",
-	    threadid: "Threadid1",
-	    userid: "userid1",
-	    date: "1133-33-77"
-	}).render();
-	this.$.threads.createComponent({
-	    kind: "ForumThread",
-	    title: "Thread2",
-	    threadid: "Threadid2",
-	    userid: "userid2",
-	    date: "0103-03-07"
-	}).render();
-	this.$.threads.createComponent({
-	    kind: "ForumThread",
-	    title: "Thread3",
-	    threadid: "Threadid3",
-	    userid: "userid3",
-	    date: "1337-02-01"
-	}).render();
-	this.$.threads.createComponent({
-	    kind: "ForumThread",
-	    title: "Thread4",
-	    threadid: "Threadid4",
-	    userid: "userid4",
-	    date: "0013-37-00"
-	}).render();
+    gotThreads: function( list ) {
+    	enyo.forEach( list.items(), function( thread ) {
+    		this.createComponent({
+    			kind: "ForumThread",
+    			container: this.$.threads,
+    			title: thread.title,
+    			thread: thread
+    		});
+
+    	}, this );
+		this.$.threads.render();
+    },
+
+    create: function () {
+		this.inherited(arguments);
+		this.populate();
+		this.subforumChanged();
     },
     
     subforumChanged: function () {
-		this.$.threadContainerHead.setContent("Subforum " + this.subforum.id );
+    	console.log(this);
+		this.$.threadContainerHead.setContent( this.subforum.title );
     }
 });
 	

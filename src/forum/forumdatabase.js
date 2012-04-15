@@ -24,7 +24,9 @@ forumDatabase.prototype = {
 
 	/* Tunnel the callback to see if it had the same object as before */
 	callbackTunnel: function( cb, arg ){
-		cb( arg );
+		if( cb !== null ) {
+			cb( arg );
+		}
 	},
 
 	/** Creates a new category
@@ -194,6 +196,17 @@ forumDatabase.prototype = {
 		this.liveDB.list( cb, '/users', '->', null, { '_online':1, 'name':1 },
 			    num, null, null, [ { name:'_online', dir:'desc' },
 				{ name:'name', dir:'asc', nocase:1 } ] );
-	}
+	},
+
+	/** Gets a node
+	* The callback contains the node
+	* -----------------------
+	* cb( node )	- Callback function called with the returned node
+	* what 			- What node to get
+	* attributes 	- What attributes to get from the node
+	**/
+	get: function( cb, what, attributes ) {
+		this.liveDB.get( what, attributes, cb );
+	} 
 
 }
