@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<title>pum2pum enyo tests</title>
+		<link href="test.css" rel="stylesheet" type="text/css" />
+		<!-- 
+		The ../ in the path below is somehow needed for some built-in tests to pass.
+		Also, it seems like the compressed single-file version of enyo doesn't contain
+		the kinds needed for testing, so we use the full version which gets content from
+		the directory named "source".
+		-->
+		<script src="../enyo.js" type="text/javascript"></script> 
+
+		<script src="test.js" type="text/javascript"></script>
+		<script src="tests/package.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			new enyo.TestRunner().renderInto(document.body);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+{
+	"db":
+	[
+		"/threads"
+	],
+	
+	"dependencies":
+	[
+		"api.js",
+		"forum/forumdatabase.js"
+	],
+	
+	"settings":
+	{
+		"index": "index.html"
+	}
+}
