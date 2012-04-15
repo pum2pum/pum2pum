@@ -5,6 +5,7 @@ var sys    = require('util');
 var path = require('path');
 
 var PORT = 8124;
+var FILE_REGEX = /.*\/([^\/]+)$/;
 
 /****/
 
@@ -69,6 +70,7 @@ var startServer = function(readyCallback) {
                 if(!path.existsSync(tmpPath)){
                     return error("Couldn't find " + elem);
                 }
+                elem = elem.match( FILE_REGEX )[1];
             }
 
             depFiles[elem] = fs.readFileSync(tmpPath,"utf8");
@@ -82,8 +84,6 @@ var startServer = function(readyCallback) {
     /******* SERVER ****/
     var server = http.createServer(function (req, res) {    
         var uriPath = url.parse(req.url).pathname;
-        var image = false;
-	var encoding = "utf8";
         
         if(uriPath.endsWith("/")){
             uriPath += config.settings.index;
@@ -93,24 +93,14 @@ var startServer = function(readyCallback) {
         }
         else if(uriPath.endsWith(".css")){
             res.writeHead( 200, {'Content-Type': "text/css"});
+        } else if( uriPath.endsWith( ".png" ) ) {
+            res.writeHead( 200, { 'Content-Type': "image/png" } );
         }
-	else if(uriPath.endsWith(".png")){
-	    res.writeHead( 200, {'Content-Type': "image/png"})
-	    encoding = null;
-	}
-	else if(uriPath.endsWith(".jpeg")){
-	    res.writeHead( 200, {'Content-Type': "image/jpeg"})
-	    encoding = null;
-	}
-	// else if(uriPath.endsWith(".jpg")){
-	//     res.writeHead( 200, {'Content-Type': "image/jpg"})
-	//     encoding = null;
-	// }
         else{
             res.writeHead( 200, {'Content-Type': "text/html"});
         }
 
-        file = uriPath.match( /.*\/([^\/]+)$/ );
+        file = uriPath.match( FILE_REGEX );
         if( file ) {
             file = file[1];
         }
@@ -119,7 +109,7 @@ var startServer = function(readyCallback) {
         {
             res.end(depFiles[file]);
         }else{
-            fs.readFile(path.join(appRoot, uriPath), encoding, function(err, data){
+            fs.readFile(path.join(appRoot, uriPath), "utf8", function(err, data){
                 if(err){
                     res.writeHead(404);
                     res.end("404");
