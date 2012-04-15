@@ -1,0 +1,118 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, p, ul, li {
+	padding: 0;
+	margin: 0;
+	font-weight: normal;
+}
+
+li, ul {
+	list-style: none;
+}
+
+/*** csscreator hack ***/
+.floatcontainer:after{
+    content: "."; 
+    display: block; 
+    height: 0; 
+    font-size:0;	
+    clear: both; 
+    visibility:hidden;
+    }
+	
+   .floatcontainer{display: inline-block;} 
+
+    /* Hides from IE Mac */
+    * html .floatcontainer {height: 1%;}
+       .floatcontainer{display:block;}
+    /* End Hack */ 
+/****************/
+
+.threadContainerHead {
+	background-image: url(images/bgs/headerbg.png);
+	height: 41px;
+	font-size: 24pt;
+	color: #FFF;
+	vertical-align: middle;
+	padding-left: 5px;
+	border: 1px solid #000;
+	line-height: 41px;
+}
+
+.threadContainerListHead {
+	background-image: url(images/bgs/topbg.png);
+}
+
+.threadContainerListHead p {
+	padding-left: 5px;
+}
+
+.threadContainerListHead div {
+	height: 43px;
+	color: #FFF;
+	font-size: 20pt;
+	line-height: 43px;
+}
+
+.topic, .lastPost, .posts {
+	float: left;
+}
+
+.topic {
+	width: 70%;
+}
+
+.lastPost {
+	width: 18%;
+}
+
+.posts {
+	width: 12%;
+}
+
+.threadContainerListHead .posts {
+	border-left: 1px solid #FFF;
+}
+
+.threads li:nth-child(even) {
+	background-image: url(images/bgs/forumbg2.png);
+}
+.threads li:nth-child(odd) {
+	background-image: url(images/bgs/forumbg1.png);
+}
+
+.thread .topic, .thread .lastPost, .thread .posts {
+	height: 65px;
+}
+
+
+.thread .topic {
+	border-right: 1px #adb9c2 solid;
+}
+.thread .lastPost {
+	border-right: 1px #adb9c2 solid;
+}
+
+.thread .topic h2 {
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.thread .topic p {
+	padding-left: 10px;
+}
+
+.thread .lastPost p {
+	margin-top: 10px;
+	margin-right: 5px;
+	text-align: right;
+}
+
+.thread .posts {
+	font-size: 25pt;
+	line-height: 65px;
+	text-align: center;
+}
