@@ -109,7 +109,7 @@ var startServer = function(readyCallback) {
         {
             res.end(depFiles[file]);
         }else{
-            fs.readFile(path.join(appRoot, uriPath), "utf8", function(err, data){
+            fs.readFile(path.join(appRoot, uriPath), function(err, data){
                 if(err){
                     res.writeHead(404);
                     res.end("404");
