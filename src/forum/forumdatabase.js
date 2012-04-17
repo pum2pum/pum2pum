@@ -2,6 +2,9 @@
 function forumDatabase( ){
 	this.liveDB = new LiveDB( );
 	this.loggedIn = false;
+
+	this._returnedObjects = {};
+
 };
 
 forumDatabase.prototype = {
@@ -25,6 +28,11 @@ forumDatabase.prototype = {
 	/* Tunnel the callback to see if it had the same object as before */
 	callbackTunnel: function( cb, arg ){
 		if( cb !== null ) {
+			if( this._returnedObjects[arg._sid] === arg ) {
+				return;
+			}
+			this._returnedObjects[arg._sid] = arg;
+
 			cb( arg );
 		}
 	},
@@ -96,9 +104,9 @@ forumDatabase.prototype = {
 	* desc 		- Description of the Thread
 	* content 	- The content of the first "post"
 	**/
-	newThread: function( cb, subForum, title, desc, content ) {
+	newThread: function( cb, subForum, title, content ) {
 		trans = this.liveDB.transaction( );
-		trans.create( subForum, { title: title, description: desc } );
+		trans.create( subForum, { title: title, content: content } );
 		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
@@ -114,8 +122,9 @@ forumDatabase.prototype = {
 	getThreads: function( cb, subForum, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			subForum, '->', null, { 'title': 1, 'description': 1 },
-			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
+			subForum, '->', null, { 'title': 1, 'content': 1 },
+			num, start, null, [ { name:'timestap', dir: "desc" } ] );
+			//num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
 	},
 
 	/** Creates a new Post 
@@ -207,6 +216,13 @@ forumDatabase.prototype = {
 	**/
 	get: function( cb, what, attributes ) {
 		this.liveDB.get( what, attributes, cb );
-	} 
+	},
+
+	/** deletes a database entry
+	**/
+	delete: function( node ) {
+		this.liveDB.delete( node );
+	}
+
 
 }

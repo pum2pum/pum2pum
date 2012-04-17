@@ -4,6 +4,7 @@ enyo.depends(
     "../../forumdatabase.js",
     "../../style.css",
     "../../lib/onyx",
+    "../../init.js",
     "../../kinds",
     "../../lib/extra/jsonp"
 );

@@ -3,20 +3,28 @@ enyo.kind({
 	kind: enyo.Control,
 	tag: "li",
 
-	published: {
-		title: "",
-		dbparent: "",
-	},
-
 	components: [
-		{ tag: "button", name: "btnNewSub", content: "new Subforum", ontap: "newsub"},
-		{ tag: "span", name: "title" },
-		{ tag: "ul", name: "children" }
+		{ name: "btnNewSub", tag: "button", content: "new Subforum", ontap: "newsub"},
+		
+		{ name: "categoryContainer", tag: "div", components: [
+				{ name: "head", tag: "div", components: [
+					{ name: "title", tag: "p", ontap: "gotoThread"},
+					{ name: "description", tag: "p"}
+				]},
+				{ name: "newThreads", tag: "p"},
+				{ name: "threads", tag: "p"},
+				{ name: "posts", tag: "p"}
+				]}
 	],
 
+	published: {
+		title: "",
+	},
+
 	newsub: function(){
-		title = window.prompt("sub titel");
-		db.newSubForum(null, this.dbparent, title, "Ett subforum");
+		subForumTitle = window.prompt("subforum title");
+		subForumDescription = window.prompt("subforum description");
+		enyo.application.db.newSubForum(null, this.dbparent, subForumTitle, subForumDescription);
 	},
 
 	create: function(){

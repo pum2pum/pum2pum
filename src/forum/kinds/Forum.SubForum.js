@@ -3,48 +3,67 @@ enyo.kind({
 	kind: enyo.Control,
 	tag: "li",
 
-	published: {
-		title: "",
-		dbparent: "",
-	},
-
 	components: [
-		{ tag: "button", name: "btnNewThread", content: "new Thread", ontap: "newthread"},
-		{ tag: "span", name: "title" },
-		{ tag: "ul", name: "children" }
+		{ name: "btnNewThread", tag: "button", content: "New Thread", ontap: "newThread"},
+
+		{ name: "subForumContainer", tag: "div", components: [
+			{ name: "head", tag: "div", classes: "subForumHead", components: [
+				{ name: "title", tag: "p", ontap: "gotoThread"},
+				{ name: "description", tag: "p"}
+			]},
+			{ name: "newThreads", tag: "p", classes: "subForum.newThreads"},
+			{ name: "threads", tag: "p", classes: "subForum.threads"},
+			{ name: "posts", tag: "p", classes: "subForum.posts"}
+		]}
 	],
 
-	newthread: function(){
-		title = window.prompt("tråd titel");
-		db.newThread(null, this.dbparent, title, "En tråd");
+    published: {
+		subForum: ""
+    },
+
+	gotoThread: function(){
+		console.log( "Goto thread X..." );
+	},
+
+	newThread: function(){
+		threadTitle = window.prompt("Thread title");
+		threadContent = window.prompt("Thread content");
+		enyo.application.db.newThread(null, this.subForum, threadTitle, threadContent);
 	},
 
 	create: function(){
 		this.inherited(arguments);
-		this.titleChanged();
 		this.populate();
-	},
-
-	titleChanged: function(){
-		this.$.title.setContent(this.title + " - " + this.dbparent.id);
+		this.$.title.setContent( this.title );
+		this.$.description.setContent( this.description );
 	},
 
 	populate: function(){
-		db.getThreads(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
+		enyo.application.db.getThreads( enyo.bind(this, "gotThreads"), this.subForum, 999, 0);
 	},
 
-	populateCallback: function(list){
-		//this.$.children.destroyClientControls();
-		enyo.forEach(list.items(), this.addDBChild, this);
-		this.$.children.render();
-	},
+	gotThreads: function( list ) {
+		newThreads = 0;
+		threads = 0;
 
-	addDBChild: function(c){
-		this.createComponent({
-			kind: "thread",
-			container: this.$.children,
-			title: c.title,
-			dbparent: c
-		});
+		enyo.forEach( list.items(), function( thread ) {
+			//enyo.application.db.getPosts( enyo.bind(this, "gotPosts"), thread, 999, 0);
+
+   			threads++;
+        });
+
+        this.$.newThreads.setContent( newThreads );
+        this.$.threads.setContent( threads );
+        this.$.posts.setContent( "0" );
 	}
+
+	/*gotPosts: function( list ) {
+		posts = 0;
+
+		enyo.forEach( list.items(), function( ) {
+   			posts++;
+        });
+
+        this.posts = posts;
+	}*/
 });
