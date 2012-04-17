@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "category",
+	name: "Category",
 	kind: enyo.Control,
 	tag: "li",
 

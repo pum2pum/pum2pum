@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "subforum",
+	name: "SubForum",
 	kind: enyo.Control,
 	tag: "li",
 
