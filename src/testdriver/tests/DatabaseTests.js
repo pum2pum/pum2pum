@@ -6,6 +6,8 @@ var gdb; // Global database variable
 var gcat; // Global category
 var gsub; // Global sub forum
 
+var g = [];
+
 /* Finishes a create-test with or without a validation-delay */
 function finishTest(test) {
 	if(VALIDATE) {
@@ -30,7 +32,7 @@ function failCallback(test) {
 * i.e. checkListCallback(test, ['a', 'b'], "name") will pass iff result["name"] contains
 * the objects "a" an "b", where result is the items returned from the query.
 **/
-function checkListCallback(test, names, property, setGsub) {
+function checkListCallback(test, names, property, setGlobal) {
 	return function(list) {
 				if(list === undefined) {
 					test.finish("Did not recieve any objects");
@@ -53,9 +55,9 @@ function checkListCallback(test, names, property, setGsub) {
 					}
 				}
 
-				if(setGsub) {
-					gsub = items[0];
-					console.log(gsub);
+				if(setGlobal) {
+					g[setGlobal] = items[0];
+					console.log(g[setGlobal]);
 				}
 
 				list.close();
@@ -121,22 +123,7 @@ enyo.kind({
 	testGetCategory: function() {
 		var test = this;
 
-		gdb.getCategories(function(list) { 
-			console.log(list);
-
-			if(list === undefined) {
-				test.finish("Did not recieve any categories");
-			} 
-			else if(list.items()[0].title == "MyCategory") {
-				gcat = list.items()[0];
-				test.finish();
-			} 
-			else {
-				test.finish("Unexpected category name");
-			}
-
-			list.close();
-		}, 1, 0);
+		gdb.getCategories(checkListCallback(test, ["MyCategory"], "title", "cat"), 1, 0);
 	},
 
 	/** 
@@ -147,7 +134,7 @@ enyo.kind({
 		var test = this;
 
 		gdb.newSubForum(
-			failCallback(test), gcat, "MySubForum", "SubForum description"
+			failCallback(test), g["cat"], "MySubForum", "SubForum description"
 		);
 		finishTest(test);
 	},
@@ -161,11 +148,11 @@ enyo.kind({
 
 // Bortkommenterat: Grrr för osynkade databaser som dessutom inte skickar callbacks
 /*		gdb.newSubForum(
-			failCallback(test), gcat, "MySubForum 2", "SubForum description 2"
+			failCallback(test), g["cat"], "MySubForum 2", "SubForum description 2"
 		);
 */
 		gdb.getSubForums(
-			checkListCallback(test, ["MySubForum"], "title", true), gcat, 1, 0
+			checkListCallback(test, ["MySubForum"], "title", "subforum"), g["cat"], 1, 0
 		);
 	},
 
@@ -177,11 +164,11 @@ enyo.kind({
 		var test = this;
 /*
 		gdb.newThread(
-			failCallback(test), gsub, "TestThread", "Test description", "Content of thread"
+			failCallback(test), g["subforum"], "TestThread", "Test description", "Content of thread"
 		);
 */
 		gdb.newThread(
-			failCallback(test), gsub, "Yet Another", "Test description 2", "Content of thread 2"
+			failCallback(test), g["subforum"], "Yet Another", "Test description 2", "Content of thread 2"
 		);
 
 		finishTest(test);
@@ -197,8 +184,58 @@ enyo.kind({
 		var test = this;
 
 		gdb.getThreads(
-			checkListCallback(test, ["Yet Another"], "title"), gsub, 1, 0
+			checkListCallback(test, ["Yet Another"], "title", "thread"), g["subforum"], 1, 0
 		);
 	},
 
+	/** 
+	Testcase x.x.9
+	Creates a new post 
+	**/
+	testNewPost: function() {
+		var test = this;
+
+		gdb.newPost(
+			failCallback(test), g["thread"], "Post Content"
+		);
+		finishTest(test);
+	},
+
+
+	/** 
+	Testcase x.x.10
+	Gets some posts
+	**/
+	testGetPost: function() {
+		var test = this;
+
+		gdb.getPosts(
+			checkListCallback(test, ["Post Content"], "content", "post"), g["thread"], 1, 0
+		);
+	},
+
+	/** 
+	Testcase x.x.10
+	Gets some posts
+	**/
+	testNewAnswer: function() {
+		var test = this;
+
+		gdb.newAnswer(
+			failCallback(test), g["post"], "An answer"
+		);
+		finishTest(test);
+	},
+
+	/** 
+	Testcase x.x.10
+	Gets some posts
+	**/
+	testGetAnswer: function() {
+		var test = this;
+
+		gdb.getAnswers(
+			checkListCallback(test, ["An answer"], "content"), g["post"], 1, 0
+		);
+	},
 });
