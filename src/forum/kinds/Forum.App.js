@@ -12,14 +12,17 @@ enyo.kind({
 	},
 
 	//the new function to be used instead of old goTo-functions in forumMenu
-	changeView: function(sender, kind){
-		this.$.forumView.destroyClientControls();
-		this.createComponent({
-			//kind: kind,
+	changeView: function( sender, props ){
+		newComponent = {
 			container: this.$.forumView,
-			content: kind
+		};
 
-		});
+		for( prop in props ) {
+			newComponent[prop] = props[prop];
+		}
+
+		this.$.forumView.destroyClientControls();
+		this.createComponent( newComponent );
 		this.$.forumView.render();
 	}
 
