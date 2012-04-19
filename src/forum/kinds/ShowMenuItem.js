@@ -1,8 +1,8 @@
 enyo.Kind({
-	name: "CollapseMenuItem",
+	name: "ShowMenuItem",
 	kind: "MenuItem",
 	
 	ontap: function(){
-		this.bubble("HideMenu");
+		this.bubble("ShowMenu");
 	}
 })
