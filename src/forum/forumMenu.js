@@ -7,10 +7,10 @@ enyo.kind({
     classes: "forumMenu",
     components: [
 	{kind: "MenuItemWithOverlay", imageUrl: "/images/icons/online.png", altText: "Online users", executeAction: goToUsersView},
-	//{kind: "MenuItem", imageUrl: "/images/icons/online.png", altText: "Online users"},
+	{kind: "MenuItem", imageUrl: "/images/icons/online.png", altText: "Online users"},
 	{kind: "MenuItem", imageUrl: "/images/icons/settings.png", altText: "Settings", executeAction: goToSettingsView},
 	{kind: "MenuItem", imageUrl: "/images/icons/collapse.png", altText: "Collapse", executeAction: clearBody},// TODO What is this supposed to do on click anyway?
-    { kind: "MenuItem", newKind: "SettingsView" },
+    { kind: "MenuItem",  newKind: "SettingsView" },
     { kind: "MenuItem", newKind: "en annan view" },
     { kind: "MenuItem", newKind: "razzz" }
     ]
@@ -22,8 +22,7 @@ enyo.kind({
     published: {
 		imageUrl: "",
 		altText: "",
-		newKind: "",
-		executeAction: function(){}
+		newKind: ""
     },
     handlers: {
 	mouseup: "tap" // Required for non-touch devices
@@ -48,7 +47,6 @@ enyo.kind({
 	//instead of executeAction use bubble which uses Forum.Apps function changeView
 	this.bubble("onChangeView", this.newKind)
 	
-	//this.applyStyle("background-color", "black");
     }
 });
 
