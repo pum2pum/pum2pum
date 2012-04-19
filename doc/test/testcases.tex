@@ -16,13 +16,23 @@
 	\end{tabular}
 }
 
-\newcommand{\testcase}[3]{
+\newcommand{\testcase}[2]{
 	\subsubsection{}
 	\begin{tabular}{l p{11cm}}
 	\bf{Input} & 
 		#1\\
 	\bf{Output} & 
 		#2\\
+	\end{tabular}
+}
+
+\newcommand{\ttestcase}[3]{
+	\subsubsection{#1}
+	\begin{tabular}{l p{11cm}}
+	\bf{Input} & 
+		#2\\
+	\bf{Output} & 
+		#3\\
 	\end{tabular}
 }
 
@@ -52,7 +62,7 @@
 			
 			\vspace{0.5cm}
 			
-			\huge{2012-04-10} % Datum senast ändrad
+			\huge{2012-04-19} % Datum senast ändrad
 		\end{center}
 		
 	\end{titlepage}
@@ -67,6 +77,8 @@
 	\begin{tabularx}{1\textwidth}{|l|l|X|l|}
 		\hline
 		\bf{Version} & \bf{Date} & \bf{Changes} & \bf{By} \\
+		\hline
+		0.2 & 2012-04-19 & Database abstraction tests. & nicol271 \\
 		\hline
 		0.1 & 2012-04-10 & First version. & nicol271 \\
 		\hline
@@ -138,6 +150,120 @@
 			A HTTP-request with a path to a non-existing file is sent to the server
 		}{
 			Fail:  A response with HTTP-status code 404
+		}
+
+	\section{Testing database abstraction layer}
+	Unit-testing of the part of the system which interacts directly with the database.
+
+	\subsection{Users}
+
+		\testcase
+		{
+			Log into the database with a name and a callback-function
+		}{
+			Pass: The user is logged in and the callback-function is called
+		}
+
+		\testcase
+		{
+			Get list of users from database
+		}{
+			Pass: The logged-in users are recieved
+		}
+
+	\subsection{Categories}
+
+		\testcase
+		{
+			Create a new category with a name 
+		}{
+			Pass: The category is created, no error-callback is recieved
+			% Fail: The callback-function is called with an error
+		}
+
+		\testcase
+		{
+			Get categories from database
+		}{
+			Pass: The supplied callback-function is called with a list of all category-objects in the database
+		}
+
+	\subsection{Subforum}
+
+		\testcase
+		{
+			Create a new subforum in a category
+		}{
+			Pass: The subforum is created, no error-callback is recieved
+			% Fail: The callback-function is called with an error
+		}
+
+		\testcase
+		{
+			Get all subforums for a specified category
+		}{
+			Pass: A list of all subforum-objects for the specified category
+		}
+
+	\subsection{Threads}
+
+		\testcase
+		{
+			Create a new thread in a subforum
+		}{
+			Pass: The thread is created, no error-callback is recieved
+			% Fail: The callback-function is called with an error
+		}
+
+		\testcase
+		{
+			Get all threads for a specified subforum
+		}{
+			Pass: A list of all thread-objects for the specified subforum
+		}
+
+	\subsection{Posts}
+
+		\testcase
+		{
+			Create a new post in a thread
+		}{
+			Pass: The post is created in the thread, no error-callback is recieved
+			% Fail: The callback-function is called with an error
+		}
+
+		\testcase
+		{
+			Get all posts for a specified thread
+		}{
+			Pass: A list of all post-objects for the specified thread
+		}
+
+	\subsection{Answers}
+
+		\testcase
+		{
+			Create a new answer to a thread
+		}{
+			Pass: The answer is created, no error-callback is recieved
+			% Fail: The callback-function is called with an error
+		}
+
+		\testcase
+		{
+			Get all answers for a specified thread
+		}{
+			Pass: A list of all answer-objects for the specified thread
+		}
+
+
+	\subsection{Overall}
+
+		\ttestcase{Callbacks on new data}
+		{
+			Gets a list of objects and then inserts a new object into the database.
+		}{
+			Pass: The callback-function is called twice: once with the first query resukt, and then again efter inserting the new object.
 		}
 
 

@@ -1,59 +1,53 @@
 enyo.kind({
     name: "ForumPost",
-    classes: "onyx",
+    classes: "post",
     kind: enyo.Control,
-
     components: [
-		{name: "text", tag: "p"},
-		{name: "username", tag: "span"},
-		{name: "date", tag: "span"},
-		{style: "padding: 10px;", 
-		components: [
-		    {classes: "tools", defaultKind: "onyx.Button", 
-		    components: [
-				{name: "replyButton", content: "Reply", ontap: "replyTap", classes: "onyx-affirmative"}
-	    	]}
-		]},
-
-		{name: "id", tag: "span"},
-		{tag: "hr"},
-		{name: "body", tag: "output"}
-		//{name: "replybox", kind: "Forum.Replybox"}
+	{name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
+	{tag: "div", 
+	 components: [
+	     {name: "username", tag: "span"},
+	     {name: "datetime", tag: "span"}
+	 ] },
+	{name: "text", tag: "p"}
     ],
-
     published: {
 	text: "default text in a post",
-	userid: "",
-	date: "",
-	parent: ""
+	userid: 0,
+	datetime: "1970-13-37 00:00:00",
+	node: null
     },
 
     create: function () {
-		this.inherited(arguments);
-		this.textChanged();
-		this.dateChanged();
-		this.useridChanged();
+	this.inherited(arguments);
+	this.textChanged();
+	this.datetimeChanged();
+	this.useridChanged();
     },
 
     textChanged: function () {
-		this.$.text.setContent(this.text);
+	this.$.text.setContent(this.text);
     },
     
-    dateChanged: function () {
-		this.$.date.setContent(this.date);
+    datetimeChanged: function () {
+	this.$.datetime.setContent(this.datetime);
     },
 
     useridChanged: function () {
-		this.$.id.setContent(this.userid);
+	var t = this;
+	enyo.application.db.getUser(function (user){
+	    console.log(user.item());
+	    t.$.username.setContent(user.item().name);
+	}, this.userid);
     },
     
     replyTap: function() {
-		this.$.body.destroyComponents();
-		this.$.body.createComponent({
-		    kind: "ReplyBox",
-		    text: "",
-		    container: this.$.body
-		}).render();
+	this.$.body.destroyComponents();
+	this.$.body.createComponent({
+	    kind: "ReplyBox",
+	    text: "",
+	    container: this.$.body
+	}).render();
     }
     
 });
