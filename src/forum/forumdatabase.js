@@ -2,6 +2,9 @@
 function forumDatabase( ){
 	this.liveDB = new LiveDB( );
 	this.loggedIn = false;
+
+	this._returnedObjects = {};
+
 };
 
 forumDatabase.prototype = {
@@ -25,6 +28,11 @@ forumDatabase.prototype = {
 	/* Tunnel the callback to see if it had the same object as before */
 	callbackTunnel: function( cb, arg ){
 		if( cb !== null ) {
+			if( this._returnedObjects[arg._sid] === arg ) {
+				return;
+			}
+			this._returnedObjects[arg._sid] = arg;
+
 			cb( arg );
 		}
 	},
@@ -32,7 +40,7 @@ forumDatabase.prototype = {
 	/** Creates a new category
 	* A category contains a title and a description of the category
 	* -------
-	* cb(error) - Callback function to be called after the request has been completed. If error is not null something bad happend.
+	* cb(error) - Callback function gets called if something goes wrong
 	* title 	- Title of the category
 	* desc 		- Description of the category
 	**/
@@ -60,7 +68,7 @@ forumDatabase.prototype = {
 	/** Creates a new SubForum 
 	* A subforum is connected to a category and has a title and a description
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* cat 		- The parent category node
 	* title 	- Title of the SubForum
 	* desc 		- Description of the SubForum
@@ -90,15 +98,15 @@ forumDatabase.prototype = {
 	/** Creates a new Thread 
 	* A Thread is connected to a SubForum and has a title, description and content
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* subForum 	- The parent SubForum node
 	* title 	- Title of the Thread
 	* desc 		- Description of the Thread
 	* content 	- The content of the first "post"
 	**/
-	newThread: function( cb, subForum, title, desc, content ) {
+	newThread: function( cb, subForum, title, content ) {
 		trans = this.liveDB.transaction( );
-		trans.create( subForum, { title: title, description: desc } );
+		trans.create( subForum, { title: title, content: content } );
 		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
@@ -114,14 +122,15 @@ forumDatabase.prototype = {
 	getThreads: function( cb, subForum, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			subForum, '->', null, { 'title': 1, 'description': 1 },
-			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
+			subForum, '->', null, { 'title': 1, 'content': 1 },
+			num, start, null, [ { name:'timestap', dir: "desc" } ] );
+			//num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
 	},
 
 	/** Creates a new Post 
 	* A subforum is connected to a category and has a title and a description
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* thread 	- The parent Thread node
 	* content 	- Content of the Post
 	**/
@@ -150,7 +159,7 @@ forumDatabase.prototype = {
 	/** Creates a new Answer
 	* A answer is an post that is answering to another post
 	* ---------
-	* cb(error)	- Callback function to be called after the Answer has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* post  	- The parent Post node, the post we are answering to
 	* content 	- Content of the Answer
 	**/
@@ -207,6 +216,13 @@ forumDatabase.prototype = {
 	**/
 	get: function( cb, what, attributes ) {
 		this.liveDB.get( what, attributes, cb );
-	} 
+	},
+
+	/** deletes a database entry
+	**/
+	delete: function( node ) {
+		this.liveDB.delete( node );
+	}
+
 
 }

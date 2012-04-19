@@ -17,7 +17,6 @@ enyo.kind({
     ],
     published: {
     	subforum: null
-		//subforumid: "Default id"
     },
 
     populate: function( ) {
@@ -25,12 +24,15 @@ enyo.kind({
     },
 
     gotThreads: function( list ) {
+        this.$.threads.destroyClientControls();
     	enyo.forEach( list.items(), function( thread ) {
     		this.createComponent({
     			kind: "ForumThread",
     			container: this.$.threads,
     			title: thread.title,
-    			thread: thread
+    			thread: thread,
+                userid: thread.user,
+                node: thread
     		});
 
     	}, this );
@@ -44,9 +46,10 @@ enyo.kind({
     },
     
     subforumChanged: function () {
-    	console.log(this);
 		this.$.threadContainerHead.setContent( this.subforum.title );
     }
+
+
 });
 	
     

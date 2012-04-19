@@ -22,40 +22,56 @@ enyo.kind({
     
     ],
     published: {
-		//threadid: "Default threadid",
-		//text: "Default text",
 		userid: "Default User",
-		title: "Default title"
-		//parent: 0
+		title: "Default title",
+        thread: null,
 	},
 
     create: function () {
-    	console.log(this);
 		this.inherited(arguments);
 		this.titleChanged();
 		this.useridChanged();
 
-		this.$.numPosts.setContent("7");
-		this.$.lastpostDate.setContent("2012-04-07 13:37");
-		this.$.lastpostBy.setContent("By Macke");
-
+        enyo.application.db.getPosts( enyo.bind( this, "lastPost" ), this.thread, 100, 0 );
     },
 
+    lastPost: function( postslist ) {
+        posts = postslist.items();
+        var t = this;
+
+        if( postslist.size() > 0 ) {
+            post = postslist.items()[0];
+            enyo.application.db.getUser( function( u ) {
+                u.close();
+                t.$.lastpostBy.setContent( "By " + u.item().name );
+            }, post.user );
+            t.$.lastpostDate.setContent( enyo.application.tsToString( post.timestamp ) );
+        } else {
+            enyo.application.db.getUser( function( u ) {
+                u.close();
+                t.$.lastpostBy.setContent( "By " + u.item().name );
+            }, this.thread.user );
+            t.$.lastpostDate.setContent( enyo.application.tsToString( this.thread.timestamp ) );
+        }
+        t.$.numPosts.setContent( postslist.size() );
+    },
+
+
+
     titleChanged: function() {
-    	console.log(this);
     	this.$.threadtitle.setContent( this.title );
-
-
     },
 
     useridChanged: function () {
-		this.$.user.setContent(this.userid);
+        var t = this;
+        enyo.application.db.getUser( function( u ) {
+            u.close();
+            t.$.user.setContent( u.item().name );    
+        }, this.userid );
+		
     },
-
-   // containerChanged: function () {
-//	this.$.cont.setContent(this.cont);
-  //  },
     
+
     postView: function(e) {
 	//changes the current view to the show the posts in this thread 
 	thread = this.threadid;

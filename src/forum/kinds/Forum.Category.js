@@ -3,47 +3,33 @@ enyo.kind({
 	kind: enyo.Control,
 	tag: "li",
 
-	published: {
-		title: "",
-		dbparent: "",
-	},
-
 	components: [
-		{ tag: "button", name: "btnNewSub", content: "new Subforum", ontap: "newsub"},
-		{ tag: "span", name: "title" },
-		{ tag: "ul", name: "children" }
+		{ name: "category", tag: "li", components: [
+			{ name: "definition", tag: "div", components: [
+				{ name: "title", tag: "p", classes: "categoryTitle" },
+				{ name: "description", tag: "p" },
+				{ name: "subForumView", tag: "ul" }
+			]}
+		]}
 	],
 
-	newsub: function(){
-		title = window.prompt("sub titel");
-		db.newSubForum(null, this.dbparent, title, "Ett subforum");
+	published: {
+		category: "",
 	},
 
 	create: function(){
 		this.inherited(arguments);
-		this.titleChanged();
+		this.createSubForumView();
+		this.$.title.setContent( this.title );
+		this.$.description.setContent( this.description );
 	},
 
-	titleChanged: function(){
-		this.$.title.setContent(this.title + " - " + this.dbparent.id);
-	},
-
-	populate: function(){
-		db.getSubForums(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
-	},
-
-	populateCallback: function(list){
-		this.$.children.destroyClientControls();
-		enyo.forEach(list.items(), this.addDBChild, this);
-		this.$.children.render();
-	},
-
-	addDBChild: function(c){
-		this.createComponent({
-			kind: "subforum",
-			container: this.$.children,
-			title: c.title,
-			dbparent: c
-		});
-	}
+    createSubForumView: function( ) {
+   		this.createComponent({
+       		kind: "SubForumView",
+            container: this.$.subForumView,
+            category: this.category
+        });
+//        this.$.category.render();
+    }
 });
