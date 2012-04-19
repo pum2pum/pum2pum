@@ -116,3 +116,18 @@ li, ul {
 	line-height: 65px;
 	text-align: center;
 }
+
+/*****************************/
+
+.post {
+    float: left;
+    border: dotted;
+    padding-left: -100px;
+}
+
+.post .avatar {
+    float: left;
+    height: 100px;
+    width: 60px; 
+    padding-left: -10px;
+}
