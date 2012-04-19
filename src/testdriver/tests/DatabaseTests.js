@@ -45,6 +45,7 @@ function checkListCallback(test, names, property, setGlobal) {
 					return false;
 				}
 
+				// Check if all recieved items is valid
 				for(n in items) {
 					if(names.indexOf(items[n][property]) == -1) {
 						list.close();
@@ -68,7 +69,7 @@ enyo.kind({
 	kind: enyo.TestSuite,
 
 	/** 
-	Testcase x.x.1
+	Testcase 3.1.1
 	Logs in to the database
 	**/
 	testLogin: function() {
@@ -86,21 +87,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.2
-	Creates a new category
-	**/
-	testNewCategory: function() {
-		var test = this;
-
-		gdb.newCategory(
-			failCallback(test), "MyCategory", "Description"
-		);
-		finishTest(test);
-	},
-
-
-	/** 
-	Testcase x.x.3
+	Testcase 3.1.2
 	Gets a list of database users 
 	**/
 	testGetUsers: function() {
@@ -115,7 +102,20 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.4
+	Testcase 3.2.1
+	Creates a new category
+	**/
+	testNewCategory: function() {
+		var test = this;
+
+		gdb.newCategory(
+			failCallback(test), "MyCategory", "Description"
+		);
+		finishTest(test);
+	},
+
+	/** 
+	Testcase 3.2.2
 	Gets a list of categories 
 	**/
 	testGetCategory: function() {
@@ -125,7 +125,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.5
+	Testcase 3.3.1
 	Creates a new subforum
 	**/
 	testSubForum: function() {
@@ -138,7 +138,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.6
+	Testcase 3.3.2
 	Gets a list of subforums
 	**/
 	testGetSubForum: function() {
@@ -155,7 +155,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.7
+	Testcase 3.4.1
 	Creates a new thread
 	**/
 	testNewThreads: function() {
@@ -173,7 +173,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.8
+	Testcase 3.4.2
 	Gets some threads 
 
 	TODO: DB returnerar just nu flera likadana namn vilket ändå pass:ar. Fixa.
@@ -187,7 +187,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.9
+	Testcase 3.5.1
 	Creates a new post 
 	**/
 	testNewPost: function() {
@@ -201,7 +201,7 @@ enyo.kind({
 
 
 	/** 
-	Testcase x.x.10
+	Testcase 3.5.2
 	Gets some posts
 	**/
 	testGetPost: function() {
@@ -213,7 +213,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.11
+	Testcase 3.6.1
 	Gets some posts
 	**/
 	testNewAnswer: function() {
@@ -226,7 +226,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.12
+	Testcase 3.6.2
 	Gets some posts
 	**/
 	testGetAnswer: function() {
@@ -238,8 +238,8 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.13
-	Checks if callback is recieved when adding more obejcts
+	Testcase 3.7.1
+	Checks if callback is recieved when adding more objects
 	**/
 	testCallback: function() {
 		var test = this;
