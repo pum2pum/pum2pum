@@ -1,6 +1,7 @@
 // If validate is true, insert-tests waits for error-callbacks before passing the test.
 // Timeout is the time to wait for the callback.
 var VALIDATE = false, TIMEOUT = 1000;
+var count = 0;
 
 var gdb; // Global database variable
 var g = [];
@@ -40,13 +41,13 @@ function checkListCallback(test, names, property, setGlobal) {
 
 				if (items.length != names.length) {
 					test.finish("Wrong number of objects recieved");
-//					list.close();
+					list.close();
 					return false;
 				}
 
 				for(n in items) {
 					if(names.indexOf(items[n][property]) == -1) {
-//						list.close();
+						list.close();
 						test.finish("Unexpected object name '" + items[n][property] + "'");
 						return false;
 					}
@@ -57,7 +58,7 @@ function checkListCallback(test, names, property, setGlobal) {
 					console.log(g[setGlobal]);
 				}
 
-//				list.close();
+				list.close();
 				test.finish();
 		}
 }
@@ -102,7 +103,7 @@ enyo.kind({
 	Testcase x.x.3
 	Gets a list of database users 
 	**/
-/*	testGetUsers: function() {
+	testGetUsers: function() {
 		var test = this;
 		var getall = function() {
 			gdb.getAllUsers(checkListCallback(test, ["otherUser", "testUser"], "name"), 2);
@@ -112,7 +113,7 @@ enyo.kind({
 			"otherUser"
 		);
 	},
-*/
+
 	/** 
 	Testcase x.x.4
 	Gets a list of categories 
@@ -212,7 +213,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
+	Testcase x.x.11
 	Gets some posts
 	**/
 	testNewAnswer: function() {
@@ -225,7 +226,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
+	Testcase x.x.12
 	Gets some posts
 	**/
 	testGetAnswer: function() {
@@ -237,25 +238,25 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
-	Gets some posts
+	Testcase x.x.13
+	Checks if callback is recieved when adding more obejcts
 	**/
 	testCallback: function() {
 		var test = this;
 
 		gdb.getThreads(
-			function(list) { 
-				console.log("Mupp");
-				console.log(list);
+			function(list) { 				
+				if(count > 0) {
+					list.close();
+					test.finish();
+					return false;
+				}
+				count++;
+				gdb.newThread(
+					function (e) { test.fail("Recieved error " + e); }, g["subforum"], "a", "b", "c"
+				);
 
 			}, g["subforum"], 1, 0
 		);
-
-		setTimeout(function() {
-			console.log("new!");
-			gdb.newThread(
-				function (e) { test.fail("Recieved error " + e); }, g["subforum"], "a", "b", "c"
-			);
-		}, 1000);
 	},
 });
