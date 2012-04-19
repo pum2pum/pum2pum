@@ -4,8 +4,6 @@ enyo.kind({
 	tag: "li",
 
 	components: [
-		{ name: "btnNewThread", tag: "button", content: "New Thread", ontap: "newThread"},
-
 		{ name: "subForumContainer", tag: "div", components: [
 			{ name: "head", tag: "div", classes: "subForumHead", components: [
 				{ name: "title", tag: "p", ontap: "gotoThread"},
@@ -23,12 +21,6 @@ enyo.kind({
 
 	gotoThread: function(){
 		console.log( "Goto thread X..." );
-	},
-
-	newThread: function(){
-		threadTitle = window.prompt("Thread title");
-		threadContent = window.prompt("Thread content");
-		enyo.application.db.newThread(null, this.subForum, threadTitle, threadContent);
 	},
 
 	create: function(){

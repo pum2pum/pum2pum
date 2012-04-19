@@ -3,7 +3,9 @@ enyo.kind({
 	kind: enyo.Control,
     tag: "li",
 
-	components: [      
+	components: [
+        { name: "btnNewThread", tag: "button", content: "New SubForum", ontap: "newSubForum"},
+
         { tag: "div", classes: "subForumContainerListHead", 
             components: [
                 { tag: "div", classes: "title",
@@ -23,6 +25,13 @@ enyo.kind({
 		category: ""
     },
 
+    newSubForum: function(){
+        subForumTitle = window.prompt("SubForum title");
+        subForumDescrition = window.prompt("SubForum description");
+        enyo.application.db.newSubForum( enyo.bind( this, "gotNewSubForum" ), this.category, subForumTitle, subForumDescrition);
+        console.log("skapade nytt subForum");
+    },
+
     create: function () {
 		this.inherited(arguments);
 		this.populate();
@@ -30,6 +39,11 @@ enyo.kind({
 
    	populate: function( ) {
     	enyo.application.db.getSubForums( enyo.bind( this, "gotSubForums" ), this.category, 999, 0 );
+    },
+
+    gotNewSubForum: function( list ) {
+        console.log("tog emot nytt subform:");
+        console.log(list);
     },
 
     gotSubForums: function( list ) {

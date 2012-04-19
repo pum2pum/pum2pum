@@ -6,6 +6,7 @@ enyo.depends(
 	"Forum.Replybox.js",
 	"Forum.Category.js",
 	"Forum.SubForumView.js",
-	"Forum.SubForum.js"
+	"Forum.SubForum.js",
+	"Forum.CategoryView.js"
 	
 );
