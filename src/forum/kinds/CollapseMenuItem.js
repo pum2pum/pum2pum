@@ -8,4 +8,4 @@ enyo.kind({
 	tap: function(){
 		this.bubble("HideMenu");
 	}
-})
+});

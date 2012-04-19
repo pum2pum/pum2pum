@@ -15,7 +15,7 @@ enyo.kind({
 
 	changeView: function( sender, props ){
 		newComponent = {
-			container: this.$.forumView,
+			container: this.$.forumView
 		};
 
 		for( prop in props ) {
@@ -34,7 +34,4 @@ enyo.kind({
 	showMenu: function(){
 		this.$forumMenu.Show();
 	}
-
-
-
-})
+});

@@ -12,7 +12,6 @@ enyo.depends(
 
 	// Files related to the top menu
 	"MenuItem.js",
-	"MenuItemWithOverlay.js",
 	"CollapseMenuItem.js",
 	"RepliesMenuItem.js",
 	"UsersMenuItem.js",
