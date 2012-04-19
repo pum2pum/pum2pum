@@ -4,6 +4,8 @@ enyo.depends(
 	"forumdatabase.js",
 	"forumMenu.js",
 	"forumView.js",
+	"MenuItem.js",
+	"MenuItemWithOverlay",
 	"settingsView.js",
 	"usersView.js",
 	"repliesView.js",
