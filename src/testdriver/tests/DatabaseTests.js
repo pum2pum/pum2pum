@@ -1,6 +1,7 @@
 // If validate is true, insert-tests waits for error-callbacks before passing the test.
 // Timeout is the time to wait for the callback.
 var VALIDATE = false, TIMEOUT = 1000;
+var count = 0;
 
 var gdb; // Global database variable
 var g = [];
@@ -212,7 +213,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
+	Testcase x.x.11
 	Gets some posts
 	**/
 	testNewAnswer: function() {
@@ -225,7 +226,7 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
+	Testcase x.x.12
 	Gets some posts
 	**/
 	testGetAnswer: function() {
@@ -237,16 +238,21 @@ enyo.kind({
 	},
 
 	/** 
-	Testcase x.x.10
-	Gets some posts
+	Testcase x.x.13
+	Checks if callback is recieved when adding more obejcts
 	**/
 	testCallback: function() {
 		var test = this;
 
 		gdb.getThreads(
 			function(list) { 
-				console.log("Mupp");
-				console.log(list);
+				console.log("mupp " + count);
+				
+				if(count == 2) {
+					test.finish();
+					return false;
+				}
+				count++;
 
 			}, g["subforum"], 1, 0
 		);
