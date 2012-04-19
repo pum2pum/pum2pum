@@ -16,8 +16,12 @@
 
     <script type="text/javascript">
 	<!-- Starts the forum app -->
-	new ForumMenu().renderInto(document.getElementById("forumMenu"));
-	new ForumView().renderInto(document.getElementById("forumBody"));
+	//-- Creates the app now instead of the earlier kinds --
+	new ForumApp().renderInto(document.body);
+	
+	//new ForumMenu().renderInto(document.getElementById("forumMenu"));
+	//new ForumView().renderInto(document.getElementById("forumBody"));
+    
     </script>
 </body>
 </html>

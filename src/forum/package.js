@@ -6,5 +6,6 @@ enyo.depends(
 	"forumView.js",
 	"settingsView.js",
 	"usersView.js",
-	"repliesView.js"
+	"repliesView.js",
+	"kinds/Forum.App.js"
 );

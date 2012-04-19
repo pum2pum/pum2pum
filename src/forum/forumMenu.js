@@ -9,7 +9,10 @@ enyo.kind({
 	{kind: "MenuItemWithOverlay", imageUrl: "/images/icons/online.png", altText: "Online users", executeAction: goToUsersView},
 	//{kind: "MenuItem", imageUrl: "/images/icons/online.png", altText: "Online users"},
 	{kind: "MenuItem", imageUrl: "/images/icons/settings.png", altText: "Settings", executeAction: goToSettingsView},
-	{kind: "MenuItem", imageUrl: "/images/icons/collapse.png", altText: "Collapse", executeAction: clearBody} // TODO What is this supposed to do on click anyway?
+	{kind: "MenuItem", imageUrl: "/images/icons/collapse.png", altText: "Collapse", executeAction: clearBody},// TODO What is this supposed to do on click anyway?
+    { kind: "MenuItem", newKind: "SettingsView" },
+    { kind: "MenuItem", newKind: "en annan view" },
+    { kind: "MenuItem", newKind: "razzz" }
     ]
 });
 
@@ -17,13 +20,17 @@ enyo.kind({
     name: "MenuItem",
     kind: "Control",
     published: {
-	imageUrl: "",
-	altText: "",
-	executeAction: function(){}
+		imageUrl: "",
+		altText: "",
+		newKind: "",
+		executeAction: function(){}
     },
     handlers: {
 	mouseup: "tap" // Required for non-touch devices
     },
+
+
+
     tag: "li",
     create: function() {
 	this.inherited(arguments);
@@ -36,8 +43,12 @@ enyo.kind({
     },
     tap: function(inSender, inEvent) {
 	// Go to the intended view
-	this.executeAction();
-	this.applyStyle("background-color", "black");
+	//this.executeAction();
+	
+	//instead of executeAction use bubble which uses Forum.Apps function changeView
+	this.bubble("onChangeView", this.newKind)
+	
+	//this.applyStyle("background-color", "black");
     }
 });
 
@@ -69,6 +80,7 @@ enyo.kind({
     // }
 });
 
+//use enyos enyo.destroyClientComponents() instead
 function removeChildNodes(domNode) {
     var children = domNode.childNodes;
     for (var i = 0; i < children.length; i++) {
