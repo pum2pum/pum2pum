@@ -2,9 +2,6 @@
 function forumDatabase( ){
 	this.liveDB = new LiveDB( );
 	this.loggedIn = false;
-
-	this._returnedObjects = {};
-
 };
 
 forumDatabase.prototype = {
@@ -28,11 +25,6 @@ forumDatabase.prototype = {
 	/* Tunnel the callback to see if it had the same object as before */
 	callbackTunnel: function( cb, arg ){
 		if( cb !== null ) {
-			if( this._returnedObjects[arg._sid] === arg ) {
-				return;
-			}
-			this._returnedObjects[arg._sid] = arg;
-
 			cb( arg );
 		}
 	},

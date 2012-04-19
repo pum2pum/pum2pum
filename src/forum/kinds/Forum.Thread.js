@@ -36,21 +36,28 @@ enyo.kind({
     },
 
     lastPost: function( postslist ) {
-        posts = postslist.items();
+        if( this.destroyed ) {
+            postslist.close();
+            return;
+        }
         var t = this;
+        posts = postslist.items();
 
         if( postslist.size() > 0 ) {
             post = postslist.items()[0];
+            
             enyo.application.db.getUser( function( u ) {
                 u.close();
                 t.$.lastpostBy.setContent( "By " + u.item().name );
             }, post.user );
+            
             t.$.lastpostDate.setContent( enyo.application.tsToString( post.timestamp ) );
         } else {
             enyo.application.db.getUser( function( u ) {
                 u.close();
                 t.$.lastpostBy.setContent( "By " + u.item().name );
             }, this.thread.user );
+
             t.$.lastpostDate.setContent( enyo.application.tsToString( this.thread.timestamp ) );
         }
         t.$.numPosts.setContent( postslist.size() );
