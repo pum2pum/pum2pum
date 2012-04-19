@@ -5,10 +5,10 @@ enyo.kind({
 	newKind: ""
     },
     handlers: {
-	mouseup: "tap" // Required for non-touch devices
+	   mouseup: "tap" // Required for non-touch devices
     },
     create: function() {
-	this.inherited(arguments);
+	   this.inherited(arguments);
     },
     tap: function(inSender, inEvent) {
 	// Go to the intended view

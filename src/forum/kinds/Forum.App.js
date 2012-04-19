@@ -8,9 +8,9 @@ enyo.kind({
 	],
 
 	handlers: {
-		onChangeView: "changeView";
-		onHideMenu: "hideMenu";
-		onShowMenu: "showMenu";
+		onChangeView: "changeView",
+		onHideMenu: "hideMenu",
+		onShowMenu: "showMenu"
 	},
 
 	changeView: function( sender, props ){
@@ -25,11 +25,11 @@ enyo.kind({
 		this.$.forumView.destroyClientControls();
 		this.createComponent( newComponent );
 		this.$.forumView.render();
-	}
+	},
 
 	hideMenu: function(){
 		this.$.forumMenu.Hide();
-	}
+	},
 
 	showMenu: function(){
 		this.$forumMenu.Show();
