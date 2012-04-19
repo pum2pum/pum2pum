@@ -40,7 +40,7 @@ forumDatabase.prototype = {
 	/** Creates a new category
 	* A category contains a title and a description of the category
 	* -------
-	* cb(error) - Callback function to be called after the request has been completed. If error is not null something bad happend.
+	* cb(error) - Callback function gets called if something goes wrong
 	* title 	- Title of the category
 	* desc 		- Description of the category
 	**/
@@ -68,7 +68,7 @@ forumDatabase.prototype = {
 	/** Creates a new SubForum 
 	* A subforum is connected to a category and has a title and a description
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* cat 		- The parent category node
 	* title 	- Title of the SubForum
 	* desc 		- Description of the SubForum
@@ -98,7 +98,7 @@ forumDatabase.prototype = {
 	/** Creates a new Thread 
 	* A Thread is connected to a SubForum and has a title, description and content
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* subForum 	- The parent SubForum node
 	* title 	- Title of the Thread
 	* desc 		- Description of the Thread
@@ -130,7 +130,7 @@ forumDatabase.prototype = {
 	/** Creates a new Post 
 	* A subforum is connected to a category and has a title and a description
 	* ---------
-	* cb(error)	- Callback function to be called after the SubForum has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* thread 	- The parent Thread node
 	* content 	- Content of the Post
 	**/
@@ -159,7 +159,7 @@ forumDatabase.prototype = {
 	/** Creates a new Answer
 	* A answer is an post that is answering to another post
 	* ---------
-	* cb(error)	- Callback function to be called after the Answer has been created.
+	* cb(error)	- Callback function gets called if something goes wrong
 	* post  	- The parent Post node, the post we are answering to
 	* content 	- Content of the Answer
 	**/
