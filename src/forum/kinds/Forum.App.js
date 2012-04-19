@@ -8,10 +8,11 @@ enyo.kind({
 	],
 
 	handlers: {
-		onChangeView: "changeView"
+		onChangeView: "changeView";
+		onHideMenu: "hideMenu";
+		onShowMenu: "showMenu";
 	},
 
-	//the new function to be used instead of old goTo-functions in forumMenu
 	changeView: function( sender, props ){
 		newComponent = {
 			container: this.$.forumView,
@@ -24,6 +25,14 @@ enyo.kind({
 		this.$.forumView.destroyClientControls();
 		this.createComponent( newComponent );
 		this.$.forumView.render();
+	}
+
+	hideMenu: function(){
+		this.$.forumMenu.Hide();
+	}
+
+	showMenu: function(){
+		this.$forumMenu.Show();
 	}
 
 
