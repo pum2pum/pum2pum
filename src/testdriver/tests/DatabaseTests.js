@@ -41,13 +41,13 @@ function checkListCallback(test, names, property, setGlobal) {
 
 				if (items.length != names.length) {
 					test.finish("Wrong number of objects recieved");
-//					list.close();
+					list.close();
 					return false;
 				}
 
 				for(n in items) {
 					if(names.indexOf(items[n][property]) == -1) {
-//						list.close();
+						list.close();
 						test.finish("Unexpected object name '" + items[n][property] + "'");
 						return false;
 					}
@@ -58,7 +58,7 @@ function checkListCallback(test, names, property, setGlobal) {
 					console.log(g[setGlobal]);
 				}
 
-//				list.close();
+				list.close();
 				test.finish();
 		}
 }
@@ -103,7 +103,7 @@ enyo.kind({
 	Testcase x.x.3
 	Gets a list of database users 
 	**/
-/*	testGetUsers: function() {
+	testGetUsers: function() {
 		var test = this;
 		var getall = function() {
 			gdb.getAllUsers(checkListCallback(test, ["otherUser", "testUser"], "name"), 2);
@@ -113,7 +113,7 @@ enyo.kind({
 			"otherUser"
 		);
 	},
-*/
+
 	/** 
 	Testcase x.x.4
 	Gets a list of categories 
@@ -245,23 +245,18 @@ enyo.kind({
 		var test = this;
 
 		gdb.getThreads(
-			function(list) { 
-				console.log("mupp " + count);
-				
-				if(count == 2) {
+			function(list) { 				
+				if(count > 0) {
+					list.close();
 					test.finish();
 					return false;
 				}
 				count++;
+				gdb.newThread(
+					function (e) { test.fail("Recieved error " + e); }, g["subforum"], "a", "b", "c"
+				);
 
 			}, g["subforum"], 1, 0
 		);
-
-		setTimeout(function() {
-			console.log("new!");
-			gdb.newThread(
-				function (e) { test.fail("Recieved error " + e); }, g["subforum"], "a", "b", "c"
-			);
-		}, 1000);
 	},
 });
