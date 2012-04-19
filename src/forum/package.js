@@ -3,16 +3,5 @@ enyo.depends(
 	"$lib/onyx",
 	"api.js",
 	"forumdatabase.js",
-	"ForumMenu.js",
-	"ForumView.js",
-	"MenuItem.js",
-	"MenuItemWithOverlay.js",
-	"CollapseMenuItem.js",
-	"RepliesMenuItem.js",
-	"UsersMenuItem.js",
-	"RepliesView.js",
-	"settingsView.js",
-	"usersView.js",
-	"repliesView.js",
 	"kinds"
 );
