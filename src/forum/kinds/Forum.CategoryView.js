@@ -16,7 +16,7 @@ enyo.kind({
 	newCategory: function(){
 		categoryTitle = window.prompt("Category title");
 		categoryDescription = window.prompt("Category description");
-		enyo.application.db.newCategory( enyo.bind( this, "gotNewCategory" ), categoryTitle, categoryDescription);
+		enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
 	},
 
 	create: function(){
@@ -26,11 +26,6 @@ enyo.kind({
 
 	populate: function(){
 		enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
-	},
-
-	gotNewCategory: function( list ) {
-		console.log("tog emot ny kategori.");
-		console.log(list);
 	},
 
     gotCategories: function( list ) {

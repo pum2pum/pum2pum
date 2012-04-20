@@ -1,18 +1,18 @@
 enyo.kind({
 	name: "SubForum",
 	kind: enyo.Control,
-	tag: "li",
+	tag: "tr",
 
 	components: [
-		{ name: "subForumContainer", tag: "div", components: [
-			{ name: "head", tag: "div", classes: "subForumHead", components: [
-				{ name: "title", tag: "p", ontap: "gotoThread"},
-				{ name: "description", tag: "p"}
-			]},
-			{ name: "newThreads", tag: "p", classes: "subForum.newThreads"},
-			{ name: "threads", tag: "p", classes: "subForum.threads"},
-			{ name: "posts", tag: "p", classes: "subForum.posts"}
-		]}
+		{ name: "subForumContainer", tag: "td", classes: "subForumTitle", ontap: "gotoThread" , components: [
+			{ name: "title", tag: "p"},
+			{ name: "description", tag: "p" } ]},
+		{ tag: "td", classes: "subForumNewThreads", components: [
+			{ name: "newThreads", tag: "p", classes: "subForum.newThreads" } ]},
+		{ tag: "td", classes: "subForumThreads", components: [
+			{ name: "threads", tag: "p", classes: "subForum.threads" } ]},
+		{ tag: "td", classes: "subForumPosts", components: [
+			{ name: "posts", tag: "p", classes: "subForum.posts" } ]}
 	],
 
     published: {
@@ -47,15 +47,15 @@ enyo.kind({
         this.$.newThreads.setContent( newThreads );
         this.$.threads.setContent( threads );
         this.$.posts.setContent( "0" );
-	}
+	},
 
-	/*gotPosts: function( list ) {
+/*	gotPosts: function( list ) {
 		posts = 0;
 
 		enyo.forEach( list.items(), function( ) {
    			posts++;
         });
 
-        this.posts = posts;
+        this.posts.setContent( posts );
 	}*/
 });
