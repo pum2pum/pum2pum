@@ -18,6 +18,7 @@ enyo.kind({
     published: {
 		subForum: ""
     },
+    posts: 0,
 
 	gotoThread: function(){
 		console.log( "Goto thread X..." );
@@ -35,23 +36,30 @@ enyo.kind({
 	},
 
 	gotThreads: function( list ) {
+		if( this.destroyed ) {
+			list.close( );
+			return;
+		}
+		var that = this;
 		newThreads = 0;
 		threads = 0;
 		threads = list.size();
+		this.posts = 0;
         
         this.$.posts.setContent( 0 );
         this.$.newThreads.setContent( newThreads );
         this.$.threads.setContent( threads );
 	
 		enyo.forEach( list.items(), function( thread ) {
- 			enyo.application.db.getPosts( enyo.bind( this, "gotPosts" ), thread, 999, 0);
+ 			enyo.application.db.getPosts( enyo.bind( that, "gotPosts" ), thread, 999, 0);
         });
+        this.render( );
 	},
 
 	gotPosts: function( list ) {
-		posts = this.posts.content;
-		posts = posts + list.size();
-
-        this.$.threads.setContent( posts );
+		list.close( );
+		this.posts += list.size( );
+		this.$.posts.setContent( this.posts );
+		this.$.posts.render( );
 	}
 });
