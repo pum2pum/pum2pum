@@ -1,3 +1,31 @@
 .categoryTitle{
 	background-color: red;
 }
+
+.subForumView{
+	margin-left: 2%;
+}
+
+.subForumTable{
+	width: 100%;
+	margin-top: 0px;
+}
+
+.subForumTitle{
+	width: 55%;
+}
+
+.subForumNewThreads{
+	width: 15%;
+	left: 55%;
+}
+
+.subForumThreads{
+	width: 15%;
+	left: 70%;
+}
+
+.subForumPosts{
+	width: 15%;
+	left: 85%;
+}

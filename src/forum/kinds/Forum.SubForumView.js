@@ -6,19 +6,20 @@ enyo.kind({
 	components: [
         { name: "btnNewThread", tag: "button", content: "New SubForum", ontap: "newSubForum"},
 
-        { tag: "div", classes: "subForumContainerListHead", 
-            components: [
-                { tag: "div", classes: "title",
-                    components: [ { tag: "p", content: "Title / Description" } ] },
-                { tag: "div", classes: "newThreads",
-                    components: [ { tag: "p", content: "New threads" } ] },
-                { tag: "div", classes: "threads",
-                    components: [ { tag: "p", content: "Threads" } ] },
-                { tag: "div", classes: "posts",
-                    components: [ { tag: "p", content: "Posts" } ] }
-            ]
-        },
-        { name: "subForum", tag: "ul", classes: "subForums" }
+        { tag: "table", classes: "subForumTable", components: [
+            { tag: "tr", components: [
+                { tag: "td", classes: "subForumTitle",
+                    components: [ { tag: "p", content: "Title / Description" } ]},
+                { tag: "td", classes: "subForumNewThreads",
+                    components: [ { tag: "p", content: "New threads" } ]},
+                { tag: "td", classes: "subForumThreads",
+                    components: [ { tag: "p", content: "Threads" } ]},
+                { tag: "td", classes: "subForumPosts",
+                    components: [ { tag: "p", content: "Posts" } ]}
+            ]},
+        ]},
+
+        { name: "subForum", tag: "table", classes: "subForumTable" }
 	],
 
     published: {
@@ -28,8 +29,11 @@ enyo.kind({
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
         subForumDescrition = window.prompt("SubForum description");
-        enyo.application.db.newSubForum( enyo.bind( this, "gotNewSubForum" ), this.category, subForumTitle, subForumDescrition);
-        console.log("skapade nytt subForum");
+        if (subForumTitle != "" || subForumDescrition != "") {
+            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescrition);
+        } else {
+            console.log( "error creating subForum!" );
+        }
     },
 
     create: function () {
@@ -41,12 +45,8 @@ enyo.kind({
     	enyo.application.db.getSubForums( enyo.bind( this, "gotSubForums" ), this.category, 999, 0 );
     },
 
-    gotNewSubForum: function( list ) {
-        console.log("tog emot nytt subform:");
-        console.log(list);
-    },
-
     gotSubForums: function( list ) {
+        this.$.subForum.destroyClientControls( );
     	enyo.forEach( list.items(), function( subForum ) {
     		this.createComponent({
         		kind: "SubForum",

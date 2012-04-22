@@ -4,13 +4,12 @@ enyo.kind({
 	tag: "li",
 
 	components: [
-		{ name: "category", tag: "li", components: [
-			{ name: "definition", tag: "div", components: [
-				{ name: "title", tag: "p", classes: "categoryTitle" },
-				{ name: "description", tag: "p" },
-				{ name: "subForumView", tag: "ul" }
-			]}
-		]}
+		{ name: "category", tag: "div", classes: "category", components: [
+			{ name: "title", tag: "p", classes: "categoryTitle" },
+			{ name: "description", tag: "p" }
+		]},
+
+		{ name: "subForumView", tag: "ul", classes: "subForumView" }
 	],
 
 	published: {
