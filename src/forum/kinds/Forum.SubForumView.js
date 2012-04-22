@@ -29,8 +29,11 @@ enyo.kind({
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
         subForumDescrition = window.prompt("SubForum description");
-        enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescrition);
-        console.log("skapade nytt subForum");
+        if (subForumTitle != "" || subForumDescrition != "") {
+            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescrition);
+        } else {
+            console.log( "error creating subForum!" );
+        }
     },
 
     create: function () {

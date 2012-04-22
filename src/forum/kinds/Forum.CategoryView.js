@@ -16,7 +16,11 @@ enyo.kind({
 	newCategory: function(){
 		categoryTitle = window.prompt("Category title");
 		categoryDescription = window.prompt("Category description");
-		enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
+        if (categoryTitle != "" || categoryDescription != "") {
+			enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
+        } else {
+            console.log( "error creating category!" );
+        }
 	},
 
 	create: function(){

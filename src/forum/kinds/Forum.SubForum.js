@@ -37,25 +37,21 @@ enyo.kind({
 	gotThreads: function( list ) {
 		newThreads = 0;
 		threads = 0;
-
-		enyo.forEach( list.items(), function( thread ) {
-			//enyo.application.db.getPosts( enyo.bind(this, "gotPosts"), thread, 999, 0);
-
-   			threads++;
-        });
-
+		threads = list.size();
+        
+        this.$.posts.setContent( 0 );
         this.$.newThreads.setContent( newThreads );
         this.$.threads.setContent( threads );
-        this.$.posts.setContent( "0" );
+	
+		enyo.forEach( list.items(), function( thread ) {
+ 			enyo.application.db.getPosts( enyo.bind( this, "gotPosts" ), thread, 999, 0);
+        });
 	},
 
-/*	gotPosts: function( list ) {
-		posts = 0;
+	gotPosts: function( list ) {
+		posts = this.posts.content;
+		posts = posts + list.size();
 
-		enyo.forEach( list.items(), function( ) {
-   			posts++;
-        });
-
-        this.posts.setContent( posts );
-	}*/
+        this.$.threads.setContent( posts );
+	}
 });
