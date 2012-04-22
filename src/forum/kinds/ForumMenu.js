@@ -8,7 +8,7 @@ enyo.kind({
     },
     components: [
 	{ kind: "UsersMenuItem", src: "/images/icons/online.png", newKind: "UsersView"},
-	{ kind: "RepliesMenuItem", newKind: "RepliesView"},
+	{ kind: "RepliesMenuItem", src: "/images/icons/reply.png", newKind: "RepliesView"},
 	{ kind: "MenuItem", src: "/images/icons/settings.png", newKind: "SettingsView"},
 	{ kind: "CollapseMenuItem", src: "/images/icons/collapse.png"},
 	{ kind: "ShowMenuItem", src: "/images/icons/settings.png"}

@@ -17,6 +17,9 @@
     <script type="text/javascript">
 	<!-- Starts the forum app -->
 	//-- Creates the app now instead of the earlier kinds --
+	enyo.application = {};
+	enyo.application.db = new forumDatabase();
+	enyo.application.db.login(null, "temporary username"); // TODO enable proper logins
 	new ForumApp().renderInto(document.body);
 	
 	//new ForumMenu().renderInto(document.getElementById("forumMenu"));
