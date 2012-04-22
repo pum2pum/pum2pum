@@ -4,7 +4,7 @@ var VALIDATE = false, TIMEOUT = 1000;
 var count = 0;
 
 var gdb; // Global database variable
-var g = [];
+var g = []; // Global array for data between tests
 
 /* Finishes a create-test with or without a validation-delay */
 function finishTest(test) {
@@ -247,8 +247,12 @@ enyo.kind({
 		gdb.getThreads(
 			function(list) { 				
 				if(count > 0) {
+					var s;
+					if(list.items()[1].title !== "a") {
+						s = "Unexpected title " + list.items()[1].title;
+					}
 					list.close();
-					test.finish();
+					test.finish(s);
 					return false;
 				}
 				count++;
@@ -256,7 +260,7 @@ enyo.kind({
 					function (e) { test.fail("Recieved error " + e); }, g["subforum"], "a", "b", "c"
 				);
 
-			}, g["subforum"], 1, 0
+			}, g["subforum"], 2, 0
 		);
 	},
 });
