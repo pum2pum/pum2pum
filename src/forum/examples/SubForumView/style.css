@@ -22,20 +22,20 @@
 }
 
 .subForumTitle{
-	border-right: 1px solid #A0A0A0;
+	border-right: 1px solid #B0C0C0;
 	height: 60px;
 	width: 55%;
 }
 
 .subForumNewThreads{
-	border-right: 1px solid #A0A0A0;
+	border-right: 1px solid #B0C0C0;
 	text-align: center;
 	width: 15%;
 	left: 55%;
 }
 
 .subForumThreads{
-	border-right: 1px solid #A0A0A0;
+	border-right: 1px solid #B0C0C0;
 	text-align: center;
 	width: 15%;
 	left: 70%;
