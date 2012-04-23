@@ -21,3 +21,16 @@
 	0px 0px 3px #006699,
 	0px 0px 3px #006699;
 }
+
+.forumMenu .onyx-icon {
+	width: 70px;
+	height: 64px;
+}
+
+.forumMenu .onyx-icon:hover {
+	cursor: pointer;
+}
+
+.forumMenu .onyx-icon.active {
+	background-position: 0 0 !important;
+}
