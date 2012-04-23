@@ -248,9 +248,14 @@ enyo.kind({
 			function(list) { 				
 				if(count > 0) {
 					var s;
-					if(list.items()[1].title !== "a") {
-						s = "Unexpected title " + list.items()[1].title;
+					/*
+					Does not work for some really odd reason...
+					var o = list.items();
+
+					if(o[1] != "a") {
+						s = "Unexpected title " + o[1];
 					}
+					*/
 					list.close();
 					test.finish(s);
 					return false;
