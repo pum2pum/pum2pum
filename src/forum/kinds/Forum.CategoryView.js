@@ -9,7 +9,7 @@ enyo.kind({
 		
 	    { name: "info-table", tag: "table", components: [
             { tag: "tr", components: [
-                { tag: "td", style: "border-right: 1px solid #A0A0A0; width: 55%",
+                { tag: "td", style: "width: 55%",
                     components: [ { tag: "p", content: "Forum" } ]},
                 { tag: "td", classes: "subForumNewThreads",
                     components: [ { tag: "p", content: "New threads" } ]},
