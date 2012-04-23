@@ -4,8 +4,22 @@ enyo.kind({
 	tag: "div",
 
 	components: [
-		{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
+		//admin:
+		//{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
 		
+	    { name: "info-table", tag: "table", components: [
+            { tag: "tr", components: [
+                { tag: "td", style: "border-right: 1px solid #A0A0A0; width: 55%",
+                    components: [ { tag: "p", content: "Forum" } ]},
+                { tag: "td", classes: "subForumNewThreads",
+                    components: [ { tag: "p", content: "New threads" } ]},
+                { tag: "td", classes: "subForumThreads",
+                    components: [ { tag: "p", content: "Threads" } ]},
+                { tag: "td", classes: "subForumPosts",
+                    components: [ { tag: "p", content: "Posts" } ]}
+            ]},
+        ]},
+
 		{ name: "categories", tag: "ul" }
 	],
 
@@ -13,6 +27,7 @@ enyo.kind({
 		title: "",
 	},
 
+	//admin:
 	newCategory: function(){
 		categoryTitle = window.prompt("Category title");
 		categoryDescription = window.prompt("Category description");
