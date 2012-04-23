@@ -4,20 +4,8 @@ enyo.kind({
     tag: "li",
 
 	components: [
-        { name: "btnNewThread", tag: "button", content: "New SubForum", ontap: "newSubForum"},
-
-        { tag: "table", classes: "subForumTable", components: [
-            { tag: "tr", components: [
-                { tag: "td", classes: "subForumTitle",
-                    components: [ { tag: "p", content: "Title / Description" } ]},
-                { tag: "td", classes: "subForumNewThreads",
-                    components: [ { tag: "p", content: "New threads" } ]},
-                { tag: "td", classes: "subForumThreads",
-                    components: [ { tag: "p", content: "Threads" } ]},
-                { tag: "td", classes: "subForumPosts",
-                    components: [ { tag: "p", content: "Posts" } ]}
-            ]},
-        ]},
+        //admin:
+        //{ name: "btnNewThread", tag: "button", content: "New SubForum", ontap: "newSubForum"},
 
         { name: "subForum", tag: "table", classes: "subForumTable" }
 	],
@@ -26,6 +14,7 @@ enyo.kind({
 		category: ""
     },
 
+    //admin:
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
         subForumDescrition = window.prompt("SubForum description");
