@@ -121,8 +121,9 @@ li, ul {
 
 .post {
     float: left;
+    display: block;
     border: dotted;
-    padding-left: -100px;
+    clear: left;
 }
 
 .post .avatar {
