@@ -8,7 +8,7 @@ enyo.kind({
         //admin:
         { name: "btnNewSub", tag: "button", content: "New SubForum", ontap: "newSubForum", classes: "newSubForum"},
 
-        { name: "subForum", tag: "table", classes: "subForumTable"}
+        { name: "subForum", tag: "ul", classes: "floatcontainer subForum"}
 	],
 
     published: {

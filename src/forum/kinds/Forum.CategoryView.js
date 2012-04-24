@@ -7,23 +7,21 @@ enyo.kind({
 	components: [
 		//admin:
    		{ name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
-		
-	    { name: "info-table", tag: "table", components: [
-            { tag: "thead", components: [
-                { tag: "tr", components: [
-                    { tag: "td", style: "width: 55%",
-                        components: [ { tag: "p", content: "Forum" } ]},
-                    { tag: "td", classes: "subForumNewThreads",
-                        components: [ { tag: "p", content: "New threads" } ]},
-                    { tag: "td", classes: "subForumThreads",
-                        components: [ { tag: "p", content: "Threads" } ]},
-                    { tag: "td", classes: "subForumPosts",
-                        components: [ { tag: "p", content: "Posts" } ]}
-                ]}
-            ]}
-        ]},
+	
+        { tag: "div", classes: "categoryContainerListHead floatcontainer", 
+            components: [
+                { tag: "div", classes: "title",
+                    components: [ { tag: "p", content: "Forum" } ] },
+                { tag: "div", classes: "newThreads",
+                    components: [ { tag: "p", content: "New threads" } ] },
+                { tag: "div", classes: "threads",
+                    components: [ { tag: "p", content: "Threads" } ] },
+                { tag: "div", classes: "posts",
+                    components: [ { tag: "p", content: "Posts" } ] }
+            ]
+         },
 
-		{ name: "categories", tag: "ul" }
+		{ name: "categories", tag: "ul", classes: "floatcontainer category"}
 	],
 
 	published: {
@@ -62,7 +60,6 @@ enyo.kind({
         		kind: "Category",
                 container: this.$.categories,
                 title: category.title,
-                description: category.description,
                 category: category,
         	});
         }, this);

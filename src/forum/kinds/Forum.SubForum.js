@@ -1,27 +1,31 @@
 enyo.kind({
 	name: "SubForum",
 	kind: enyo.Control,
-	tag: "tr",
+	tag: "li",
+    classes: "floatcontainer subForum",
+    posts: 0,
 
 	components: [
-		{ name: "subForumContainer", tag: "td", classes: "subForumTitle", ontap: "gotoThread" , components: [
+		{ tag: "div", classes: "title", ontap: "goToThread",components: [
 			{ name: "title", tag: "p"},
 			{ name: "description", tag: "p" } ]},
-		{ tag: "td", classes: "subForumNewThreads", components: [
-			{ name: "newThreads", tag: "p", classes: "subForum.newThreads" } ]},
-		{ tag: "td", classes: "subForumThreads", components: [
-			{ name: "threads", tag: "p", classes: "subForum.threads" } ]},
-		{ tag: "td", classes: "subForumPosts", components: [
-			{ name: "posts", tag: "p", classes: "subForum.posts" } ]}
+
+    	{ tag: "div", classes: "newThreads", components: [
+			{ name: "newThreads", tag: "p" } ]},
+
+    	{ tag: "div", classes: "threads",	components: [
+			{ name: "threads", tag: "p" } ]},
+
+    	{ tag: "div", classes: "posts",	components: [
+			{ name: "posts", tag: "p" } ]}
 	],
 
     published: {
 		subForum: ""
     },
-    posts: 0,
 
-	gotoThread: function(){
-		console.log( "Goto thread X..." );
+	goToThread: function(){
+		console.log( "Go to thread X..." );
 	},
 
 	create: function(){
