@@ -18,12 +18,10 @@
 		enyo.application.db.login(null, "Gyran");
     	enyo.application.db.get( gogogo, 5, { "title":1, "desc":1 } );
     	function gogogo( subForum ) {
-
     		subForum.close();
     		new ForumThreadContainer({
-    				subforum: subForum.item()
+    				subForum: subForum.item()
     			}).renderInto(document.body);
-
     	}
 		
 	</script>
