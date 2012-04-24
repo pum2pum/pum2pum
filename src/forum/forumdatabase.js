@@ -98,7 +98,7 @@ forumDatabase.prototype = {
 	**/
 	newThread: function( cb, subForum, title, content ) {
 		trans = this.liveDB.transaction( );
-		trans.create( subForum, { title: title, content: content } );
+		trans.create( subForum, { title: title, content: content, lastUpdated: this._now( ) } );
 		var that = this;
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
@@ -114,8 +114,8 @@ forumDatabase.prototype = {
 	getThreads: function( cb, subForum, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			subForum, '->', null, { 'title': 1, 'content': 1 },
-			num, start, null, [ { name:'timestap', dir: "desc" } ] );
+			subForum, '->', null, { 'title': 1, 'content': 1, 'lastUpdated': 1 },
+			num, start, null, [ { name:'lastUpdated', dir: "desc" } ] );
 			//num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
 	},
 
@@ -127,9 +127,19 @@ forumDatabase.prototype = {
 	* content 	- Content of the Post
 	**/
 	newPost: function( cb, thread, content ) {
+		/*var that = this;
+
+		this.get( function( updateThis ) {
+			updateTrans = that.liveDB.transaction( ); // kommer inte förbi här :S
+			updateTrans.update( updateThis.item( ), { "lastUpdated": that._now() }, { "lastUpdated": that._now() } );
+			updateTrans.go( function( error ) { console.log(error); });
+
+		}, thread, { 'title': 1, 'content': 1, 'lastUpdated': 1 } );
+		*/
+
 		trans = this.liveDB.transaction( );
 		trans.create( thread, { content: content } );
-		var that = this;
+		
 		trans.go( function( arg ) { that.callbackTunnel( cb, arg ) } );
 	},
 
@@ -214,6 +224,12 @@ forumDatabase.prototype = {
 	**/
 	delete: function( node ) {
 		this.liveDB.delete( node );
+	},
+
+	/* "private" helpfunctions */
+
+	_now: function( ) {
+		return ( new Date().getTime() / 1000 ).toFixed();
 	}
 
 
