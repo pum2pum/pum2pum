@@ -1,24 +1,21 @@
 enyo.kind({
     name: "UsersMenuItem",
     kind: "MenuItem",
-    published: {
-	overlayText: ""
+    setOverlayText: function(newText) {
+	this.$.textArea.setContent(newText);
     },
-    changeOverlayText: function(users) {
-	//TODO get real usercount
-	var usercount = 5;
-	
+    userCountCallback: function(users) {
+	if (users._list.length === 99) {
+	    this.setOverlayText("99+");
+	} else {
+	    this.setOverlayText(users._list.length);
+	}
     },
     components: [
-	{name: "textArea", tag: "p", contents: "~"}
+	{name: "textArea", tag: "p", contents: "", classes: "menuItemFloatText"}
     ],
-    handlers: {
-	onOverlayTextChanged: "changeOverlayText" // Required for non-touch devices
-    },
     create: function() {
 	this.inherited(arguments);
-	//TODO replace the static stuff with real calls to database.
-	//enyo.application.db.getAllUsers(enyo.bind(this, "changeOverlayText"), 99);
-	this.changeOverlayText({bing:"ba", bong:"do", bang:"a"});
+	enyo.application.db.getAllUsers(enyo.bind(this, "userCountCallback"), 99);
     }
 });

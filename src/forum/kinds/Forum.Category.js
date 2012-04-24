@@ -2,15 +2,14 @@ enyo.kind({
 	name: "Category",
 	kind: enyo.Control,
 	tag: "li",
+    classes: "floatcontainer category",
 
 	components: [
-		{ name: "category", tag: "li", components: [
-			{ name: "definition", tag: "div", components: [
-				{ name: "title", tag: "p", classes: "categoryTitle" },
-				{ name: "description", tag: "p" },
-				{ name: "subForumView", tag: "ul" }
-			]}
-		]}
+		{ name: "category", tag: "div", classes: "categoryContainerHead", components: [
+			{ name: "title", tag: "p" }
+		]},
+
+		{ name: "subForumView", tag: "ul", classes: "subForumView" }
 	],
 
 	published: {
@@ -21,7 +20,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.createSubForumView();
 		this.$.title.setContent( this.title );
-		this.$.description.setContent( this.description );
 	},
 
     createSubForumView: function( ) {

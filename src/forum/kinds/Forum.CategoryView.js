@@ -2,35 +2,58 @@ enyo.kind({
 	name: "CategoryView",
 	kind: enyo.Control,
 	tag: "div",
+    admin: true,
+
+    classes: "categoryView",
 
 	components: [
-		{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
-		
-		{ name: "categories", tag: "ul" }
+		//admin:
+   		{ name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
+	
+        { tag: "div", classes: "categoryContainerListHead floatcontainer", 
+            components: [
+                { tag: "div", classes: "title",
+                    components: [ { tag: "p", content: "Forum" } ] },
+                { tag: "div", classes: "newThreads",
+                    components: [ { tag: "p", content: "New threads" } ] },
+                { tag: "div", classes: "threads",
+                    components: [ { tag: "p", content: "Threads" } ] },
+                { tag: "div", classes: "posts",
+                    components: [ { tag: "p", content: "Posts" } ] }
+            ]
+         },
+
+		{ name: "categories", tag: "ul", classes: "floatcontainer category"}
 	],
 
 	published: {
 		title: "",
 	},
 
+	//admin:
 	newCategory: function(){
 		categoryTitle = window.prompt("Category title");
 		categoryDescription = window.prompt("Category description");
-		enyo.application.db.newCategory( enyo.bind( this, "gotNewCategory" ), categoryTitle, categoryDescription);
+        if (categoryTitle != "" || categoryDescription != "") {
+			enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
+        } else {
+            console.log( "error creating category!" );
+        }
 	},
 
 	create: function(){
 		this.inherited(arguments);
 		this.populate();
+
+        this.admin = false; //Make a check if you are admin
+
+        if (!this.admin) {
+            this.removeChild(this.$.btnNewCategory);
+        }
 	},
 
 	populate: function(){
 		enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
-	},
-
-	gotNewCategory: function( list ) {
-		console.log("tog emot ny kategori.");
-		console.log(list);
 	},
 
     gotCategories: function( list ) {
@@ -39,8 +62,7 @@ enyo.kind({
         		kind: "Category",
                 container: this.$.categories,
                 title: category.title,
-                description: category.description,
-                category: category
+                category: category,
         	});
         }, this);
         this.$.categories.render();

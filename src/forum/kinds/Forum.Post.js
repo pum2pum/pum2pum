@@ -1,6 +1,7 @@
 enyo.kind({
     name: "ForumPost",
     classes: "post",
+    tag: "li",
     kind: enyo.Control,
     components: [
 	{name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
@@ -35,6 +36,7 @@ enyo.kind({
 
     useridChanged: function () {
 	var t = this;
+	console.log(t);
 	enyo.application.db.getUser(function (user){
 	    console.log(user.item());
 	    t.$.username.setContent(user.item().name);

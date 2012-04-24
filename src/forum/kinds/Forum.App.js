@@ -33,5 +33,13 @@ enyo.kind({
 
 	showMenu: function(){
 		this.$forumMenu.Show();
+	},
+
+	create: function () {
+		this.inherited( arguments );
+
+		this.$.forumView.createComponent({
+			kind: "CategoryView"
+		});
 	}
 });

@@ -2,25 +2,30 @@ enyo.kind({
 	name: "SubForum",
 	kind: enyo.Control,
 	tag: "li",
+    classes: "floatcontainer subForum",
+    posts: 0,
 
 	components: [
-		{ name: "subForumContainer", tag: "div", components: [
-			{ name: "head", tag: "div", classes: "subForumHead", components: [
-				{ name: "title", tag: "p", ontap: "gotoThread"},
-				{ name: "description", tag: "p"}
-			]},
-			{ name: "newThreads", tag: "p", classes: "subForum.newThreads"},
-			{ name: "threads", tag: "p", classes: "subForum.threads"},
-			{ name: "posts", tag: "p", classes: "subForum.posts"}
-		]}
+		{ tag: "div", classes: "title", ontap: "goToThread",components: [
+			{ name: "title", tag: "p"},
+			{ name: "description", tag: "p" } ]},
+
+    	{ tag: "div", classes: "newThreads", components: [
+			{ name: "newThreads", tag: "p" } ]},
+
+    	{ tag: "div", classes: "threads",	components: [
+			{ name: "threads", tag: "p" } ]},
+
+    	{ tag: "div", classes: "posts",	components: [
+			{ name: "posts", tag: "p" } ]}
 	],
 
     published: {
 		subForum: ""
     },
 
-	gotoThread: function(){
-		console.log( "Goto thread X..." );
+	goToThread: function(){
+		this.bubble( "onChangeView", { kind: "ForumThreadContainer", subForum: this.subForum } );
 	},
 
 	create: function(){
@@ -35,27 +40,31 @@ enyo.kind({
 	},
 
 	gotThreads: function( list ) {
+		list.close();
+		/*if( this.destroyed ) {
+			list.close( );
+			return;
+		}*/
+		var that = this;
 		newThreads = 0;
 		threads = 0;
-
-		enyo.forEach( list.items(), function( thread ) {
-			//enyo.application.db.getPosts( enyo.bind(this, "gotPosts"), thread, 999, 0);
-
-   			threads++;
-        });
-
+		threads = list.size();
+		this.posts = 0;
+        
+        this.$.posts.setContent( 0 );
         this.$.newThreads.setContent( newThreads );
         this.$.threads.setContent( threads );
-        this.$.posts.setContent( "0" );
-	}
-
-	/*gotPosts: function( list ) {
-		posts = 0;
-
-		enyo.forEach( list.items(), function( ) {
-   			posts++;
+	
+		enyo.forEach( list.items(), function( thread ) {
+ 			enyo.application.db.getPosts( enyo.bind( that, "gotPosts" ), thread, 999, 0);
         });
+        this.render( );
+	},
 
-        this.posts = posts;
-	}*/
+	gotPosts: function( list ) {
+		list.close( );
+		this.posts += list.size( );
+		this.$.posts.setContent( this.posts );
+		this.$.posts.render( );
+	}
 });

@@ -48,14 +48,14 @@ enyo.kind({
             
             enyo.application.db.getUser( function( u ) {
                 u.close();
-                t.$.lastpostBy.setContent( "By " + u.item().name );
+                t.$.lastpostBy.setContent( Language.l( "by", enyo.application.language ) + " " + u.item().name );
             }, post.user );
             
             t.$.lastpostDate.setContent( enyo.application.tsToString( post.timestamp ) );
         } else {
             enyo.application.db.getUser( function( u ) {
                 u.close();
-                t.$.lastpostBy.setContent( "By " + u.item().name );
+                t.$.lastpostBy.setContent( Language.l( "by", enyo.application.language ) + " " + u.item().name );
             }, this.thread.user );
 
             t.$.lastpostDate.setContent( enyo.application.tsToString( this.thread.timestamp ) );
@@ -77,16 +77,18 @@ enyo.kind({
         }, this.userid );
 		
     },
-    
 
     postView: function(e) {
 	//changes the current view to the show the posts in this thread 
-	thread = this.threadid;
-	console.log(thread);
-	this.$.body.createComponent ({
-	    kind: "ForumPostContainer",
-	    threadid: thread
-	}).renderInto(document.body);
+    	thread = this.threadid;
+    	this.$.body.createComponent ({
+    	   kind: "ForumPostContainer",
+    	   threadid: thread
+    	}).renderInto(document.body);
+    },
+
+    tap: function( sender, event ) {
+        this.bubble( "onChangeView", { kind: "ForumPostContainer", thread: this.thread } );
     }
 
 });

@@ -1,10 +1,10 @@
 enyo.kind({
     name: "ForumPostContainer",
     kind: enyo.Control,
+    classes: "PostContainer",
     tag: "div",
     components: [
 	{name: "threadid", tag: "p"},
-//	{name: "body", tag: "output"}
 	{name: "posts", tag: "ul"}
     ],
     published: {
@@ -16,64 +16,33 @@ enyo.kind({
     },
 
     create: function () {
-console.log("herp");
 	this.inherited(arguments);
-//	this.threadidChanged();
 	this.populate();
-	//creating couple of Posts, it should fetch from database though
-	/*this.$.body.createComponent({
-	    kind: "ForumPost",
-	    text: "Post1",
-	    userid: 1,
-	    username: "HerpUser"
-	}).render();
-	this.$.body.createComponent({
-	    kind: "ForumPost",
-	    text: "Post2",
-	    userid: 1,
-	    username: "HerpUser"
-	}).render();
-	this.$.body.createComponent({
-	    kind: "ForumPost",
-	    text: "Post3",
-	    userid: 1,
-	    username: "HerpUser"
-	}).render();
-	this.$.body.createComponent({
-	    kind: "ForumPost",
-	    text: "Post4",
-	    userid: 1,
-	    username: "HerpUser"
-	}).render();*/
     },
 
     populate: function () {
-	console.log("herpasd");
 	enyo.application.db.getPosts(enyo.bind(this, "gotPosts"), this.thread, 999, 0);
-	console.log("herppopulate");
     },
     
     gotNewPost: function (list) {
-	console.log("got new Post");
 	console.log(list);
     },
     
     gotPosts: function(list) {
+	this.$.posts.destroyClientControls();
 	enyo.forEach(list.items(), function(post) {
-	    console.log(this.post);
+	    console.log(post);
 	    this.createComponent({
 		kind: "ForumPost",
 		container: this.$.posts,
 		text: post.text,
+		userid: post.user,
 		post: post
 	    });
 	}, this);
 	this.$.posts.render();
     }
 
-    //threadidChanged: function () {
-//	this.$.threadid.setContent(this.threadid);
-  //  }
 });
 	
     
