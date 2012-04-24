@@ -4,6 +4,8 @@ enyo.kind({
 	tag: "div",
     admin: true,
 
+    classes: "categoryView",
+
 	components: [
 		//admin:
    		{ name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},

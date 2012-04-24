@@ -6,11 +6,11 @@ enyo.kind({
 		{ tag: "div", classes: "threadContainerListHead floatcontainer", 
 			components: [
 				{ tag: "div", classes: "topic",
-					components: [ { tag: "p", name: "topic", content: Language.l( "topic" ) + " / " + Language.l( "startedBy" ) } ] },
+					components: [ { tag: "p", name: "topic" } ] },
 				{ tag: "div", classes: "lastPost",
-					components: [ { tag: "p", name: "lastPost", content: Language.l( "lastPost", enyo.application.language ) } ] },
+					components: [ { tag: "p", name: "lastPost" } ] },
 				{ tag: "div", classes: "posts",
-					components: [ { tag: "p", name: "posts", content: Language.l( "posts", enyo.application.language ) } ] }
+					components: [ { tag: "p", name: "posts" } ] }
 			]
 		 },
 		{ name: "threads", tag: "ul", classes: "floatcontainer threads" }
@@ -47,9 +47,9 @@ enyo.kind({
     },
     
     setByLang: function () {
-        this.$.topic.setContent( Language.l( "topic", enyo.application.language ) + " / " + Language.l( "startedBy", enyo.application.language ) );
-        this.$.lastPost.setContent( Language.l( "lastPost", enyo.application.language ) );
-        this.$.lastPost.setContent( Language.l( "posts", enyo.application.language ) );
+        this.$.topic.setContent( Language.l( "topic", enyo.application.language ).capitalize() + " / " + Language.l( "startedBy", enyo.application.language ).capitalize() );
+        this.$.lastPost.setContent( Language.l( "lastPost", enyo.application.language ).capitalize() );
+        this.$.posts.setContent( Language.l( "posts", enyo.application.language ).capitalize() );
     },
 
     subForumChanged: function () {

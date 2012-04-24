@@ -25,7 +25,7 @@ enyo.kind({
     },
 
 	goToThread: function(){
-		console.log( "Go to thread X..." );
+		this.bubble( "onChangeView", { kind: "ForumThreadContainer", subForum: this.subForum } );
 	},
 
 	create: function(){
@@ -40,10 +40,11 @@ enyo.kind({
 	},
 
 	gotThreads: function( list ) {
-		if( this.destroyed ) {
+		list.close();
+		/*if( this.destroyed ) {
 			list.close( );
 			return;
-		}
+		}*/
 		var that = this;
 		newThreads = 0;
 		threads = 0;

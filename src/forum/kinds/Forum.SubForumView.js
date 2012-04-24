@@ -42,6 +42,7 @@ enyo.kind({
     },
 
     gotSubForums: function( list ) {
+        list.close();
         this.$.subForum.destroyClientControls( );
     	enyo.forEach( list.items(), function( subForum ) {
     		this.createComponent({
