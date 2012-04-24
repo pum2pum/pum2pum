@@ -88,8 +88,7 @@ enyo.kind({
     },
 
     tap: function( sender, event ) {
-        console.log( { kind: "Forum.PostContainer", thread: this.thread } );
-        //this.bubble( "onChangeView", { kind: "Forum.PostContainer", thread: this.thread } );
+        this.bubble( "onChangeView", { kind: "ForumPostContainer", thread: this.thread } );
     }
 
 });
