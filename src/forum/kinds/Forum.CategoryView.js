@@ -2,22 +2,25 @@ enyo.kind({
 	name: "CategoryView",
 	kind: enyo.Control,
 	tag: "div",
+    admin: true,
 
 	components: [
 		//admin:
-		//{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
+   		{ name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
 		
 	    { name: "info-table", tag: "table", components: [
-            { tag: "tr", components: [
-                { tag: "td", style: "width: 55%",
-                    components: [ { tag: "p", content: "Forum" } ]},
-                { tag: "td", classes: "subForumNewThreads",
-                    components: [ { tag: "p", content: "New threads" } ]},
-                { tag: "td", classes: "subForumThreads",
-                    components: [ { tag: "p", content: "Threads" } ]},
-                { tag: "td", classes: "subForumPosts",
-                    components: [ { tag: "p", content: "Posts" } ]}
-            ]},
+            { tag: "thead", components: [
+                { tag: "tr", components: [
+                    { tag: "td", style: "width: 55%",
+                        components: [ { tag: "p", content: "Forum" } ]},
+                    { tag: "td", classes: "subForumNewThreads",
+                        components: [ { tag: "p", content: "New threads" } ]},
+                    { tag: "td", classes: "subForumThreads",
+                        components: [ { tag: "p", content: "Threads" } ]},
+                    { tag: "td", classes: "subForumPosts",
+                        components: [ { tag: "p", content: "Posts" } ]}
+                ]}
+            ]}
         ]},
 
 		{ name: "categories", tag: "ul" }
@@ -41,6 +44,12 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 		this.populate();
+
+        this.admin = false; //Make a check if you are admin
+
+        if (!this.admin) {
+            this.removeChild(this.$.btnNewCategory);
+        }
 	},
 
 	populate: function(){
@@ -54,7 +63,7 @@ enyo.kind({
                 container: this.$.categories,
                 title: category.title,
                 description: category.description,
-                category: category
+                category: category,
         	});
         }, this);
         this.$.categories.render();

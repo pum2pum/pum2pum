@@ -2,12 +2,13 @@ enyo.kind({
 	name: "SubForumView",
 	kind: enyo.Control,
     tag: "li",
+    admin: true,
 
 	components: [
         //admin:
-        //{ name: "btnNewThread", tag: "button", content: "New SubForum", ontap: "newSubForum"},
+        { name: "btnNewSub", tag: "button", content: "New SubForum", ontap: "newSubForum", classes: "newSubForum"},
 
-        { name: "subForum", tag: "table", classes: "subForumTable" }
+        { name: "subForum", tag: "table", classes: "subForumTable"}
 	],
 
     published: {
@@ -28,6 +29,12 @@ enyo.kind({
     create: function () {
 		this.inherited(arguments);
 		this.populate();
+
+        this.admin = false; //Make a check if you are admin
+
+        if (!this.admin) {
+            this.removeChild(this.$.btnNewSub);
+        }
     },
 
    	populate: function( ) {
