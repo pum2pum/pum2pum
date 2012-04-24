@@ -1,14 +1,21 @@
+tbody tr:nth-child(odd) {
+	background-image: url("../../images/bgs/forumbg1.png");
+}
+
+tbody tr:nth-child(even) {
+	background-image: url("../../images/bgs/forumbg2.png");
+}
+
 #categoryView_info-table{
 	background-image: url("../../images/bgs/topbg.png");
-/*    border: 1px solid #000000;*/
     color: #FFFFFF;
 	width: 100%;
+	margin: 0px;
 	height: 43px;
 }
 
 .category{
 	background-image: url("../../images/bgs/headerbg.png");
-/*    border: 1px solid #000000;*/
     color: #FFFFFF;
     height: 41px;
 }
@@ -22,20 +29,20 @@
 }
 
 .subForumTitle{
-	border-right: 1px solid #B0C0C0;
-	height: 60px;
+	border-right: 2px solid #B0C0C0;
+	height: 61px;
 	width: 55%;
 }
 
 .subForumNewThreads{
-	border-right: 1px solid #B0C0C0;
+	border-right: 2px solid #B0C0C0;
 	text-align: center;
 	width: 15%;
 	left: 55%;
 }
 
 .subForumThreads{
-	border-right: 1px solid #B0C0C0;
+	border-right: 2px solid #B0C0C0;
 	text-align: center;
 	width: 15%;
 	left: 70%;
@@ -45,4 +52,16 @@
 	text-align: center;
 	width: 15%;
 	left: 85%;
+}
+
+.newSubForum{
+	background-image: url("../../images/bgs/forumbg1.png");
+	height: 61px;
+}
+
+.newCategory{
+	background-image: url("../../images/bgs/headerbg.png");
+    height: 41px;
+	width: 100%;
+    color: #FFFFFF;
 }
