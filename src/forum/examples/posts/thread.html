@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<title>Enyo</title>
+	<!-- load from 'source' included with the enyo repository -->
+	<script src="../../enyo.js" type="text/javascript"></script>
+	<script src="package.js" type="text/javascript"></script>
+	<!-- to load from a build you include the build css and js files, e.g -->
+	<!--
+	<link href="../../../enyo-2.0/enyo.css" rel="stylesheet" type="text/css" />
+	<script src="../../../enyo-2.0/enyo.js" type="text/javascript"></script>
+	-->
+</head>
+<body>
+	<script type="text/javascript">
+	//enyo.application = {};
+		//enyo.application.db = new forumDatabase();
+		enyo.application.db.login(null, "Gyran");
+    	enyo.application.db.get( gogogo, 8, { "title":1, "desc":1 } );
+    	function gogogo( thread ) {
+    		thread.close();
+    		new ForumPostContainer({
+	
+    				thread: thread.item()
+    			}).renderInto(document.body);
+
+    	}
+	
+	</script>
+</body>
+</html>
