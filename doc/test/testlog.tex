@@ -1,0 +1,89 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{tabularx}
+\usepackage{color}
+\usepackage[breakall]{truncate}
+
+\definecolor{red}{RGB}{180,0,0}
+\definecolor{green}{RGB}{0,180,0}
+
+%\renewcommand{\TruncateMarker}{\dots}
+
+\newcommand{\testpass}[2]{
+	#1 & \truncate[\dots]{80pt}{#2} & \textcolor{green}{All tests passed} \\
+}
+
+\newcommand{\testfail}[3]{
+	#1 & \truncate{80pt}{#2} & \textcolor{red}{Failed: #3}\\
+}
+
+\begin{document}
+	
+	% Framsidan
+	\begin{titlepage}
+		
+		\includegraphics[scale=0.4]{logoNormal.png}
+		
+		\vspace{6cm}
+		
+		\begin{center}
+			\Huge{\textbf{Test log}} % Ändra dokumentets titel
+			
+			\vspace{0.5cm}
+			
+			\huge{2012-04-22} % Datum senast ändrad
+		\end{center}
+		
+	\end{titlepage}
+	
+	\newpage
+
+
+	% Dokumentets innehåll nedanför här.
+	\section{Introduction}
+	This document provides a overview of when the tests has been run, and  information about whether they passed or not for each run. The tests is not run for each commit, there may be several commits between the entries below, but in this case the test status of these commits are unknown. The complete history of all commits can be found at\\
+
+	https://github.com/pum2pum/pum2pum/commits/\\\\
+	The tests are for technical reasons separated into two different test environments, and the log for each environment is found in \autoref{sec:enyo} and \autoref{sec:node} respectively.\\
+
+
+	\section{Enyo tests}
+	\label{sec:enyo}
+
+	\begin{tabular}{l l l}
+	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\testpass{2012-04-23}{3f09c5856f776e67b1a82e4dd9f3bbd51bf11269}
+		\testpass{2012-04-22}{de827763dcc83d25e93a64f7b674b1593a65b9b3}
+		\testpass{2012-04-20}{474cf3fe062d5b1d8cea386bbbba47fb589b0703}
+		\testpass{2012-04-19}{5e3451f6bde63f2763fccadb98138bfdb1858cdf}
+		\testfail{2012-04-19}{9a68dd29b48e2a38df9b6568fdb27ce5719583a1}{testGetUsers, testCallback}
+		\testfail{2012-04-18}{f853ae53ff167a33e21bb9bdbc0e6db727733861}{testGetUsers}
+		\testfail{2012-04-17}{33464fdbaf1c342b1e8e629b7429e0e89ac2ba2f}{testGetUsers}
+		\testpass{2012-04-17}{5bee136e9fbbc33529eea7d69b31e839ee64886d}
+		\testpass{2012-04-17}{810826459a3503cb428ad2fa5003de36754e126a}
+		\testfail{2012-04-15}{76eb9f7ddd4bc4bd20a277d138f054da60e9ca88}{Test driver}
+
+	\end{tabular}
+
+
+	\section{Node tests}
+	\label{sec:node}
+
+	\begin{tabular}{l l l}
+	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\testpass{2012-04-23}{3f09c5856f776e67b1a82e4dd9f3bbd51bf11269}
+		\testpass{2012-04-22}{de827763dcc83d25e93a64f7b674b1593a65b9b3}
+		\testpass{2012-04-15}{876c7c5e3720cc1f8f6350b45c3986b0b2717b4a}
+		\testfail{2012-04-14}{7c02e7b180e615cec2dcf9f328bba2dca6a7e7ec}{Test driver}
+		\testpass{2012-04-10}{866c9d65d059b9df43f2f8b5eb6a1e45a456fea9}
+
+	\end{tabular}
+
+
+
+\end{document}

@@ -4,8 +4,22 @@ enyo.kind({
 	tag: "div",
 
 	components: [
-		{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
+		//admin:
+		//{ name: "btnNewSub", tag: "button", content: "New Category", ontap: "newCategory"},
 		
+	    { name: "info-table", tag: "table", components: [
+            { tag: "tr", components: [
+                { tag: "td", style: "width: 55%",
+                    components: [ { tag: "p", content: "Forum" } ]},
+                { tag: "td", classes: "subForumNewThreads",
+                    components: [ { tag: "p", content: "New threads" } ]},
+                { tag: "td", classes: "subForumThreads",
+                    components: [ { tag: "p", content: "Threads" } ]},
+                { tag: "td", classes: "subForumPosts",
+                    components: [ { tag: "p", content: "Posts" } ]}
+            ]},
+        ]},
+
 		{ name: "categories", tag: "ul" }
 	],
 
@@ -13,10 +27,15 @@ enyo.kind({
 		title: "",
 	},
 
+	//admin:
 	newCategory: function(){
 		categoryTitle = window.prompt("Category title");
 		categoryDescription = window.prompt("Category description");
-		enyo.application.db.newCategory( enyo.bind( this, "gotNewCategory" ), categoryTitle, categoryDescription);
+        if (categoryTitle != "" || categoryDescription != "") {
+			enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
+        } else {
+            console.log( "error creating category!" );
+        }
 	},
 
 	create: function(){
@@ -26,11 +45,6 @@ enyo.kind({
 
 	populate: function(){
 		enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
-	},
-
-	gotNewCategory: function( list ) {
-		console.log("tog emot ny kategori.");
-		console.log(list);
 	},
 
     gotCategories: function( list ) {

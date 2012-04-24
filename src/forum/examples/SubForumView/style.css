@@ -1,3 +1,48 @@
-.categoryTitle{
-	background-color: red;
+#categoryView_info-table{
+	background-image: url("../../images/bgs/topbg.png");
+/*    border: 1px solid #000000;*/
+    color: #FFFFFF;
+	width: 100%;
+	height: 43px;
+}
+
+.category{
+	background-image: url("../../images/bgs/headerbg.png");
+/*    border: 1px solid #000000;*/
+    color: #FFFFFF;
+    height: 41px;
+}
+
+.subForumView{
+	background-image: url("../../images/bgs/forumbg1.png");
+}
+
+.subForumTable{
+	width: 100%;
+}
+
+.subForumTitle{
+	border-right: 1px solid #B0C0C0;
+	height: 60px;
+	width: 55%;
+}
+
+.subForumNewThreads{
+	border-right: 1px solid #B0C0C0;
+	text-align: center;
+	width: 15%;
+	left: 55%;
+}
+
+.subForumThreads{
+	border-right: 1px solid #B0C0C0;
+	text-align: center;
+	width: 15%;
+	left: 70%;
+}
+
+.subForumPosts{
+	text-align: center;
+	width: 15%;
+	left: 85%;
 }

@@ -1,17 +1,7 @@
 enyo.depends(
 	"/socket.io/socket.io.js",
+	"$lib/onyx",
 	"api.js",
 	"forumdatabase.js",
-	"forumMenu.js",
-	"forumView.js",
-	"MenuItem.js",
-	"MenuItemWithOverlay.js",
-	"CollapseMenuItem.js",
-	"RepliesMenuItem.js",
-	"UsersMenuItem.js",
-	"RepliesView.js",
-	"settingsView.js",
-	"usersView.js",
-	"repliesView.js",
-	"kinds/Forum.App.js"
+	"kinds"
 );

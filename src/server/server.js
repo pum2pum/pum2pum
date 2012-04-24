@@ -64,7 +64,7 @@ var startServer = function(readyCallback) {
 
             if(!path.existsSync(tmpPath)){
     /* As a secondary option, try to load dependencies from the folder with apps.
-    Needed since the testdriver-app has to access the other apps. */
+    Needed since the test driver-app has to access the other apps. */
                 tmpPath = path.join('..', elem);
                 
                 if(!path.existsSync(tmpPath)){

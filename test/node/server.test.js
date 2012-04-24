@@ -131,7 +131,7 @@ for (var name in exports) {
 
     try {
         exports[name]();
-        console.log(green + "Test " + name + " passed!\n" + reset);
+        console.log(green + "Test suite " + name + " passed!\n" + reset);
         passed++;
 
     } catch(e) {
