@@ -6,21 +6,21 @@ enyo.kind({
 		{ tag: "div", classes: "threadContainerListHead floatcontainer", 
 			components: [
 				{ tag: "div", classes: "topic",
-					components: [ { tag: "p", content: "Topic / Started by" } ] },
+					components: [ { tag: "p", name: "topic", content: Language.l( "topic" ) + " / " + Language.l( "startedBy" ) } ] },
 				{ tag: "div", classes: "lastPost",
-					components: [ { tag: "p", content: "Last Post" } ] },
+					components: [ { tag: "p", name: "lastPost", content: Language.l( "lastPost", enyo.application.language ) } ] },
 				{ tag: "div", classes: "posts",
-					components: [ { tag: "p", content: "Posts" } ] }
+					components: [ { tag: "p", name: "posts", content: Language.l( "posts", enyo.application.language ) } ] }
 			]
 		 },
 		{ name: "threads", tag: "ul", classes: "floatcontainer threads" }
     ],
     published: {
-    	subforum: null
+    	subForum: null
     },
 
     populate: function( ) {
-    	enyo.application.db.getThreads( enyo.bind( this, "gotThreads" ), this.subforum, 100, 0 );
+    	enyo.application.db.getThreads( enyo.bind( this, "gotThreads" ), this.subForum, 100, 0 );
     },
 
     gotThreads: function( list ) {
@@ -41,12 +41,19 @@ enyo.kind({
 
     create: function () {
 		this.inherited(arguments);
+        this.setByLang();
 		this.populate();
-		this.subforumChanged();
+		this.subForumChanged();
     },
     
-    subforumChanged: function () {
-		this.$.threadContainerHead.setContent( this.subforum.title );
+    setByLang: function () {
+        this.$.topic.setContent( Language.l( "topic", enyo.application.language ) + " / " + Language.l( "startedBy", enyo.application.language ) );
+        this.$.lastPost.setContent( Language.l( "lastPost", enyo.application.language ) );
+        this.$.lastPost.setContent( Language.l( "posts", enyo.application.language ) );
+    },
+
+    subForumChanged: function () {
+		this.$.threadContainerHead.setContent( this.subForum.title );
     }
 
 

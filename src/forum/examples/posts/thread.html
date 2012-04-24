@@ -13,17 +13,19 @@
 </head>
 <body>
 	<script type="text/javascript">
-		//enyo.application = {};
+	//enyo.application = {};
 		//enyo.application.db = new forumDatabase();
 		enyo.application.db.login(null, "Gyran");
-    	enyo.application.db.get( gogogo, 5, { "title":1, "desc":1 } );
-    	function gogogo( subForum ) {
-    		subForum.close();
-    		new ForumThreadContainer({
-    				subForum: subForum.item()
+    	enyo.application.db.get( gogogo, 8, { "title":1, "desc":1 } );
+    	function gogogo( thread ) {
+    		thread.close();
+    		new ForumPostContainer({
+	
+    				thread: thread.item()
     			}).renderInto(document.body);
+
     	}
-		
+	
 	</script>
 </body>
 </html>

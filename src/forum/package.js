@@ -2,6 +2,8 @@ enyo.depends(
 	"/socket.io/socket.io.js",
 	"$lib/onyx",
 	"api.js",
+	"Language.js",
 	"forumdatabase.js",
+	"init.js",
 	"kinds"
 );

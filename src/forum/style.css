@@ -121,8 +121,9 @@ li, ul {
 
 .post {
     float: left;
+    display: block;
     border: dotted;
-    padding-left: -100px;
+    clear: left;
 }
 
 .post .avatar {
@@ -131,3 +132,13 @@ li, ul {
     width: 60px; 
     padding-left: -10px;
 }
+.PostContainer {
+    background: #FFF;
+}
+/*
+.PostContainer li:nth-child(even) {
+	background-image: url(images/bgs/forumbg2.png);
+}
+.PostContainer li:nth-child(odd) {
+	background-image: url(images/bgs/forumbg1.png);
+}*/
