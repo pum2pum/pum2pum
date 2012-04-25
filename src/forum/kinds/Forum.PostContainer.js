@@ -1,7 +1,7 @@
 enyo.kind({
     name: "ForumPostContainer",
     kind: enyo.Control,
-    classes: "PostContainer",
+    classes: "postContainer",
     tag: "div",
     components: [
 	{name: "threadid", tag: "p"},

@@ -7,10 +7,10 @@ enyo.kind({
 	{name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
 	{tag: "div", 
 	 components: [
-	     {name: "username", tag: "span"},
-	     {name: "datetime", tag: "span"}
+	     {name: "username", tag: "p", classes: "username"},
+	     {name: "datetime", tag: "p", classes: "datetime"}
 	 ] },
-	{name: "text", tag: "p"}
+	{name: "text", tag: "p", classes: "text"}
     ],
     published: {
 	text: "default text in a post",
