@@ -117,23 +117,44 @@ li, ul {
 	text-align: center;
 }
 
-/*****************************/
+/************PostView*****************/
 
 .post {
-    float: left;
-    display: block;
-    border: dotted;
-    clear: left;
+    border: 1px solid #1F54BC;
+    border-radius: 12px;
+    width: 95%;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 3%;
+    background-color: #DCE4F2;
 }
 
 .post .avatar {
     float: left;
+    clear: right;
     height: 100px;
-    width: 60px; 
-    padding-left: -10px;
+    width: 62px;
+    margin-left: -20px;
+    margin-top: -20px;
+    margin-right: 6px;
 }
+
+.post .username {
+    font-weight: bold;
+}
+
+.post .datetime {
+    //float: right;
+
+}
+
+.post .text {
+    margin: 8px;
+    padding: 6px;
+}
+
 .PostContainer {
-    background: #FFF;
+    background-color: #FFF000;
 }
 /*
 .PostContainer li:nth-child(even) {
@@ -215,3 +236,33 @@ li, ul {
     font-size: 20pt;
     line-height: 65px;
 }
+
+/*********PostContainer********************/
+/*
+.post {
+    float: left;
+    display: block;
+    border-radius: 15px;
+    clear: left;
+    background-color: #ADB9C2;
+   border: lined;
+   // border-width: 50px;
+   // border-image: url(images/bordertest.png) 50 50 50 50 repeat;
+}
+
+.post div {
+    padding-top: 20px;
+}
+
+.post .avatar {
+    float: left;
+    height: 100px;
+    width: 60px; 
+    padding-left: -10px;
+}
+
+.postContainer ul {
+    background-color: #FF0000;
+    padding-bottom: 20px;
+}
+*/
