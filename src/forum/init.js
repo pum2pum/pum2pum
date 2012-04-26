@@ -18,5 +18,5 @@ enyo.application = {
 		pad(date.getSeconds( ));
 	},
 
-	language: "en"
+	language: "sv"
 }
