@@ -15,7 +15,7 @@ enyo.kind({
         
             {style: "padding: 10px;", components: [
                 {classes: "tools", defaultKind: "onyx.Button", components: [
-                    { name: "replyButton", content: "Reply", ontap: "replyTap", classes: "onyx-affirmative"}
+                    { name: "replyButton", ontap: "replyTap", classes: "onyx-affirmative"}
                 ]}
             ]},
 
@@ -38,7 +38,7 @@ enyo.kind({
         this.hasClicked = !this.hasClicked;
 
         if (this.hasClicked) {
-            this.$.replyButton.setContent("Close");
+            this.$.replyButton.setContent(Language.l ("close", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-affirmative");
             this.$.replyButton.addClass("onyx-negative");
 
@@ -50,7 +50,7 @@ enyo.kind({
                 container: this.$.replyBox
             }).render();
         } else {
-            this.$.replyButton.setContent("Reply");
+            this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-negative");
             this.$.replyButton.addClass("onyx-affirmative");
 

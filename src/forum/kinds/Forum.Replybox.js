@@ -3,14 +3,14 @@ enyo.kind({
     kind: enyo.Control,
 
     components: [
-        {classes: "onyx-toolbar-inline maxSize", components: [
-            {kind: "onyx.InputDecorator", components: [
-                {kind: "onyx.RichText", name: "replyText", placeholder: "Enter text here"}
+        { classes: "onyx-toolbar-inline maxSize", components: [
+            { kind: "onyx.InputDecorator", components: [
+                { kind: "onyx.RichText", name: "replyText",placeholder: "Enter text here"}
             ]}
         ]},
-        {style: "padding: 10px;", components: [
-            {classes: "tools", defaultKind: "onyx.Button", components: [
-                {name: "send", kind: "onyx.Button", content: "send", ontap: "sendTap", classes: "onyx-blue"}
+        { style: "padding: 10px;", components: [
+            { classes: "tools", defaultKind: "onyx.Button", components: [
+                { name: "send", kind: "onyx.Button", ontap: "sendTap", classes: "onyx-blue"}
             ]}
         ]},
     ],
@@ -21,6 +21,11 @@ enyo.kind({
 
     create: function () {
         this.inherited(arguments);
+        this.setByLang();
+    },
+
+    setByLang: function () {
+        this.$.send.setContent(Language.l ("send", enyo.application.language).capitalize());
     },
 
     sendTap: function () {

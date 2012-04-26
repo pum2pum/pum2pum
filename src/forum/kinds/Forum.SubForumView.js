@@ -19,7 +19,7 @@ enyo.kind({
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
         subForumDescription = window.prompt("SubForum description");
-        
+
         if (subForumTitle != "" || subForumDescription != "") {
             enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescription);
         } else {

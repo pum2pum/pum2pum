@@ -8,19 +8,19 @@ Language.l = function( string, lang ) {
 
     var getLang;
     if ( lang !== undefined ) {
-	getLang = lang;
+       getLang = lang;
     } else {
-	getLang = Language.DEFAULTLANG;
+       getLang = Language.DEFAULTLANG;
     }
 
     var got;
     got = this.languages[getLang][string];
 
     if ( got === undefined ) {
-	if ( getLang === Language.DEFAULTLANG ) {
-	    return 'Could not find "' + string + '"';
-	}
-	got = this.l( string, Language.DEFAULTLANG );
+        if ( getLang === Language.DEFAULTLANG ) {
+            return 'Could not find "' + string + '"';
+        }
+        got = this.l( string, Language.DEFAULTLANG );
     }
     return got;
 }
@@ -28,6 +28,9 @@ Language.l = function( string, lang ) {
 Language.languages = {
     en: {
 	reply: "reply",
+    close: "close",
+    placeholder: "enter text here.",
+    send: "send",
 	by: "by",
 	post: "post",	
 	thread: "thread",
@@ -46,7 +49,10 @@ Language.languages = {
     },
 
     sv: {
-	reply: "svar",
+	reply: "svara",
+    close: "stäng",
+    placeholder: "skriv in text här.",
+    send: "sänd",
 	by: "av",
 	post: "inlägg",
 	thread: "tråd",
