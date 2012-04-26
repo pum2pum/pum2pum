@@ -18,9 +18,9 @@ enyo.kind({
     //admin:
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
-        subForumDescrition = window.prompt("SubForum description");
-        if (subForumTitle != "" || subForumDescrition != "") {
-            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescrition);
+        subForumDescription = window.prompt("SubForum description");
+        if (subForumTitle != "" || subForumDescription != "") {
+            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescription);
         } else {
             console.log( "error creating subForum!" );
         }

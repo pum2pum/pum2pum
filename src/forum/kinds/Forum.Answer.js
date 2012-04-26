@@ -1,25 +1,30 @@
 enyo.kind({
-	name: "Answer",
-	kind: enyo.Control,
-	tag: "li",
+    name: "Answer",
+    kind: enyo.Control,
+    classes: "post",
+    tag: "li",
 
-	published: {
-		title: "",
-		dbparent: "",
-	},
+    published: {
+        title: "",
+        dbparent: "",
+    },
 
-	components: [
-		{ name: "message", classes: "answerMessage", tag: "p" },
-		{ name: "date", classes: "answerDate", tag: "p" },
-		{ name: "user", classes: "answerUser", tag: "p" }
-	],
+    components: [
+        { name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
+        { tag: "div", components: [
+            {name: "username", tag: "p", classes: "username" },
+            {name: "datetime", tag: "p", classes: "datetime" }
+        ] },
 
-	create: function(){
-		this.inherited(arguments);
-	
-		this.$.message.setContent(this.message);
-		this.$.date.setContent(this.date);
-		this.$.user.setContent(this.user);
-	},
+        { name: "text", tag: "p", classes: "text"},
+     ],
+
+    create: function(){
+        this.inherited(arguments);
+    
+        this.$.datetime.setContent(this.datetime);
+        this.$.username.setContent(this.username);
+        this.$.text.setContent(this.text);
+    }
 
 });
