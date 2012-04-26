@@ -158,6 +158,11 @@ li, ul {
 .PostContainer {
     background-color: #FFF000;
 }
+
+.answer{
+    width: 95%;
+    margin-left: 5%;
+}
 /*
 .PostContainer li:nth-child(even) {
 	background-image: url(images/bgs/forumbg2.png);
@@ -238,6 +243,8 @@ li, ul {
     font-size: 20pt;
     line-height: 65px;
 }
+
+
 
 /*********PostContainer********************/
 /*
