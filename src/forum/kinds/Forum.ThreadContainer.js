@@ -24,6 +24,11 @@ enyo.kind({
     },
 
     gotThreads: function( list ) {
+        if ( this.destroyed ) {
+            list.close();
+            return;
+        }
+
         this.$.threads.destroyClientControls();
     	enyo.forEach( list.items(), function( thread ) {
     		this.createComponent({
