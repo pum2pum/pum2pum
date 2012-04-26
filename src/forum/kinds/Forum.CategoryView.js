@@ -54,10 +54,10 @@ enyo.kind({
     },
 
     setByLang: function () {
-        this.$.posts.setContent(Language.l( "Posts", enyo.application.language).capitalize());
-        this.$.threads.setContent(Language.l( "Threads", enyo.application.language).capitalize());
-        this.$.newThreads.setContent(Language.l( "New Threads", enyo.application.language).capitalize());
-        this.$.btnNewCategory.setContent(Language.l( "New Category", enyo.application.language).capitalize());
+        this.$.posts.setContent(Language.l( "posts", enyo.application.language).capitalize());
+        this.$.threads.setContent(Language.l( "threads", enyo.application.language).capitalize());
+        this.$.newThreads.setContent(Language.l( "newThreads", enyo.application.language).capitalize());
+        this.$.btnNewCategory.setContent(Language.l( "newCategory", enyo.application.language).capitalize());
     },
 
     populate: function(){
