@@ -64,8 +64,12 @@ enyo.kind({
 		this.$.text.setContent(this.text);
 		this.$.datetime.setContent(this.datetime);
 		this.useridChanged();
-
+	this.setByLang();
 		enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.dbparent, 999, 0);
+    },
+
+    setByLang: function () {
+	this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
     },
 
     useridChanged: function () {
@@ -92,15 +96,15 @@ enyo.kind({
         }, this);
         this.render();
 
-    }
+    },
     
-/*    replyTap: function() {
+    replyTap: function() {
 		this.$.body.destroyComponents();
 		this.$.body.createComponent({
 		    kind: "ReplyBox",
 		    text: "",
 		    container: this.$.body
 		}).render();
-    }*/
+    }
     
 });

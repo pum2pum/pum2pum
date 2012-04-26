@@ -15,11 +15,11 @@ enyo.kind({
                 { tag: "div", classes: "title",
                     components: [ { tag: "p", content: "Forum" } ] },
                 { tag: "div", classes: "newThreads",
-                    components: [ { tag: "p", content: "New threads" } ] },
+                    components: [ { tag: "p", name: "newThreads" } ] },
                 { tag: "div", classes: "threads",
-                    components: [ { tag: "p", content: "Threads" } ] },
+                    components: [ { tag: "p", name: "threads" } ] },
                 { tag: "div", classes: "posts",
-                    components: [ { tag: "p", content: "Posts" } ] }
+                  components: [ { tag: "p", name: "posts" } ] }
             ]
          },
 
@@ -44,13 +44,20 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 		this.populate();
-
-        this.admin = false; //Make a check if you are admin
+	    this.setByLang();
+        this.admin = true; //Make a check if you are admin
 
         if (!this.admin) {
             this.removeChild(this.$.btnNewCategory);
         }
 	},
+
+    setByLang: function () {
+	this.$.posts.setContent(Language.l( "posts", enyo.application.language).capitalize());
+	this.$.threads.setContent(Language.l( "threads", enyo.application.language).capitalize());
+	this.$.newThreads.setContent(Language.l( "newThreads", enyo.application.language).capitalize());
+	this.$.btnNewCategory.setContent(Language.l( "newCategory", enyo.application.language).capitalize());
+    },
 
 	populate: function(){
 		enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
