@@ -6,7 +6,7 @@ enyo.kind({
 
 	components: [
         //admin:
-        { name: "btnNewSub", tag: "button", content: "New SubForum", ontap: "newSubForum", classes: "newSubForum"},
+        { name: "btnNewSub", tag: "button", ontap: "newSubForum", classes: "newSubForum"},
 
         { name: "subForum", tag: "ul", classes: "floatcontainer subForum"}
 	],
@@ -18,9 +18,12 @@ enyo.kind({
     //admin:
     newSubForum: function(){
         subForumTitle = window.prompt("SubForum title");
-        subForumDescrition = window.prompt("SubForum description");
-        if (subForumTitle != "" || subForumDescrition != "") {
-            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescrition);
+        subForumDescription = window.prompt("SubForum description");
+        if (subForumTitle != "" || subForumDescription != "") {
+	    console.log(this.category);
+	    console.log(enyo.application.db);
+	    console.log(subForumDescription);
+            enyo.application.db.newSubForum( null, this.category, subForumTitle, subForumDescription);
         } else {
             console.log( "error creating subForum!" );
         }
@@ -29,12 +32,15 @@ enyo.kind({
     create: function () {
 		this.inherited(arguments);
 		this.populate();
-
-        this.admin = false; //Make a check if you are admin
-
+	this.setByLang();
+        this.admin = true; //Make a check if you are admin
         if (!this.admin) {
             this.removeChild(this.$.btnNewSub);
         }
+    },
+    
+    setByLang: function () {
+	this.$.btnNewSub.setContent( Language.l("newSubForum", enyo.application.languge).capitalize());
     },
 
    	populate: function( ) {
