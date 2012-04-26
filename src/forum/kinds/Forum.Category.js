@@ -1,33 +1,33 @@
 enyo.kind({
-	name: "Category",
-	kind: enyo.Control,
-	tag: "li",
+    name: "Category",
+    kind: enyo.Control,
+    tag: "li",
     classes: "floatcontainer category",
 
-	components: [
-		{ name: "category", tag: "div", classes: "categoryContainerHead", components: [
-			{ name: "title", tag: "p" }
-		]},
+    components: [
+        { name: "category", tag: "div", classes: "categoryContainerHead", components: [
+            { name: "title", tag: "p" }
+        ]},
 
-		{ name: "subForumView", tag: "ul", classes: "subForumView" }
-	],
+        { name: "subForumView", tag: "ul", classes: "subForumView" }
+    ],
 
-	published: {
-		category: "",
-	},
+    published: {
+        category: "",
+    },
 
-	create: function(){
-		this.inherited(arguments);
-		this.createSubForumView();
-		this.$.title.setContent( this.title );
-	},
+    create: function(){
+        this.inherited(arguments);
+        this.createSubForumView();
+        this.$.title.setContent( this.title );
+    },
 
     createSubForumView: function( ) {
-   		this.createComponent({
-       		kind: "SubForumView",
+        this.createComponent({
+            kind: "SubForumView",
             container: this.$.subForumView,
             category: this.category
         });
-//        this.$.category.render();
+    //        this.$.category.render();
     }
 });
