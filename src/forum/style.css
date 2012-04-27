@@ -1,6 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	background-color: #DCE4F2;
 }
 
 h1, h2, h3, p, ul, li {
@@ -119,25 +120,41 @@ li, ul {
 
 /************PostView*****************/
 
+.post, .threadPost {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    
+}
+
 .post {
     border: 1px solid #1F54BC;
     border-radius: 12px;
     width: 95%;
-    margin-top: 20px;
-    margin-bottom: 0px;
     margin-left: 3%;
-    background-color: #DCE4F2;
 }
 
-.post .avatar {
+.threadPost {
+    border-bottom: 1px solid #1F54BC;
+}
+
+.post .avatar, .threadPost .avatar {
     border: 2 px solid #1F54BC;
     border-radius: 2px;
     float: left;
     clear: right;
     height: 100px;
     width: 62px;
+}
+
+.post .avatar {
     margin-left: -20px;
     margin-top: -20px;
+    margin-right: 6px;
+}
+
+.threadPost .avatar {
+    margin-left: 0px;
+    margin-top: 0px;
     margin-right: 6px;
 }
 
@@ -150,19 +167,28 @@ li, ul {
 
 }
 
-.post .text {
+.post .text, .threadPost .text {
     margin: 8px;
     padding: 6px;
-}
-
-.PostContainer {
-    background-color: #FFF000;
 }
 
 .answer{
     width: 95%;
     margin-left: 5%;
 }
+
+.threadPost {
+//    background-color: #FF0000;
+}
+/*.firstPost {
+    background-color: #FFFFFF;
+    border: 1px solid #1F54BC;
+    border-radius: 12px;
+    width: 95%;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 3%;
+}*/
 /*
 .PostContainer li:nth-child(even) {
 	background-image: url(images/bgs/forumbg2.png);

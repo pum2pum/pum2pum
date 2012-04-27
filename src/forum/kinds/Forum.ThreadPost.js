@@ -1,10 +1,10 @@
 enyo.kind({
-    name: "ForumPost",
+    name: "ThreadPost",
     tag: "li",
     kind: enyo.Control,
 
     components: [
-        { tag: "div",classes: "post", components: [
+        { tag: "div", classes: "threadPost", components: [
            { name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
             { tag: "div", components: [
                  {name: "username", tag: "p", classes: "username" },
@@ -26,7 +26,7 @@ enyo.kind({
     ],
 
     published: {
-        text: "default text in a post",
+        text: "default text in a thread post",
         userid: 0,
         datetime: "1970-13-37 00:00:00",
         node: null,
@@ -38,7 +38,6 @@ enyo.kind({
         this.hasClicked = !this.hasClicked;
 
         if (this.hasClicked) {
-
             this.$.replyButton.setContent(Language.l ("close", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-affirmative");
             this.$.replyButton.addClass("onyx-negative");
@@ -46,8 +45,8 @@ enyo.kind({
             this.$.replyBox.destroyComponents();
             this.$.replyBox.createComponent({
                 kind: "ReplyBox",
-                text: "Enter text here",
-                post: this.post,
+                text: "",
+                post: this,
                 container: this.$.replyBox
             }).render();
         } else {
@@ -55,17 +54,16 @@ enyo.kind({
             this.$.replyButton.removeClass("onyx-negative");
             this.$.replyButton.addClass("onyx-affirmative");
 
-            this.$.replyBox.destroyComponents();
+            this.$.replyBox.destroyComponents();            
         }
     },
 
     create: function () {
         this.inherited(arguments);
-        this.$.text.setContent(this.post.content);
-        this.$.datetime.setContent( enyo.application.tsToString( this.post.timestamp ));
+        this.$.text.setContent(this.text);
+        this.$.datetime.setContent(this.datetime);
         this.useridChanged();
         this.setByLang();
-        enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.post, 999, 0);
     },
 
     setByLang: function () {
@@ -74,24 +72,11 @@ enyo.kind({
 
     useridChanged: function () {
         var t = this;
+        console.log(t);
         enyo.application.db.getUser(function (user){
+         //   console.log(user.item());
             t.$.username.setContent(user.item().name);
         }, this.userid);
-    },
-
-    gotAnswers: function ( list ) {
-        enyo.forEach( list.items(), function( answer ) {
-            var time = enyo.application.tsToString( answer.timestamp );
-
-            this.createComponent({
-                kind: "Answer",
-                container: this.$.answers,
-                text: answer.content,
-                datetime: time,
-                username: answer.user
-            });
-        }, this);
-        this.render();
-
-    }   
+    }
+   
 });
