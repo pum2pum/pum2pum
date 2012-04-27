@@ -60,12 +60,12 @@ enyo.kind({
     },
 
     create: function () {
-		this.inherited(arguments);
-		this.$.text.setContent(this.text);
-		this.$.datetime.setContent(this.datetime);
-		this.useridChanged();
-	this.setByLang();
-		enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.dbparent, 999, 0);
+        this.inherited(arguments);
+        this.$.text.setContent(this.text);
+        this.$.datetime.setContent(this.datetime);
+        this.useridChanged();
+        this.setByLang();
+        enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.dbparent, 999, 0);
     },
 
     setByLang: function () {
