@@ -33,7 +33,8 @@ Language.languages = {
 		topic: "topic",
 		post: "post",
 		posts: "posts",
-		startedBy: "started by"
+		startedBy: "started by",
+        newThread: "create new thread"
 	},
 
 	sv: {
@@ -43,6 +44,7 @@ Language.languages = {
 		topic: "ämne",
 		post: "inlägg",
 		posts: "inlägg",
-		startedBy: "startad av"
+		startedBy: "startad av",
+        newThread: "skapa ny tråd"
 	}
 }
