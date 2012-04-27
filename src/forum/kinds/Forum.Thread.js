@@ -1,6 +1,6 @@
 enyo.kind({
     name: "ForumThread",
-    kind: enyo.Control,
+    //kind: enyo.Control,
     tag: "li",
     classes: "floatcontainer thread",
 
@@ -88,7 +88,8 @@ enyo.kind({
     },
 
     tap: function( sender, event ) {
-        this.bubble( "onChangeView", { kind: "ForumPostContainer", thread: this.thread } );
+        enyo.application.changeView( "thread", this.thread.id );
+        //this.bubble( "onChangeView", { kind: "ForumPostContainer", thread: this.thread } );
     }
 
 });

@@ -1,69 +1,81 @@
 enyo.kind({
-	name: "CategoryView",
-	kind: enyo.Control,
-	tag: "div",
+    name: "CategoryView",
+    kind: enyo.Control,
+    tag: "div",
     admin: true,
 
     classes: "categoryView",
 
-	components: [
-		//admin:
-   		{ name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
-	
+    components: [
+        //admin:
+        { name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
+    
         { tag: "div", classes: "categoryContainerListHead floatcontainer", 
-            components: [
+            components: [   
                 { tag: "div", classes: "title",
                     components: [ { tag: "p", content: "Forum" } ] },
                 { tag: "div", classes: "newThreads",
-                    components: [ { tag: "p", content: "New threads" } ] },
+                    components: [ { tag: "p", name: "newThreads" } ] },
                 { tag: "div", classes: "threads",
-                    components: [ { tag: "p", content: "Threads" } ] },
+                    components: [ { tag: "p", name: "threads" } ] },
                 { tag: "div", classes: "posts",
-                    components: [ { tag: "p", content: "Posts" } ] }
+                  components: [ { tag: "p", name: "posts" } ] }
             ]
          },
 
-		{ name: "categories", tag: "ul", classes: "floatcontainer category"}
-	],
+        { name: "categories", tag: "ul", classes: "floatcontainer category"}
+    ],
 
-	published: {
-		title: "",
-	},
+    published: {
+        title: "",
+    },
 
-	//admin:
-	newCategory: function(){
-		categoryTitle = window.prompt("Category title");
-		categoryDescription = window.prompt("Category description");
+    //admin:
+    newCategory: function(){
+        categoryTitle = window.prompt("Category title");
+        categoryDescription = window.prompt("Category description");
         if (categoryTitle != "" || categoryDescription != "") {
-			enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
+            enyo.application.db.newCategory( null, categoryTitle, categoryDescription);
         } else {
             console.log( "error creating category!" );
         }
-	},
+    },
 
-	create: function(){
-		this.inherited(arguments);
-		this.populate();
+    create: function(){
+        this.inherited(arguments);
+        this.populate();
+        this.setByLang();
 
         this.admin = false; //Make a check if you are admin
 
         if (!this.admin) {
             this.removeChild(this.$.btnNewCategory);
         }
-	},
+    },
 
-	populate: function(){
-		enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
-	},
+    setByLang: function () {
+        this.$.posts.setContent(Language.l( "posts", enyo.application.language).capitalize());
+        this.$.threads.setContent(Language.l( "threads", enyo.application.language).capitalize());
+        this.$.newThreads.setContent(Language.l( "newThreads", enyo.application.language).capitalize());
+        this.$.btnNewCategory.setContent(Language.l( "newCategory", enyo.application.language).capitalize());
+    },
+
+    populate: function(){
+        enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
+    },
 
     gotCategories: function( list ) {
+        if ( this.destroyed ) {
+            list.close();
+            return;
+        }
     	enyo.forEach( list.items(), function( category ) {
     		this.createComponent({
         		kind: "Category",
                 container: this.$.categories,
                 title: category.title,
                 category: category,
-        	});
+            });
         }, this);
         this.$.categories.render();
     }

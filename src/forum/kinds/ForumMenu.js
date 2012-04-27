@@ -31,8 +31,8 @@ enyo.kind({
 
         this.$.ShowMenuItem.removeClass("visibleItem");
         this.$.ShowMenuItem.addClass("hiddenItem");
-        
     },
+    
     hide: function(){
 
         this.$.UsersMenuItem.removeClass("visibleItem");
