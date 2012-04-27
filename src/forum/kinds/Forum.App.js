@@ -3,28 +3,76 @@ enyo.kind({
 	kind: enyo.Control,
 	tag: "div",
 	components: [
-		{kind: "ForumMenu", name: "forumMenu"},
-		{kind: "ForumView", name: "forumView"}
+		{ kind: "ForumMenu", name: "forumMenu" },
+		{ kind: "ForumView", name: "forumView" }
 	],
 
 	handlers: {
-		onChangeView: "changeView",
 		onHideMenu: "hideMenu",
-		onShowMenu: "showMenu"
+		onShowMenu: "showMenu",
+		onhashchange: "hashchange"
 	},
 
-	changeView: function( sender, props ){
-		newComponent = {
-			container: this.$.forumView
-		};
+	showCategoryView: function () {
+		console.log( "categoryview" );
+		this.$.forumView.createComponent({
+			kind: "CategoryView"
+		});
+		this.render();
+	},
 
-		for( prop in props ) {
-			newComponent[prop] = props[prop];
+	showSubForumView: function ( id ) {
+		var that = this;
+		id = parseInt( id );
+		function gotItem ( item ) {
+			that.$.forumView.createComponent({
+				kind: "ForumThreadContainer",
+				subForum: item.item()
+			});
+			that.render();
+		}
+
+		enyo.application.db.getSubForum( gotItem, id );
+	},
+
+	showThreadView: function ( id ) {
+		var that = this;
+		id = parseInt( id );
+		function gotItem ( item ) {
+			that.$.forumView.createComponent({
+				kind: "ForumPostContainer",
+				thread: item.item()
+			});
+			that.render();
+		}
+
+		enyo.application.db.getThread( gotItem, id );
+	},
+
+	hashchange: function ( sender, event ) {
+		console.log("hashchange");
+		var hash = location.hash.substr( 1 );
+		var valuePairs = hash.split( "&" );
+		var tmpValue;
+		var values = { };
+		for ( i = 0; i < valuePairs.length; ++i ) {
+			var tmp = valuePairs[i].split("=");
+			values[tmp[0]] = tmp[1];
 		}
 
 		this.$.forumView.destroyClientControls();
-		this.createComponent( newComponent );
-		this.$.forumView.render();
+
+		switch ( values["kind"] ) {
+			case "subForum":
+				this.showSubForumView( values["id"] );
+				break;
+			case "thread":
+				this.showThreadView( values["id"] );
+				break;
+			default:
+				this.showCategoryView();
+				break;
+		}
 	},
 
 	hideMenu: function(){
@@ -38,8 +86,6 @@ enyo.kind({
 	create: function () {
 		this.inherited( arguments );
 
-		this.$.forumView.createComponent({
-			kind: "CategoryView"
-		});
+		this.hashchange();
 	}
 });
