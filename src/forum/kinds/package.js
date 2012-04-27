@@ -13,16 +13,20 @@ enyo.depends(
 	"Forum.App.js",
 
 	// Files related to the top menu
-	"ForumMenu.js",
 	"MenuItem.js",
 	"CollapseMenuItem.js",
 	"RepliesMenuItem.js",
 	"UsersMenuItem.js",
+	"ShowMenuItem.js",
+	"ForumMenu.js",
 
 	// Top-level views to be loaded beneath the menu
 	"ForumView.js",
 	"RepliesView.js",
 	"SettingsView.js",
 	"UsersView.js",
-	"RepliesView.js"
+	"RepliesView.js",
+
+	//Login
+	"Login.js"
 );
