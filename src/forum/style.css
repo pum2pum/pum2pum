@@ -304,6 +304,9 @@ li, ul {
 .newThreadTitleBox label{
     width: 100%;
 }
+.newThreadTitleBox label input{
+    width: 100%;
+}
 
 .newThreadPostBox{
     width: 95%;
@@ -312,7 +315,7 @@ li, ul {
 .newThreadPostBox label{
     width: 100%;
 }
-.newThreadPostBox label input{
+.newThreadPostBox label textarea{
     width: 100%;
 }
 
