@@ -16,7 +16,8 @@ enyo.application = {
 	db: new forumDatabase(),
 
 	tsToString: function( uts ) {
-		function (n) {
+
+		function pad (n) {
 			return n < 10 ? ("0" + n) : n;
 		}
 		var date = new Date( uts * 1000 );
