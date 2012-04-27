@@ -50,7 +50,7 @@ Language.languages = {
     newThread: "create new thread",
     abort: "abort",
     postThread: "post",
-    confirmAbortion: "really tabort? Filled in text is not saved!"
+    confirmAbortion: "really abort? Filled in text is not saved!"
     },
 
     sv: {
