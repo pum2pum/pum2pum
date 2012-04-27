@@ -38,6 +38,7 @@ enyo.kind({
         this.hasClicked = !this.hasClicked;
 
         if (this.hasClicked) {
+
             this.$.replyButton.setContent(Language.l ("close", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-affirmative");
             this.$.replyButton.addClass("onyx-negative");
@@ -45,8 +46,8 @@ enyo.kind({
             this.$.replyBox.destroyComponents();
             this.$.replyBox.createComponent({
                 kind: "ReplyBox",
-                text: "",
-                post: this,
+                text: "Enter text here",
+                post: this.post,
                 container: this.$.replyBox
             }).render();
         } else {
@@ -54,17 +55,17 @@ enyo.kind({
             this.$.replyButton.removeClass("onyx-negative");
             this.$.replyButton.addClass("onyx-affirmative");
 
-            this.$.replyBox.destroyComponents();            
+            this.$.replyBox.destroyComponents();
         }
     },
 
     create: function () {
         this.inherited(arguments);
-        this.$.text.setContent(this.text);
-        this.$.datetime.setContent(this.datetime);
+        this.$.text.setContent(this.post.content);
+        this.$.datetime.setContent( enyo.application.tsToString( this.post.timestamp ));
         this.useridChanged();
         this.setByLang();
-        enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.dbparent, 999, 0);
+        enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.post, 999, 0);
     },
 
     setByLang: function () {
@@ -73,16 +74,13 @@ enyo.kind({
 
     useridChanged: function () {
         var t = this;
-        console.log(t);
         enyo.application.db.getUser(function (user){
-         //   console.log(user.item());
             t.$.username.setContent(user.item().name);
         }, this.userid);
     },
 
     gotAnswers: function ( list ) {
         enyo.forEach( list.items(), function( answer ) {
-            console.log(answer);
             var time = enyo.application.tsToString( answer.timestamp );
 
             this.createComponent({

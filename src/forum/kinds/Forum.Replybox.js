@@ -5,7 +5,7 @@ enyo.kind({
     components: [
         { classes: "onyx-toolbar-inline maxSize", components: [
             { kind: "onyx.InputDecorator", components: [
-                { kind: "onyx.RichText", name: "replyText",placeholder: "Enter text here"}
+                { kind: "onyx.RichText", name: "replyText", ontap: "clearReplyText" }
             ]}
         ]},
         { style: "padding: 10px;", components: [
@@ -19,9 +19,14 @@ enyo.kind({
         post: ""
     },
 
+    clearReplyText: function () {
+        this.$.replyText.setContent("");
+    },
+
     create: function () {
         this.inherited(arguments);
         this.setByLang();
+        this.$.replyText.setContent(this.text);
     },
 
     setByLang: function () {
@@ -29,8 +34,8 @@ enyo.kind({
     },
 
     sendTap: function () {
-        if (this.replyText != "") {
-            enyo.application.db.newAnswer( null, this.post, this.replyText);
+        if (this.$.replyText.getValue() != "") {
+            enyo.application.db.newAnswer( null, this.post, this.$.replyText.getValue());
         }
     }
 });

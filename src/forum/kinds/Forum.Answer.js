@@ -16,7 +16,7 @@ enyo.kind({
             {name: "datetime", tag: "p", classes: "datetime" }
         ] },
 
-        { name: "text", tag: "p", classes: "text"},
+        { name: "text", tag: "p", classes: "text", allowHtml: true },
     ],
 
     create: function(){
