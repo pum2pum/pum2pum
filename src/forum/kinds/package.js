@@ -23,5 +23,8 @@ enyo.depends(
 	"RepliesView.js",
 	"SettingsView.js",
 	"UsersView.js",
-	"RepliesView.js"
+	"RepliesView.js",
+
+	//Login
+	"Login.js"
 );

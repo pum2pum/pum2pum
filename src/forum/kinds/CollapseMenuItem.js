@@ -6,6 +6,7 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	tap: function(){
-		this.bubble("HideMenu");
+		this.bubble("onHideMenu");
 	}
+
 });

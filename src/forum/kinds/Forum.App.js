@@ -28,11 +28,11 @@ enyo.kind({
 	},
 
 	hideMenu: function(){
-		this.$.forumMenu.Hide();
+		this.$.forumMenu.hide();
 	},
 
 	showMenu: function(){
-		this.$forumMenu.Show();
+		this.$.forumMenu.show();
 	},
 
 	create: function () {

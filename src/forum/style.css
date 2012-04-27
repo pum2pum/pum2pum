@@ -215,3 +215,12 @@ li, ul {
     font-size: 20pt;
     line-height: 65px;
 }
+
+
+.visibleItem{
+    display: inline-block;
+}
+
+.hiddenItem{
+    display: none;
+}
