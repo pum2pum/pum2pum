@@ -251,6 +251,7 @@ li, ul {
 
 .hiddenItem{
     display: none;
+}
 
 /*********PostContainer********************/
 /*
@@ -292,23 +293,29 @@ li, ul {
     left: 0;
 }
 
-.newThreadTitle{
-    width: 80%;
-    margin: 0 auto;
-    display: block;
-    text-align: center;
-}
-
-.newThreadPost{
-    width: 95%;
-    margin: 0 auto;
-    display: block;
-}
-
 .newThreadButtonsHolder{
     text-align: center;
 }
 
 .newThreadTitleBox{
-    width: 90%;
+    width: 80%;
+    margin: 0 auto;
+}
+.newThreadTitleBox label{
+    width: 100%;
+}
+
+.newThreadPostBox{
+    width: 95%;
+    margin: 0 auto;
+}
+.newThreadPostBox label{
+    width: 100%;
+}
+.newThreadPostBox label input{
+    width: 100%;
+}
+
+.errorEmptyInput{
+    background-color: red !important;
 }

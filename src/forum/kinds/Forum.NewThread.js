@@ -10,57 +10,44 @@ enyo.kind({
     classes: ["newThread"],
     
     components: [
-        {classes: "onyx-toolbar-inline maxSize titleBox", components: [
+        {classes: "onyx-toolbar-inline maxSize newThreadTitleBox", components: [
             {kind: "onyx.InputDecorator", components: [
-                {kind: "onyx.RichText", name: "title", placeholder: "Enter text here"}
+                {kind: "onyx.Input", name: "title", placeholder: ""}
             ]}
         ]},
-        {tag: "input", name: "post", classes: ["newThreadPost"]},
+        {classes: "onyx-toolbar-inline maxSize newThreadPostBox", components: [
+            {kind: "onyx.InputDecorator", components: [
+                {kind: "onyx.RichText", name: "post"}
+            ]}
+        ]},
         {tag: "div", classes: ["newThreadButtonsHolder"], components: [
-            {tag: "button", content: "Avbryt", ontap: "abort"},
-            {tag: "button", content: "Posta", ontap: "postThread"}]}],
+            {tag: "button", name: "abortButton", content: "", ontap: "abort"},
+            {tag: "button", name: "postButton", content: "", ontap: "postThread"}]}],
     
-    published: {
-        title: "",
-        post: ""
-    },
-    
-    create: function(){
+    create: function () {
         
         this.inherited(arguments);
         
-        this.titleChanged();
-        this.postChanged();
+        this.$.abortButton.setContent(Language.l("abort", enyo.application.language).capitalize());
+        this.$.postButton.setContent(Language.l("postThread", enyo.application.language).capitalize());
+        this.$.title.setPlaceholder(Language.l("topic", enyo.application.language).capitalize());
         
-    },
-    
-    titleChanged: function(){
-        this.$.title.setContent(this.title);
-    },
-    
-    postChanged: function(){
-        this.$.post.setContent(this.post);
-    },
-    
-    sendTap: function () {
-        if (this.replyText != "") {
-            enyo.application.db.newAnswer( null, this.post, this.replyText);
-        }
     },
     
     abort: function(){
         
         // Get thread data
-        var title = this.$.title.hasNode().value;
-        var post = this.$.post.hasNode().value;
+        var title = this.$.title.getValue();
+        var post = this.$.post.getValue();
         
         var abort = true;
         
         // If anything is filled in...
         if(title.length != 0 || post.length != 0){
             
-            // ...confirm the abortation
-            abort = confirm("Kasta tråden? Ifylld text sparas ej.");
+            // ...confirm the abortion
+            var text = Language.l("confirmAbortion", enyo.application.language).capitalize();
+            abort = confirm(text);
             
         }
         
@@ -75,33 +62,42 @@ enyo.kind({
     postThread: function(){
         
         // Get thread data
-        var title = this.$.title.hasNode().value;
-        var post = this.$.post.hasNode().value;
+        var title = this.$.title.getValue();
+        var post = this.$.post.getValue();
         
         // Validate
-        var errors = new Array();
+        var errorsExist = false;
         
         if(title.length == 0){
             
-            errors.push("ThreadErrorEmptyTitle");
+            errorsExist = true;
+            this.$.title.addClass("errorEmptyInput");
+            var that = this;
+            window.setTimeout(function(){
+                
+                that.$.title.removeClass("errorEmptyInput");
+                
+                }, 1000);
+            
             
         }
         
         if(post.length == 0){
             
-            errors.push("ThreadErrorEmptyPost");
+            errorsExist = true;
+            this.$.post.addClass("errorEmptyInput");
+            var that = this;
+            window.setTimeout(function(){
+                
+                that.$.post.removeClass("errorEmptyInput");
+                
+                }, 1000);
             
         }
         
-        if(errors.length == 0){
+        if(!errorsExist){
             
-            // Everything ok
             this.cbSuccess(title, post);
-            
-        }else{
-            
-            // Everything not ok!
-            // TODO, show errors
             
         }
         
