@@ -1,0 +1,10 @@
+enyo.depends(
+    "/socket.io/socket.io.js",
+    "api.js",
+    "../../forumdatabase.js",
+    "../../style.css",
+    "../../lib/onyx",
+    "../../kinds",
+    "../../kinds/Forum.Forum.js",
+    "../../lib/extra/jsonp"
+);
