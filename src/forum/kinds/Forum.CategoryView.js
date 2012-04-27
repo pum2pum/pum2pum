@@ -11,7 +11,7 @@ enyo.kind({
         { name: "btnNewCategory", tag: "button", content: "New Category", ontap: "newCategory", classes: "newCategory"},
     
         { tag: "div", classes: "categoryContainerListHead floatcontainer", 
-            components: [
+            components: [   
                 { tag: "div", classes: "title",
                     components: [ { tag: "p", content: "Forum" } ] },
                 { tag: "div", classes: "newThreads",

@@ -1,6 +1,7 @@
 enyo.depends(
 	"Forum.ThreadContainer.js",
 	"Forum.Thread.js",
+    "Forum.NewThread.js",
 	"Forum.PostContainer.js",
 	"Forum.Post.js",
 	"Forum.Answer.js",

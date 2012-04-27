@@ -45,7 +45,8 @@ Language.languages = {
 	newThreads: "new threads",
 	newCategory: "new category",
 	//SubForumView
-	newSubForum: "new subforum"
+	newSubForum: "new subforum",
+    newThread: "create new thread"
     },
 
     sv: {
@@ -67,6 +68,7 @@ Language.languages = {
 	newThreads: "nya trådar",
 	newCategory: "Ny Kategori",
 	//SubForumView
-	newSubForum: "Nytt Subforum"
+	newSubForum: "Nytt Subforum",
+    newThread: "skapa ny tråd"
     }
 }
