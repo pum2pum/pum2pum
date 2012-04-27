@@ -302,3 +302,7 @@ li, ul {
 .newThreadButtonsHolder{
     text-align: center;
 }
+
+.newThreadTitleBox{
+    width: 90%;
+}
