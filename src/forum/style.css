@@ -130,6 +130,8 @@ li, ul {
 }
 
 .post .avatar {
+    border: 2 px solid #1F54BC;
+    border-radius: 2px;
     float: left;
     clear: right;
     height: 100px;
@@ -155,6 +157,11 @@ li, ul {
 
 .PostContainer {
     background-color: #FFF000;
+}
+
+.answer{
+    width: 95%;
+    margin-left: 5%;
 }
 /*
 .PostContainer li:nth-child(even) {
@@ -236,6 +243,8 @@ li, ul {
     font-size: 20pt;
     line-height: 65px;
 }
+
+
 
 /*********PostContainer********************/
 /*
