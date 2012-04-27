@@ -245,6 +245,12 @@ li, ul {
 }
 
 
+.visibleItem{
+    display: inline-block;
+}
+
+.hiddenItem{
+    display: none;
 
 /*********PostContainer********************/
 /*

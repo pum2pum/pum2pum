@@ -65,9 +65,13 @@ enyo.kind({
     },
 
     gotCategories: function( list ) {
-        enyo.forEach( list.items(), function( category ) {
-        this.createComponent({
-            kind: "Category",
+        if ( this.destroyed ) {
+            list.close();
+            return;
+        }
+    	enyo.forEach( list.items(), function( category ) {
+    		this.createComponent({
+        		kind: "Category",
                 container: this.$.categories,
                 title: category.title,
                 category: category,

@@ -24,9 +24,9 @@ enyo.kind({
         subForum: ""
     },
 
-    goToThread: function(){
-        this.bubble( "onChangeView", { kind: "ForumThreadContainer", subForum: this.subForum } );
-    },
+	goToThread: function(){
+        enyo.application.changeView( "subForum", this.subForum.id );
+	},
 
     create: function(){
         this.inherited(arguments);

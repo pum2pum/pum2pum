@@ -1,8 +1,10 @@
-enyo.Kind({
+enyo.kind({
 	name: "ShowMenuItem",
 	kind: "MenuItem",
-	
-	ontap: function(){
-		this.bubble("ShowMenu");
+	create: function(){
+		this.inherited(arguments);
+	},
+	tap: function(){
+		this.bubble("onShowMenu");
 	}
 })
