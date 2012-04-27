@@ -1,6 +1,6 @@
 enyo.kind({
     name: "ForumThread",
-    kind: enyo.Control,
+    //kind: enyo.Control,
     tag: "li",
     classes: "floatcontainer thread",
 

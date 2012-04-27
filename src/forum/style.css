@@ -130,6 +130,8 @@ li, ul {
 }
 
 .post .avatar {
+    border: 2 px solid #1F54BC;
+    border-radius: 2px;
     float: left;
     clear: right;
     height: 100px;
@@ -155,6 +157,11 @@ li, ul {
 
 .PostContainer {
     background-color: #FFF000;
+}
+
+.answer{
+    width: 95%;
+    margin-left: 5%;
 }
 /*
 .PostContainer li:nth-child(even) {
@@ -237,6 +244,8 @@ li, ul {
     line-height: 65px;
 }
 
+
+
 /*********PostContainer********************/
 /*
 .post {
@@ -266,3 +275,34 @@ li, ul {
     padding-bottom: 20px;
 }
 */
+
+/* Forum.NewThread.js */
+.newThread{
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.newThreadTitle{
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.newThreadPost{
+    width: 95%;
+    margin: 0 auto;
+    display: block;
+}
+
+.newThreadButtonsHolder{
+    text-align: center;
+}
+
+.newThreadTitleBox{
+    width: 90%;
+}
