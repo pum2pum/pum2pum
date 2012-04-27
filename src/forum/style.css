@@ -130,6 +130,8 @@ li, ul {
 }
 
 .post .avatar {
+    border: 2 px solid #1F54BC;
+    border-radius: 2px;
     float: left;
     clear: right;
     height: 100px;

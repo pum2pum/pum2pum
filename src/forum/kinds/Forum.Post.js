@@ -5,33 +5,32 @@ enyo.kind({
 
     components: [
         { tag: "div", classes: "post", components: [
-    		{ name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
-    		{ tag: "div", 
-    		 components: [
-    		     {name: "username", tag: "p", classes: "username" },
-    		     {name: "datetime", tag: "p", classes: "datetime" }
-    		] },
+           { name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
+            { tag: "div", components: [
+                 {name: "username", tag: "p", classes: "username" },
+                 {name: "datetime", tag: "p", classes: "datetime" }
+            ] },
 
-    		{ name: "text", tag: "p", classes: "text"},
-    	
+            { name: "text", tag: "p", classes: "text"},
+        
             {style: "padding: 10px;", components: [
                 {classes: "tools", defaultKind: "onyx.Button", components: [
-                    { name: "replyButton", content: "Reply", ontap: "replyTap", classes: "onyx-affirmative"}
+                    { name: "replyButton", ontap: "replyTap", classes: "onyx-affirmative"}
                 ]}
             ]},
 
             { name: "replyBox", tag: "div", classes: "replyBox" }
         ]},
 
-		{ name: "answers", tag: "ul", classes: "answer"}
+        { name: "answers", tag: "ul", classes: "answer"}
     ],
 
     published: {
-		text: "default text in a post",
-		userid: 0,
-		datetime: "1970-13-37 00:00:00",
-		node: null,
-		dbparent: "",
+        text: "default text in a post",
+        userid: 0,
+        datetime: "1970-13-37 00:00:00",
+        node: null,
+        dbparent: "",
         hasClicked: false
     },
 
@@ -39,7 +38,7 @@ enyo.kind({
         this.hasClicked = !this.hasClicked;
 
         if (this.hasClicked) {
-            this.$.replyButton.setContent("Close");
+            this.$.replyButton.setContent(Language.l ("close", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-affirmative");
             this.$.replyButton.addClass("onyx-negative");
 
@@ -51,7 +50,7 @@ enyo.kind({
                 container: this.$.replyBox
             }).render();
         } else {
-            this.$.replyButton.setContent("Reply");
+            this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
             this.$.replyButton.removeClass("onyx-negative");
             this.$.replyButton.addClass("onyx-affirmative");
 
@@ -69,42 +68,32 @@ enyo.kind({
     },
 
     setByLang: function () {
-	this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
+        this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
     },
 
     useridChanged: function () {
-		var t = this;
-		console.log(t);
-		enyo.application.db.getUser(function (user){
-		 //   console.log(user.item());
-		    t.$.username.setContent(user.item().name);
-		}, this.userid);
+        var t = this;
+        console.log(t);
+        enyo.application.db.getUser(function (user){
+         //   console.log(user.item());
+            t.$.username.setContent(user.item().name);
+        }, this.userid);
     },
 
     gotAnswers: function ( list ) {
-    	enyo.forEach( list.items(), function( answer ) {
+        enyo.forEach( list.items(), function( answer ) {
             console.log(answer);
-    		var time = enyo.application.tsToString( answer.timestamp );
+            var time = enyo.application.tsToString( answer.timestamp );
 
-    		this.createComponent({
-        		kind: "Answer",
+            this.createComponent({
+                kind: "Answer",
                 container: this.$.answers,
                 text: answer.content,
                 datetime: time,
                 username: answer.user
-        	});
+            });
         }, this);
         this.render();
 
-    },
-    
-    replyTap: function() {
-		this.$.body.destroyComponents();
-		this.$.body.createComponent({
-		    kind: "ReplyBox",
-		    text: "",
-		    container: this.$.body
-		}).render();
-    }
-    
+    }   
 });

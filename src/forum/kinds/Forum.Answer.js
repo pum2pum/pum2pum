@@ -17,11 +17,11 @@ enyo.kind({
         ] },
 
         { name: "text", tag: "p", classes: "text"},
-     ],
+    ],
 
     create: function(){
         this.inherited(arguments);
-    
+
         this.$.datetime.setContent(this.datetime);
         this.$.username.setContent(this.username);
         this.$.text.setContent(this.text);
