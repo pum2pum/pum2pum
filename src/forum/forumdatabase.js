@@ -4,6 +4,13 @@ function forumDatabase( ){
 	this.loggedIn = false;
 };
 
+forumDatabase._CATEGORY_ATTRIBUTES = { 'title': 1, 'description': 1 };
+forumDatabase._SUB_FORUM_ATTRIBUTES = {'title': 1, 'description': 1 };
+forumDatabase._THREAD_ATTRIBUTES = { 'title': 1, 'content': 1, 'lastUpdated': 1 };
+forumDatabase._POST_ATTRIBUTES = { 'content': 1 };
+forumDatabase._ANSWER_ATTRIBUTES = { 'content': 1 };
+forumDatabase._USER_ATTRIBUTES = { 'name': 1, '_online': 1 };
+
 forumDatabase.prototype = {
 
 	/** Login to the database
@@ -53,7 +60,7 @@ forumDatabase.prototype = {
 	getCategories: function ( cb, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			'/categories', '->', null, { 'title': 1, 'description': 1 },
+			'/categories', '->', null, forumDatabase._CATEGORY_ATTRIBUTES,
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
 	},
 
@@ -83,8 +90,12 @@ forumDatabase.prototype = {
 	getSubForums: function( cb, cat, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			cat, '->', null, {'title': 1, 'description': 1 },
+			cat, '->', null, forumDatabase._SUB_FORUM_ATTRIBUTES,
 			num, start, null, [{name:'title', dir: "desc", nocase: 1 }]);
+	},
+
+	getSubForum: function( cb, id ) {
+		this.get( cb, id, forumDatabase._SUB_FORUM_ATTRIBUTES );
 	},
 
 	/** Creates a new Thread 
@@ -114,9 +125,14 @@ forumDatabase.prototype = {
 	getThreads: function( cb, subForum, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			subForum, '->', null, { 'title': 1, 'content': 1, 'lastUpdated': 1 },
+			subForum, '->', null, forumDatabase._THREAD_ATTRIBUTES,
 			num, start, null, [ { name:'lastUpdated', dir: "desc" } ] );
 			//num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
+	},
+
+	/* Gets a single thread */
+	getThread: function( cb, id ) {
+		this.get( cb, id, forumDatabase._THREAD_ATTRIBUTES );
 	},
 
 	/** Creates a new Post 
@@ -154,8 +170,12 @@ forumDatabase.prototype = {
 	getPosts: function( cb, thread, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			thread, '->', null, { 'content':1 },
+			thread, '->', null, forumDatabase._POST_ATTRIBUTES,
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
+	},
+
+	getPost: function( cb, id ) {
+		this.get( cb, id, forumDatabase._POST_ATTRIBUTES );
 	},
 
 	/** Creates a new Answer
@@ -183,8 +203,12 @@ forumDatabase.prototype = {
 	getAnswers: function( cb, post, num, start ) {
 		var that = this;
 		this.liveDB.list( function( arg ) { that.callbackTunnel( cb, arg ); },
-			post, '->', null, { 'content': 1 },
+			post, '->', null, forumDatabase._ANSWER_ATTRIBUTES,
 			num, start, null, [ { name:'title', dir: "desc", nocase: 1 } ] );
+	},
+
+	getAnswer: function( cb, id ) {
+		this.get( cb, id, forumDatabase._ANSWER_ATTRIBUTES );
 	},
 
 	/** Gets the username of a user with a specific id
@@ -194,7 +218,7 @@ forumDatabase.prototype = {
 	* userId 	- The userid of the user to be fetched
 	**/
 	getUser: function( cb, userId ) {
-		this.liveDB.get(userId, { 'name': 1, '_online': 1 }, cb );
+		this.get( cb, userId, forumDatabase._USER_ATTRIBUTES );
 	},
 
 	/** Gets all the users

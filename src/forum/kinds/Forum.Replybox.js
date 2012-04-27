@@ -1,53 +1,36 @@
 enyo.kind({
     name: "ReplyBox",
-    classes: "onyx",
     kind: enyo.Control,
+
     components: [
-	//	{name: "body", tag: "output"},
-	{classes: "onyx-toolbar-inline", components: [
-	    {kind: "onyx.InputDecorator", components: [
-		{kind: "onyx.Input", name: "replyText", placeholder: "Enter text here"}
-	    ]}
-	]},
-	{style: "padding: 10px;", components: [
-	    {classes: "tools", defaultKind: "onyx.Button", components: [
-		{name: "send", kind: "onyx.Button", content: "send", ontap: "sendTap", classes: "onyx-blue"},
-		{name: "closeReplyButton", content: "Close", ontap: "closeReplyTap", classes: "onyx-negative"}
-	    ]}
-	]}
+        { classes: "onyx-toolbar-inline maxSize", components: [
+            { kind: "onyx.InputDecorator", components: [
+                { kind: "onyx.RichText", name: "replyText",placeholder: "Enter text here"}
+            ]}
+        ]},
+        { style: "padding: 10px;", components: [
+            { classes: "tools", defaultKind: "onyx.Button", components: [
+                { name: "send", kind: "onyx.Button", ontap: "sendTap", classes: "onyx-blue"}
+            ]}
+        ]},
     ],
+
     published: {
-	container: ""
-    },
-    
-    create: function () {
-	this.inherited(arguments);
-	this.containerChanged();
-	//this.$.replyText.setValue(this.text);
-	//this.textChanged();
-	/*	this.$.body.createComponent({
-		kind: "RichText", 
-		value: "To <b>boldly</b> go..", 
-		onchange: "richTextChange",
-		//kind: "enyo.RichText",
-		//name: "rasdasfe"
-		}).render();*/
+        post: ""
     },
 
-    /*'  textChanged: function () {
-      this.$.text.setContent(this.text);
-      },
-    */
-    
-/*    containerChanged: function () {
-	this.$.cont = this.cont */
-    sendTap: function () {
-	//this.container.replyButton.show();
-	this.$.replyText.setValue("");
-	
+    create: function () {
+        this.inherited(arguments);
+        this.setByLang();
     },
-    
-    closeReplyTap: function () {
-	this.hide();
+
+    setByLang: function () {
+        this.$.send.setContent(Language.l ("send", enyo.application.language).capitalize());
+    },
+
+    sendTap: function () {
+        if (this.replyText != "") {
+            enyo.application.db.newAnswer( null, this.post, this.replyText);
+        }
     }
 });
