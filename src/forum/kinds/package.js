@@ -4,6 +4,7 @@ enyo.depends(
     "Forum.NewThread.js",
 	"Forum.PostContainer.js",
 	"Forum.Post.js",
+    "Forum.ThreadPost.js",
 	"Forum.Answer.js",
 	"Forum.Replybox.js",
 	"Forum.Category.js",
@@ -11,7 +12,6 @@ enyo.depends(
 	"Forum.SubForum.js",
 	"Forum.CategoryView.js",
 	"Forum.App.js",
-
 	// Files related to the top menu
 	"ForumMenu.js",
 	"MenuItem.js",

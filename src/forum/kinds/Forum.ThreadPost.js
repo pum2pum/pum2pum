@@ -1,10 +1,10 @@
 enyo.kind({
-    name: "ForumPost",
+    name: "ThreadPost",
     tag: "li",
     kind: enyo.Control,
 
     components: [
-        { tag: "div",classes: "post", components: [
+        { tag: "div", classes: "threadPost", components: [
            { name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
             { tag: "div", components: [
                  {name: "username", tag: "p", classes: "username" },
@@ -26,7 +26,7 @@ enyo.kind({
     ],
 
     published: {
-        text: "default text in a post",
+        text: "default text in a thread post",
         userid: 0,
         datetime: "1970-13-37 00:00:00",
         node: null,
@@ -64,7 +64,6 @@ enyo.kind({
         this.$.datetime.setContent(this.datetime);
         this.useridChanged();
         this.setByLang();
-        enyo.application.db.getAnswers( enyo.bind(this, "gotAnswers"), this.dbparent, 999, 0);
     },
 
     setByLang: function () {
@@ -78,22 +77,6 @@ enyo.kind({
          //   console.log(user.item());
             t.$.username.setContent(user.item().name);
         }, this.userid);
-    },
-
-    gotAnswers: function ( list ) {
-        enyo.forEach( list.items(), function( answer ) {
-            console.log(answer);
-            var time = enyo.application.tsToString( answer.timestamp );
-
-            this.createComponent({
-                kind: "Answer",
-                container: this.$.answers,
-                text: answer.content,
-                datetime: time,
-                username: answer.user
-            });
-        }, this);
-        this.render();
-
-    }   
+    }
+   
 });
