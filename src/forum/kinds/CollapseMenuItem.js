@@ -2,7 +2,11 @@ enyo.kind({
 	name: "CollapseMenuItem",
 	kind: "MenuItem",
 	
-	ontap: function(){
-		this.bubble("HideMenu");
+	create: function(){
+		this.inherited(arguments);
+	},
+	tap: function(){
+		this.bubble("onHideMenu");
 	}
+
 });

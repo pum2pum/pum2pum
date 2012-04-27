@@ -1,6 +1,9 @@
 /* This file is intended to contain the CSS for our forum app. */
 
 .forumMenu {
+	background-image: url(images/bgs/topmenubg.png);
+	position: fixed;
+	width: 100%;
 }
 
 .menuItemFloatText {
@@ -22,11 +25,17 @@
 	0px 0px 3px #006699;
 }
 
-.forumMenu .onyx-icon {
+.forumMenu .normal-icon {
 	width: 70px;
 	height: 64px;
 }
-
+.forumMenu .small-icon {
+	width: 29px;
+	height: 18px;
+	position: absolute;
+	top: 0%;
+	left: 223px;
+}
 .forumMenu .onyx-icon:hover {
 	cursor: pointer;
 }

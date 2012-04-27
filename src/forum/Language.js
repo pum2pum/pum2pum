@@ -46,7 +46,11 @@ Language.languages = {
 	newCategory: "new category",
 	//SubForumView
 	newSubForum: "new subforum",
-    newThread: "create new thread"
+    //NewThread
+    newThread: "create new thread",
+    abort: "abort",
+    postThread: "post",
+    confirmAbortion: "really abort? Filled in text is not saved!"
     },
 
     sv: {
@@ -69,6 +73,10 @@ Language.languages = {
 	newCategory: "Ny Kategori",
 	//SubForumView
 	newSubForum: "Nytt Subforum",
-    newThread: "skapa ny tråd"
+    //NewThread
+    newThread: "skapa ny tråd",
+    abort: "avbryt",
+    postThread: "posta",
+    confirmAbortion: "verkligen avbryta? Ifylld text sparas ej!"
     }
 }

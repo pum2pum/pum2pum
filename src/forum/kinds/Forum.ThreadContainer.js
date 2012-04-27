@@ -83,15 +83,13 @@ enyo.kind({
     
     success: function(title, post){
         
-        enyo.application.db.newThread(function(){ console.log("Kunde inte lägga tillt råd i databasen."); }, this.subForum, title, post);
+        enyo.application.db.newThread(null, this.subForum, title, post);
         
         this.$.newThreadHolder.destroyClientControls();
         
     },
     
     abort: function(){
-        
-        console.log(this.$);
         
         this.$.newThreadHolder.destroyClientControls();
         
