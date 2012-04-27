@@ -21,7 +21,7 @@ enyo.kind({
     	this.$.ShowMenuItem.addStyles("show: hidden;");
     },
     hide: function(){
-		this.$.UsersMenuItem.addStyles("show: hidden;");
+	this.$.UsersMenuItem.addStyles("show: hidden;");
     	this.$.RepliesMenuItem.addStyles("show: hidden;");
     	this.$.MenuItem.addStyles("show: hidden;");
     	this.$.CollapseMenuItem.addStyles("show: hidden;");
