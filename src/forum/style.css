@@ -351,3 +351,8 @@ li, ul {
 .errorEmptyInput{
     background-color: red !important;
 }
+
+
+.postButton{
+    float: right;
+}

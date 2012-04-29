@@ -27,6 +27,8 @@ Language.l = function( string, lang ) {
 
 Language.languages = {
     en: {
+    textHere: "enter text here",
+    post: "post",
 	reply: "reply",
     close: "close",
     placeholder: "enter text here.",
@@ -54,6 +56,8 @@ Language.languages = {
     },
 
     sv: {
+    textHere: "skriv text här",
+    post: "posta",
 	reply: "svara",
     close: "stäng",
     placeholder: "skriv in text här.",

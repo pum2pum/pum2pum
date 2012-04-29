@@ -4,6 +4,7 @@ enyo.depends(
     "Forum.NewThread.js",
 	"Forum.PostContainer.js",
 	"Forum.Post.js",
+	"Forum.PostBox.js",
     "Forum.ThreadPost.js",
 	"Forum.Answer.js",
 	"Forum.Replybox.js",

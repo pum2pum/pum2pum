@@ -46,7 +46,7 @@ enyo.kind({
             this.$.replyBox.destroyComponents();
             this.$.replyBox.createComponent({
                 kind: "ReplyBox",
-                text: "Enter text here",
+                text: Language.l ("textHere", enyo.application.language).capitalize(),
                 post: this.post,
                 container: this.$.replyBox
             }).render();

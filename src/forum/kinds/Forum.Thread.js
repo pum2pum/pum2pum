@@ -8,7 +8,15 @@ enyo.kind({
     	{ tag: "div", classes: "topic",
     		components: [
     			{ tag: "h2", name: "threadtitle" },
-    			{ tag: "p", name: "user" }
+    			{ tag: "p", name: "user" },
+
+                {style: "padding: 10px;", components: [
+                    {classes: "tools postButton", defaultKind: "onyx.Button", components: [
+                        { name: "postButton", ontap: "postTap", classes: "onyx-affirmative"}
+                    ]}
+                ]},
+
+                { name: "postBox", tag: "div", classes: "postBox" }
     	] },
     	{ tag: "div", classes: "lastPost",
     		components: [
@@ -18,19 +26,46 @@ enyo.kind({
     	{ tag: "div", classes: "posts",
     		components: [
     			{ tag: "p", name: "numPosts" }
-    	] }
-    
+    	] },    
     ],
     published: {
 		userid: "Default User",
 		title: "Default title",
         thread: null,
+        hasClicked: false
 	},
+
+    postTap: function () {
+        this.hasClicked = !this.hasClicked;
+
+        if (this.hasClicked) {
+
+            this.$.postButton.setContent(Language.l ("close", enyo.application.language).capitalize());
+            this.$.postButton.removeClass("onyx-affirmative");
+            this.$.postButton.addClass("onyx-negative");
+
+            this.$.postBox.destroyComponents();
+            this.$.postBox.createComponent({
+                kind: "PostBox",
+                text: Language.l ("textHere", enyo.application.language).capitalize(),
+                post: this.post,
+                container: this.$.postBox
+            }).render();
+        } else {
+            this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
+            this.$.postButton.removeClass("onyx-negative");
+            this.$.postButton.addClass("onyx-affirmative");
+
+            this.$.postBox.destroyComponents();
+        }
+    },
 
     create: function () {
 		this.inherited(arguments);
 		this.titleChanged();
 		this.useridChanged();
+
+        this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
 
         enyo.application.db.getPosts( enyo.bind( this, "lastPost" ), this.thread, 100, 0 );
     },
@@ -62,8 +97,6 @@ enyo.kind({
         }
         t.$.numPosts.setContent( postslist.size() );
     },
-
-
 
     titleChanged: function() {
     	this.$.threadtitle.setContent( this.title );
