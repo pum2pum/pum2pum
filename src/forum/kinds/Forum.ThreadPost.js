@@ -11,18 +11,16 @@ enyo.kind({
                  {name: "datetime", tag: "p", classes: "datetime" }
             ] },
 
-            { name: "text", tag: "p", classes: "text"},
+            { name: "text", tag: "p", classes: "text", allowHtml: true },
         
             {style: "padding: 10px;", components: [
                 {classes: "tools", defaultKind: "onyx.Button", components: [
-                    { name: "replyButton", ontap: "replyTap", classes: "onyx-affirmative"}
+                    { name: "postButton", ontap: "postTap", classes: "onyx-affirmative"}
                 ]}
             ]},
 
-            { name: "replyBox", tag: "div", classes: "replyBox" }
+            { name: "postBox", tag: "div", classes: "postBox" }
         ]},
-
-        { name: "answers", tag: "ul", classes: "answer"}
     ],
 
     published: {
@@ -31,50 +29,74 @@ enyo.kind({
         datetime: "1970-13-37 00:00:00",
         node: null,
         dbparent: "",
-        hasClicked: false
+        hasClickedpost: false,
+        hasClickedPost: false
     },
 
-    replyTap: function () {
-        this.hasClicked = !this.hasClicked;
+    success: function (text) {
+        enyo.application.db.newPost( null, this.dbparent, text);
 
-        if (this.hasClicked) {
-            this.$.replyButton.setContent(Language.l ("close", enyo.application.language).capitalize());
-            this.$.replyButton.removeClass("onyx-affirmative");
-            this.$.replyButton.addClass("onyx-negative");
+        this.hasClickedpost = !this.hasClickedpost;
+        this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
+        this.$.postButton.removeClass("onyx-negative");
+        this.$.postButton.addClass("onyx-affirmative");
 
-            this.$.replyBox.destroyComponents();
-            this.$.replyBox.createComponent({
+        this.$.postBox.destroyComponents();            
+    },
+
+    abort: function () {
+        console.log("Error!");
+        this.hasClickedpost = !this.hasClickedpost;
+
+        this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
+        this.$.postButton.removeClass("onyx-negative");
+        this.$.postButton.addClass("onyx-affirmative");
+
+        this.$.postBox.destroyComponents(); 
+    },
+
+    postTap: function () {
+        this.hasClickedpost = !this.hasClickedpost;
+
+        if (this.hasClickedpost) {
+            this.$.postButton.setContent(Language.l ("close", enyo.application.language).capitalize());
+            this.$.postButton.removeClass("onyx-affirmative");
+            this.$.postButton.addClass("onyx-negative");
+
+            this.$.postBox.destroyComponents();
+            this.$.postBox.createComponent({
                 kind: "ReplyBox",
-                text: "",
-                post: this,
-                container: this.$.replyBox
+                text: "Enter text here.",
+                cbSuccess: enyo.bind( this, "success" ),
+                cbAbort: enyo.bind( this, "abort" ),
+                container: this.$.postBox
             }).render();
         } else {
-            this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
-            this.$.replyButton.removeClass("onyx-negative");
-            this.$.replyButton.addClass("onyx-affirmative");
+            this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
+            this.$.postButton.removeClass("onyx-negative");
+            this.$.postButton.addClass("onyx-affirmative");
 
-            this.$.replyBox.destroyComponents();            
+            this.$.postBox.destroyComponents();            
         }
     },
 
     create: function () {
         this.inherited(arguments);
+        // enyo.application.tsToString( this.post.timestamp ));
+
         this.$.text.setContent(this.text);
-        this.$.datetime.setContent(this.datetime);
+        this.$.datetime.setContent( enyo.application.tsToString( this.dbparent.timestamp ));
         this.useridChanged();
         this.setByLang();
     },
 
     setByLang: function () {
-        this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
+        this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
     },
 
     useridChanged: function () {
         var t = this;
-        console.log(t);
         enyo.application.db.getUser(function (user){
-         //   console.log(user.item());
             t.$.username.setContent(user.item().name);
         }, this.userid);
     }

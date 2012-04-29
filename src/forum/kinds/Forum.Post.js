@@ -11,7 +11,7 @@ enyo.kind({
                  {name: "datetime", tag: "p", classes: "datetime" }
             ] },
 
-            { name: "text", tag: "p", classes: "text"},
+            { name: "text", tag: "p", classes: "text", allowHtml: true },
         
             {style: "padding: 10px;", components: [
                 {classes: "tools", defaultKind: "onyx.Button", components: [
@@ -47,7 +47,8 @@ enyo.kind({
             this.$.replyBox.createComponent({
                 kind: "ReplyBox",
                 text: Language.l ("textHere", enyo.application.language).capitalize(),
-                post: this.post,
+                cbSuccess: enyo.bind(this, "success"),
+                cbAbort: enyo.bind(this, "abort"),
                 container: this.$.replyBox
             }).render();
         } else {
@@ -57,6 +58,20 @@ enyo.kind({
 
             this.$.replyBox.destroyComponents();
         }
+    },
+
+    success: function (text) {
+        enyo.application.db.newAnswer( null, this.post, text);
+    },
+
+    abort: function () {
+        console.log("Error!");
+        this.hasClicked = !this.hasClicked;
+        this.$.replyButton.setContent(Language.l ("reply", enyo.application.language).capitalize());
+        this.$.replyButton.removeClass("onyx-negative");
+        this.$.replyButton.addClass("onyx-affirmative");
+
+        this.$.replyBox.destroyComponents();
     },
 
     create: function () {

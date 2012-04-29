@@ -16,7 +16,8 @@ enyo.kind({
     ],
 
     published: {
-        post: ""
+        cbSuccess: "",
+        cbAbort: ""
     },
 
     clearReplyText: function () {
@@ -35,7 +36,10 @@ enyo.kind({
 
     sendTap: function () {
         if (this.$.replyText.getValue() != "") {
-            enyo.application.db.newAnswer( null, this.post, this.$.replyText.getValue());
+            this.cbSuccess(this.$.replyText.getValue());
+            //enyo.application.db.newAnswer( null, this.post, this.$.replyText.getValue());
+        } else {
+            this.cbAbort();
         }
     }
 });

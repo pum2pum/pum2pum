@@ -42,12 +42,12 @@ enyo.kind({
     	this.$.posts.destroyClientControls();
     	enyo.forEach(list.items(), function(post) {
     	    this.createComponent({
-    		kind: "ForumPost",
-    		container: this.$.posts,
-    		text: post.text,
-    		userid: post.user,
-    		dbparent: this.thread,
-    		post: post
+                kind: "ForumPost",
+                container: this.$.posts,
+                text: post.text,
+                userid: post.user,
+                dbparent: this.thread,
+                post: post
     	    });
     	}, this);
     	this.$.posts.render();

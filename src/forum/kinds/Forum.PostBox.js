@@ -34,6 +34,7 @@ enyo.kind({
     },
 
     sendTap: function () {
+        console.log(this.thread);
         if (this.$.postText.getValue() != "") {
             enyo.application.db.newPost( null, this.thread, this.$.postText.getValue());
         }
