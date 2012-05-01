@@ -263,8 +263,25 @@
 		{
 			Gets a list of objects and then inserts a new object into the database.
 		}{
-			Pass: The callback-function is called twice: once with the first query resukt, and then again efter inserting the new object.
+			Pass: The callback-function is called twice: once with the first query result, and then again efter inserting the new object.
 		}
 
+	\section{Testing Enyo-kinds}
+	Unit- and integration testing of the modules which the application consists of.
+
+	\subsection{Utilities}
+
+		\ttestcase{Date formatting}
+		{
+			Jsvascript date objects, such as Date(2011, 03, 01, 01, 02, 30). Remember that JS months are zero-based.
+		}{
+			The date formatted on YYYY-MM-DD HH:MM:SS format. In the case above:
+			2011-04-01 01:02:30
+		}
+
+	\section{Integration testing}
+	Manual testing of the application as a whole.
+
+	\subsection{}
 
 \end{document}
