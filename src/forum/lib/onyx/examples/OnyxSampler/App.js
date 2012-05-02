@@ -86,7 +86,7 @@ enyo.kind({
 				{src: "images/menu-icon-bookmark.png"},
 				{src: "images/menu-icon-bookmark.png"},
 				{kind: "Control"},
-				{kind: "Group", noDom: true, defaultKind: "onyx.IconButton", components: [
+				{kind: "Group", tag: null, defaultKind: "onyx.IconButton", components: [
 					{active: true, src: "images/menu-icon-bookmark.png"},
 					{src: "images/menu-icon-bookmark.png"},
 					{src: "images/menu-icon-bookmark.png"}
@@ -179,6 +179,11 @@ enyo.kind({
 			{kind: "onyx.Groupbox", components: [
 				{kind: "onyx.InputDecorator", components: [
 					{kind: "onyx.Input", style: "width: 100%", placeholder: "Enter text here"}
+				]}
+			]},
+			{kind: "onyx.Groupbox", components: [
+				{kind: "onyx.InputDecorator", components: [
+					{kind: "onyx.Input", type: "password", style: "width: 100%", placeholder: "Enter Password"}
 				]}
 			]},
 			{tag: "br"},
