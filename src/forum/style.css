@@ -357,3 +357,10 @@ li, ul {
 .postButton{
     float: right;
 }
+
+.login{
+    background-image: url(images/bgs/loginbg.png);
+    width:100%;
+    background-repeat: repeat-x;
+    background-color: #061D3D;
+}
