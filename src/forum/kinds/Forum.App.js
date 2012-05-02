@@ -1,9 +1,7 @@
 enyo.kind({
 	name: "ForumApp",
-	kind: enyo.Scroller,
+	kind: enyo.Control,
 	tag: "div",
-
-	classes: "enyo-fit",
 
 	components: [
 		{ kind: "ForumMenu", name: "forumMenu" },
@@ -14,6 +12,13 @@ enyo.kind({
 		onHideMenu: "hideMenu",
 		onShowMenu: "showMenu",
 		onhashchange: "hashchange"
+	},
+
+	showLoginView: function () {
+		this.$.forumView.createComponent({
+			kind: "Login"
+		});
+		this.render();
 	},
 
 	showCategoryView: function () {
@@ -71,7 +76,19 @@ enyo.kind({
 				this.showThreadView( values["id"] );
 				break;
 			default:
-				this.showCategoryView();
+				var username = getCookie("username");
+				console.log(username);
+				if ( username === null || username === "" || username === undefined  ) {
+					this.showLoginView();
+				} else {
+					if ( !enyo.application.db.isLoggedIn() ) {
+						console.log("inte inloggad");
+						enyo.application.db.login( enyo.bind(this, "showCategoryView") , username);
+					} else {
+						console.log("inloggad");
+						this.showCategoryView();
+					}
+				}
 				break;
 		}
 	},

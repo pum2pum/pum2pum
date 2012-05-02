@@ -3,6 +3,8 @@
 .forumMenu {
 	background-image: url(images/bgs/topmenubg.png);
     position: fixed;
+    top: 0;
+    left 0;
     margin-left: -13px;
 	width: 100%;
 }

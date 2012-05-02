@@ -10,11 +10,11 @@ enyo.kind({
 
 	newcat: function(){
 		title = window.prompt("cat titel");
-		db.newCategory(null,title, "autocat");
+		db.newCategory( null,title, "autocat");
 	},
 
 	populate: function(){
-		db.getCategories(enyo.bind(this, "populateCallback"), 10, 0);
+		db.getCategories(enyo.bind(this, "populateCallback"), 100, 0);
 	},
 
 	populateCallback: function(list){
@@ -24,7 +24,6 @@ enyo.kind({
 	},
 
 	addDBChild: function(c){
-		console.log(c);
 		this.createComponent({
 			kind: "category",
 			container: this.$.categories,
@@ -65,7 +64,7 @@ enyo.kind({
 	},
 
 	populate: function(){
-		db.getSubForums(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
+		db.getSubForums(enyo.bind(this, "populateCallback"), this.dbparent, 100, 0);
 	},
 
 	populateCallback: function(list){
@@ -116,7 +115,7 @@ enyo.kind({
 	},
 
 	populate: function(){
-		db.getThreads(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
+		db.getThreads(enyo.bind(this, "populateCallback"), this.dbparent, 100, 0);
 	},
 
 	populateCallback: function(list){
@@ -130,6 +129,7 @@ enyo.kind({
 			kind: "thread",
 			container: this.$.children,
 			title: c.title,
+			lastUpdated: c.lastUpdated,
 			dbparent: c
 		});
 	}
@@ -143,6 +143,7 @@ enyo.kind({
 	published: {
 		title: "",
 		dbparent: "",
+		lastUpdated: 0
 	},
 
 	components: [
@@ -153,7 +154,7 @@ enyo.kind({
 
 	newpost: function(){
 		title = window.prompt("Titel");
-		db.newThread(null, this.dbparent, title, "en post");
+		db.newPost(null, this.dbparent, title, "en post");
 	},
 
 	create: function(){
@@ -163,15 +164,15 @@ enyo.kind({
 	},
 
 	titleChanged: function(){
-		this.$.title.setContent(this.title + " - " + this.dbparent.id);
+		this.$.title.setContent(this.title + " - " + this.dbparent.id + " - " + new Date(this.lastUpdated * 1000));
 	},
 
 	populate: function(){
-		db.getPosts(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
+		db.getPosts(enyo.bind(this, "populateCallback"), this.dbparent, 100, 0);
 	},
 
 	populateCallback: function(list){
-		this.$.children.destroyClientControls();
+		//this.$.children.destroyClientControls();
 		enyo.forEach(list.items(), this.addDBChild, this);
 		this.$.children.render();
 	},
@@ -218,11 +219,11 @@ enyo.kind({
 	},
 
 	populate: function(){
-		db.getAnswers(enyo.bind(this, "populateCallback"), this.dbparent, 10, 0);
+		db.getAnswers(enyo.bind(this, "populateCallback"), this.dbparent, 100, 0);
 	},
 
 	populateCallback: function(list){
-		this.$.children.destroyClientControls();
+		//this.$.children.destroyClientControls();
 		enyo.forEach(list.items(), this.addDBChild, this);
 		this.$.children.render();
 	},

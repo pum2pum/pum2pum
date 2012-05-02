@@ -384,3 +384,7 @@ li, ul {
 .menuNoMargin{
     margin-top: 0px;
 }
+
+.enyo-clip {
+    overflow: auto;
+}

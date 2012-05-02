@@ -17,6 +17,7 @@ enyo.kind({
 //		document.cookie = "isSet" + "=" + c_isSet;
 	}, 
 	loginToForum: function(){
+		console.log("loggar in....");
 		var name = this.$.nameField.getValue();
 		if (name != "") {
 			enyo.application.db.login(enyo.bind(this, "destroyLoginPage"), name); //shouldnt need to run any function in callback
@@ -26,12 +27,14 @@ enyo.kind({
 		}
 	},
 	buttonClick: function(){
+		console.log("clicked!");
 		this.loginToForum();
 	},
 	destroyLoginPage: function(){
+		location.hash = "#loggin=1";
 		location.hash = "#";
-		App = new ForumApp();
-		App.renderInto(document.body);
-		this.destroy();
+		//App = new ForumApp();
+		//App.renderInto(document.body);
+		//this.destroy();
 	}
 })
