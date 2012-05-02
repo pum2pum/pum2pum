@@ -69,6 +69,7 @@ enyo.kind({
             list.close();
             return;
         }
+        this.$.categories.destroyClientControls();
     	enyo.forEach( list.items(), function( category ) {
     		this.createComponent({
         		kind: "Category",

@@ -23,8 +23,16 @@ enyo.kind({
         this.inherited(arguments);
 
         this.$.datetime.setContent(this.datetime);
-        this.$.username.setContent(this.username);
         this.$.text.setContent(this.text);
+
+        this.useridChanged();
+    },
+
+    useridChanged: function () {
+        var t = this;
+        enyo.application.db.getUser(function (user){
+            t.$.username.setContent(user.item().name);
+        }, this.username);
     }
 
 });

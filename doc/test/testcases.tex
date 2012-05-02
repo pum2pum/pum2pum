@@ -62,7 +62,7 @@
 			
 			\vspace{0.5cm}
 			
-			\huge{2012-04-19} % Datum senast ändrad
+			\huge{2012-05-02} % Datum senast ändrad
 		\end{center}
 		
 	\end{titlepage}
@@ -77,6 +77,8 @@
 	\begin{tabularx}{1\textwidth}{|l|l|X|l|}
 		\hline
 		\bf{Version} & \bf{Date} & \bf{Changes} & \bf{By} \\
+		\hline
+		0.3 & 2012-05-02 & More integration tests. & nicol271 \\
 		\hline
 		0.2 & 2012-04-19 & Database abstraction tests. & nicol271 \\
 		\hline
@@ -273,7 +275,7 @@
 
 		\ttestcase{Date formatting}
 		{
-			Jsvascript date objects, such as Date(2011, 03, 01, 01, 02, 30). Remember that JS months are zero-based.
+			Javascript date objects, such as Date(2011, 03, 01, 01, 02, 30). Remember that JS months are zero-based.
 		}{
 			The date formatted on YYYY-MM-DD HH:MM:SS format. In the case above:
 			2011-04-01 01:02:30
@@ -282,6 +284,26 @@
 	\section{Integration testing}
 	Manual testing of the application as a whole.
 
-	\subsection{}
+	\subsection{Post a new thread}
+		\ptestcase{
+			The server is running and the browser is located at the forum start page.
+		}{
+			"Test user" is entered as login, and the login-button is clicked.
+			A forum name is clicked. The "Create new thread"-button is clicked, a title and text is entered, and the post button is pressed. 
+		}{
+			A thread with the entered name is created and shows up immediately in the list of all threads. "Test user" is shown as the creator of the thread. The thread is shown when its title is clicked.
+		}
+
+
+	\subsection{Reply to a thread}
+		\ptestcase{
+			The server is running and the browser is located at a thread.
+		}{
+			The "Post"-button is pressed. A text field and a send-button shows up. A text is entered in the field and the button is pressed.
+		}{
+			The answer shows upp correctly and without reloading the page.
+		}
+
+
 
 \end{document}

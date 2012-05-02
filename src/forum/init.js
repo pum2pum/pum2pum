@@ -11,7 +11,7 @@ enyo.master.bubble = function(inEventName, inEvent, inSender) {
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-
+//enyo.Scroller.touchScrolling = true; 
 enyo.application = {
 	db: new forumDatabase(),
 

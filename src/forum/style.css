@@ -178,6 +178,10 @@ li, ul {
     margin-left: 5%;
 }
 
+.threadPost .username{
+    font-weight: bold;
+}
+
 .threadPost {
 //    background-color: #FF0000;
 }
