@@ -23,11 +23,23 @@
 	enyo.application.db = new forumDatabase();*/
 	//enyo.application.db.login(null, "temporary username"); // TODO enable proper logins
 	//new ForumApp().renderInto(document.body);
+	function getCookie(c_name) {
+		var i,x,y,ARRcookies=document.cookie.split(";");
+		for (i=0;i<ARRcookies.length;i++) {
+			x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+			y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+			x=x.replace(/^\s+|\s+$/g,"");
+			if (x==c_name) {
+				return unescape(y);
+			}
+		}
+	}
 
-	if (!document.cookie) {
+	var username = getCookie("username");
+	if (username == null || username == "") {
 		new Login().renderInto(document.body);
 	} else {
-		enyo.application.db.login(null, document.cookie);
+		enyo.application.db.login(null, username);
 		new ForumApp().renderInto(document.body);
 	}
     

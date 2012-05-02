@@ -51,7 +51,7 @@ enyo.kind({
         threads = list.size();
         this.posts = 0;
 
-        this.$.posts.setContent( 0 );
+//        this.$.posts.setContent( 0 );
         this.$.newThreads.setContent( newThreads );
         this.$.threads.setContent( threads );
 
