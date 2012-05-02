@@ -63,12 +63,20 @@ enyo.kind({
 
     gotPosts: function( list ) {
         list.close( );
+        var that = this;
         this.posts += list.size( );
         this.$.posts.setContent( this.posts );
         this.$.posts.render( );
 
-        enyo.forEach( list.items(), function (post ) {
-
+        enyo.forEach( list.items(), function ( post ) {
+            enyo.application.db.getAnswers( enyo.bind( that, "gotAnswers" ), post, 999, 0);
         });
+    },
+
+    gotAnswers: function( list ) {
+        list.close();
+        this.posts += list.size();
+        this.$.posts.setContent( this.posts );
+        this.$.posts.render( );
     }
 });
