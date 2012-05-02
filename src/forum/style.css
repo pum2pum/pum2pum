@@ -372,10 +372,25 @@ li, ul {
 }
 
 .login{
-    background-image: url(images/bgs/loginbg.png);
-    width:100%;
-    background-repeat: repeat-x;
-    background-color: #061D3D;
+
+/* IE10 */
+background-image: -ms-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/*Mozilla Firefox */
+background-image: -moz-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Opera */
+background-image: -o-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00E8F7), color-stop(144px, #2884FE), color-stop(432px, #0757C1), color-stop(936px, #76F0FF), color-stop(1, #76F0FF));
+
+/* Webkit (Chrome 11+) */
+background-image: -webkit-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Proposed W3C Markup */
+background-image: linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
 }
 .menuMargin{
     margin-top: 64px;

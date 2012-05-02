@@ -8,14 +8,14 @@ enyo.kind({
 		{kind: "onyx.Input", name: "nameField", placeholder: "Enter Login Name"}
 	],
 
+	/*Creates a cookie containing the username so we can skip the login-screen if refreshing the page.*/
 	setCookie: function (c_name,value,exdays) {
 		var exdate=new Date();
 		exdate.setDate(exdate.getDate() + exdays);
 		var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-//		var c_isSet=escape("isSet") + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
 		document.cookie = c_name + "=" + c_value;
-//		document.cookie = "isSet" + "=" + c_isSet;
 	}, 
+	/*Logins to the database, given that a non-empty username was given.*/
 	loginToForum: function(){
 		console.log("loggar in....");
 		var name = this.$.nameField.getValue();

@@ -1,4 +1,5 @@
 enyo.kind({
+	/*This defines the answer to a post.*/
     name: "Answer",
     kind: enyo.Control,
     classes: "post",
@@ -9,6 +10,7 @@ enyo.kind({
         dbparent: "",
     },
 
+	/*The components include an avatar, a username, date and the actual text.*/
     components: [
         { name: "avatar", classes: "avatar", tag: "img", src: "/images/icons/avatar.png"},
         { tag: "div", components: [
@@ -19,6 +21,7 @@ enyo.kind({
         { name: "text", tag: "p", classes: "text", allowHtml: true },
     ],
 
+	/*Creates the answer.*/
     create: function(){
         this.inherited(arguments);
 
@@ -28,6 +31,7 @@ enyo.kind({
         this.useridChanged();
     },
 
+	/*Changes from a user-id to a username.*/
     useridChanged: function () {
         var t = this;
         enyo.application.db.getUser(function (user){
