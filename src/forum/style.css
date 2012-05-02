@@ -353,6 +353,15 @@ li, ul {
     background-color: red !important;
 }
 
+.newThreadAbortButton{
+    background-color: #C51616;
+    color: #F1F1F1;
+}
+
+.newThreadPostButton{
+    background-color: #91BA07; 
+    color: #F1F1F1;
+}
 
 .postButton{
     float: right;
@@ -363,4 +372,11 @@ li, ul {
     width:100%;
     background-repeat: repeat-x;
     background-color: #061D3D;
+}
+.menuMargin{
+    margin-top: 64px;
+}
+
+.menuNoMargin{
+    margin-top: 0px;
 }
