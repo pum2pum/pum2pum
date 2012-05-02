@@ -3,45 +3,147 @@ enyo.kind({
 	name: "enyo.parser.Base", 
 	kind: null,
 	i: 0,
-	constructor: function(inTokens) {
+	constructor: function(inLexer) {
 		this.a = [];
 		this.html = [];
 		this.lastToken = {};
-		this.nodes = inTokens && this.parse(inTokens);
+		this.nodes = inLexer && this.parse(inLexer.r);
 	},
+	// return node-list generated from lexer tokens
+	parse: function(inTokens) {
+		// setup token stream
+		this.setTokens(inTokens);
+		// process tokens into AST nodes
+		var nodes = this.processTokens();
+		// make a sentinel node
+		var sentinel = {children: nodes.slice(0)};
+		// index the children and refer them back to parent
+		this.catalog(sentinel, sentinel.children);
+		// return node list
+		return nodes;
+	},
+	// prepare the token stream for iteration
+	setTokens: function(inTokens) {
+		// current index in the stream
+		this.i = 0;
+		// source tokens
+		this.tokens = inTokens;
+	},
+	// index entries in inChildren, and refer them back to inParent
+	catalog: function(inParent, inChildren) {
+		for (var i=0, n; n=inChildren[i]; i++) {
+			n.index = i;
+			n.parent = inParent;
+		}
+	},
+	// return the next token from the token stream
 	next: function() {
 		return this.tokens[this.i++];
 	},
-	setTokens: function(inTokens) {
-		this.i = 0;
-		this.tokens = inTokens;
-	},
+	// push a token onto the accumulator stack
 	pushToken: function(inT) {
+		//console.log("[" + inT.token + "]");
 		this.a.push(inT);
-	},
-	parse: function(inLexer) {
-		this.setTokens(inLexer.r);
-		var tokens = this.processTokens();
-		// make a fake sentinel node
-		var sentinel = {children:[]};
-		for (var i = 0, t; t = tokens[i]; i++) {
-			t.index = i;
-			t.parent = sentinel;
-			sentinel.children.push(t);
-		}
-		return tokens;
 	}
 });
 
+/*
+	This ad-hoc processor is barely a parser, it does minimal work taking
+	a token stream from an enyo.lexer and converting it into a node stream.
+
+	Mostly, the task is to collect grouped tokens into subnodes, namely:
+	associations "()", blocks "{}", and arrays "[]"
+
+	Whitespace is discarded.
+*/
 enyo.kind({
 	name: "enyo.parser.Code",
 	kind: enyo.parser.Base,
+	// process tokens into nodes
+	processTokens: function() {
+		// code is the output array
+		var mt, t, code = [];
+		// mt is the current 'meta-token'
+		while (mt = this.next()) {
+			// actual text is stored in unfortunately named 'token' property
+			t = mt.token;
+			// whitespace is ignored
+			if (mt.kind == "ws") {
+				continue;
+			}
+			// literal: push a node
+			else if (mt.kind == "literal") {
+				this.pushNode(code, mt.kind, mt, mt.delimiter);
+			} 
+			// string: push a node
+			else if (mt.kind == "string") {
+				this.pushNode(code, mt.kind, mt);
+			}
+			// comment|keyword
+			else if (mt.kind == "comment" || mt.kind=="keyword") {
+				// push any accumulated tokens as an 'identifier'
+				this.identifier(code);
+				// push a node
+				this.pushNode(code, mt.kind, mt);
+			}
+			//
+			// assignment
+			else if (t == '=' || t == ':') { 
+				// push any accumulated tokens as an 'identifier'
+				this.identifier(code);
+				// push an assignment node
+				this.pushNode(code, "assignment", mt);
+			}
+			// terminal
+			else if (t == ';' || t == ',') {
+				// push any accumulated tokens as an 'identifier'
+				this.identifier(code);
+			}
+			//
+			// array start
+			else if (t == '[') {
+				this.processChildren("array", code);
+			}
+			// array end
+			else if (t == ']') {
+				this.lastToken = mt;
+				return this.identifier(code);
+			}
+			//
+			// block start
+			else if (t == '{') {
+				this.processChildren("block", code);
+			}
+			// block end
+			else if (t == '}') {
+				this.lastToken = mt;
+				return this.identifier(code);
+			}
+			//
+			// association start
+			else if (t == '(') {
+				var kind = (this.lastToken.kind == "identifier" || this.lastToken.token == "function") ? "argument-list" : "association";
+				this.processChildren(kind, code);
+			}
+			// association end
+			else if (t == ')') {
+				this.lastToken = mt;
+				return this.identifier(code);
+			}
+			//
+			else this.pushToken(mt);
+			this.lastToken = mt;
+		}
+		return code;
+	},
 	pushNode: function(inCode, inKind, inToken, inDelim) {
-		var token = this.a.map(function(t){ return t.token }).join('');
+		var token = this.a.map(function(t){ return t.token; }).join('');
 		token += (inToken ? inToken.token : '') + (inDelim||'');
+		//
 		if (arguments.length > 2) {
 			this.a.push(inToken);
 		}
+		//
 		var start, end, line, height;
 		if (inToken) {
 			start = inToken.start;
@@ -61,9 +163,12 @@ enyo.kind({
 			line = curTok.line;
 			height = curTok.height;
 		}
+		//
 		var node = { kind: inKind, tokens: this.a, token: token, start: start, end: end, line: line, height: height };
 		inCode.push(node);
+		//
 		this.a = [];
+		//
 		return node
 	},
 	identifier: function(inCode) {
@@ -72,86 +177,22 @@ enyo.kind({
 		}
 		return inCode;
 	},
+	processChildren: function(inKind, inCode) {
+		this.identifier(inCode);
+		this.findChildren(this.pushNode(inCode, inKind));
+	},
 	findChildren: function(inNode) {
 		var children = this.processTokens();
-		// attach a parent pointer to each child
-		for (var i = 0, c; c = children[i]; i++) {
-			c.parent = inNode;
-			c.index = i;
-		}
+		// index the children and refer them back to parent
+		this.catalog(inNode, children);
 		// update node with correct end/height
 		inNode.children = children;
 		inNode.end = this.lastToken.end;
 		inNode.height = this.lastToken.line - inNode.line;
-	},
-	processArray: function(inCode, inToken) {
-		this.identifier(inCode);
-		this.findChildren(this.pushNode(inCode, 'array'));
-	},
-	processBlock: function(inCode, inToken) {
-		this.identifier(inCode);
-		this.findChildren(this.pushNode(inCode, 'block'));
-	},
-	processArguments: function(inCode, inToken) {
-		this.identifier(inCode);
-		var kind = 'association';
-		if (this.lastToken.kind == "identifier" || this.lastToken.token == "function") {
-			kind = 'argument-list';
-		}
-		this.findChildren(this.pushNode(inCode, kind));
-	},
-	processTokens: function(inKind) {
-		var mt, t, code = [];
-		while (mt = this.next()) {
-			t = mt.token;
-			//
-			if (mt.kind == "ws") {
-				continue;
-			}
-			else if (mt.kind == "literal")
-				this.pushNode(code, mt.kind, mt, mt.delimiter);
-			else if (mt.kind == "string")
-				this.pushNode(code, mt.kind, mt);
-			else if (mt.kind == "comment" || mt.kind=="keyword") {
-				this.identifier(code);
-				this.pushNode(code, mt.kind, mt);
-			}
-			//
-			else if (t == '=' || t == ':') { 
-				this.identifier(code);
-				this.pushNode(code, "assignment", mt);
-			}
-			//
-			else if (t == ';' || t == ',')
-				this.identifier(code);
-			//
-			else if (t == '[')
-				this.processArray(code, mt);
-			else if (t == ']') {
-				this.lastToken = mt;
-				return this.identifier(code);
-			}
-			//
-			else if (t == '{')
-				this.processBlock(code, mt);
-			else if (t == '}') {
-				this.lastToken = mt;
-				return this.identifier(code);
-			}
-			//
-			else if (t == '(') 
-				this.processArguments(code, mt);
-			else if (t == ')') {
-				this.lastToken = mt;
-				return this.identifier(code);
-			}
-			//
-			else this.pushToken(mt);
-			this.lastToken = mt;
-		}
-		return code;
 	}
 });
+
+enyo.parser.Js = enyo.parser.Code;
 
 enyo.kind({
 	name: "enyo.parser.Text",
@@ -162,10 +203,7 @@ enyo.kind({
 		this.a = [ ];
 	},
 	processParams: function(inToken) {
-		if (this.lastToken.kind != "symbol")
-			this.pushToken("[arguments|params]")
-		else
-			this.pushToken("[ternary op]")
+		this.pushToken(this.lastToken.kind != "symbol" ? "[arguments|params]" : "[ternary op]");
 		this.pushToken(inToken);
 		this.processTokens();
 	},
@@ -192,5 +230,3 @@ enyo.kind({
 		return this.html.join("");
 	}
 });
-
-enyo.parser.Js = enyo.parser.Code;
