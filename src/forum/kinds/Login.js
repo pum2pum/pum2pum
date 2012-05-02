@@ -15,10 +15,8 @@ enyo.kind({
 		this.loginToForum();
 	},
 	destroyLoginPage: function(){
-		//---- pseudo-kod ----
 		App = new ForumApp();
 		App.renderInto(document.body);
 		this.destroy();
-		//--------------------
 	}
 })
