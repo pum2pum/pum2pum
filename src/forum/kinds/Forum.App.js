@@ -17,7 +17,6 @@ enyo.kind({
 	},
 
 	showCategoryView: function () {
-		console.log( "categoryview" );
 		this.$.forumView.createComponent({
 			kind: "CategoryView"
 		});
@@ -53,7 +52,6 @@ enyo.kind({
 	},
 
 	hashchange: function ( sender, event ) {
-		console.log("hashchange");
 		var hash = location.hash.substr( 1 );
 		var valuePairs = hash.split( "&" );
 		var tmpValue;

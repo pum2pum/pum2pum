@@ -21,12 +21,14 @@
 
 	/*enyo.application = {};
 	enyo.application.db = new forumDatabase();*/
-	enyo.application.db.login(null, "temporary username"); // TODO enable proper logins
+	//enyo.application.db.login(null, "temporary username"); // TODO enable proper logins
 	//new ForumApp().renderInto(document.body);
-	
-	
-	new Login().renderInto( document.body );
-	//new Login().write();
+
+	if (!document.cookie) {
+		new Login().renderInto(document.body);
+	} else {
+		new ForumApp().renderInto(document.body);
+	}
     
     </script>
 </body>

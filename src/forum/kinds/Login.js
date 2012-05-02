@@ -10,6 +10,7 @@ enyo.kind({
 
 	loginToForum: function(){
 		enyo.application.db.login(enyo.bind(this, "destroyLoginPage"), this.$.nameField.getValue()); //shouldnt need to run any function in callback
+		document.cookie = this.$.nameField.getValue();
 	},
 	buttonClick: function(){
 		this.loginToForum();
