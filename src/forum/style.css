@@ -353,7 +353,12 @@ li, ul {
     background-color: red !important;
 }
 
+.newThreadAbortButton{
+    background-color: #C51616;
+    color: #F1F1F1;
+}
 
-.postButton{
-    float: right;
+.newThreadPostButton{
+    background-color: #91BA07; 
+    color: #F1F1F1;
 }

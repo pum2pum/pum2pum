@@ -21,8 +21,8 @@ enyo.kind({
             ]}
         ]},
         {tag: "div", classes: ["newThreadButtonsHolder"], components: [
-            {tag: "button", name: "abortButton", content: "", ontap: "abort"},
-            {tag: "button", name: "postButton", content: "", ontap: "postThread"}]}],
+            {kind: "onyx.Button", name: "abortButton", classes: ["newThreadAbortButton"], content: "", ontap: "abort"},
+            {kind: "onyx.Button", name: "postButton", classes: ["newThreadPostButton"], content: "", ontap: "postThread"}]}],
     
     create: function () {
         
@@ -67,6 +67,7 @@ enyo.kind({
         
         // Validate
         var errorsExist = false;
+        var delay = 1000;
         
         if(title.length == 0){
             
@@ -77,8 +78,7 @@ enyo.kind({
                 
                 that.$.title.removeClass("errorEmptyInput");
                 
-                }, 1000);
-            
+                }, delay);
             
         }
         
@@ -91,7 +91,7 @@ enyo.kind({
                 
                 that.$.post.removeClass("errorEmptyInput");
                 
-                }, 1000);
+                }, delay);
             
         }
         
