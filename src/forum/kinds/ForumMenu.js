@@ -6,7 +6,9 @@ enyo.kind({
     
     components: [
     { kind: "UsersMenuItem", name: "UsersMenuItem", src: "/images/icons/online.png", newKind: "UsersView", classes: "visibleItem normal-icon"},
+        /*not supported in database at the moment.
     { kind: "RepliesMenuItem", name: "RepliesMenuItem", src: "/images/icons/reply.png", newKind: "RepliesView",classes: "visibleItem normal-icon"},
+        */
     { kind: "MenuItem", name: "MenuItem", src: "/images/icons/settings.png", newKind: "SettingsView",classes: "visibleItem normal-icon"},
     { kind: "CollapseMenuItem", name:"CollapseMenuItem", src: "/images/icons/collapse.png",classes: "visibleItem normal-icon"},
     { kind: "ShowMenuItem", name:"ShowMenuItem", src: "/images/icons/show.png", classes: "hiddenItem small-icon"}
@@ -16,12 +18,11 @@ enyo.kind({
     },
     show: function(){
 
-        //changes the class in the css properties
         this.$.UsersMenuItem.removeClass("hiddenItem");
         this.$.UsersMenuItem.addClass("visibleItem");
 
-        this.$.RepliesMenuItem.removeClass("hiddenItem");
-        this.$.RepliesMenuItem.addClass("visibleItem");
+        //this.$.RepliesMenuItem.removeClass("hiddenItem");
+        //this.$.RepliesMenuItem.addClass("visibleItem");
 
         this.$.MenuItem.removeClass("hiddenItem");
         this.$.MenuItem.addClass("visibleItem");
@@ -38,8 +39,8 @@ enyo.kind({
         this.$.UsersMenuItem.removeClass("visibleItem");
 		this.$.UsersMenuItem.addClass("hiddenItem");
 
-        this.$.RepliesMenuItem.removeClass("visibleItem");
-        this.$.RepliesMenuItem.addClass("hiddenItem");
+        //this.$.RepliesMenuItem.removeClass("visibleItem");
+        //this.$.RepliesMenuItem.addClass("hiddenItem");
         
         this.$.MenuItem.removeClass("visibleItem");
         this.$.MenuItem.addClass("hiddenItem");
