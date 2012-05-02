@@ -363,7 +363,16 @@ li, ul {
     color: #F1F1F1;
 }
 
+.postButton{
+    float: right;
+}
 
+.login{
+    background-image: url(images/bgs/loginbg.png);
+    width:100%;
+    background-repeat: repeat-x;
+    background-color: #061D3D;
+}
 .menuMargin{
     margin-top: 64px;
 }
