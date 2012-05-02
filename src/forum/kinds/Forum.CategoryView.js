@@ -1,9 +1,12 @@
 enyo.kind({
+	/*
+	The main-view of the forum. Contains all the categories that contain all the subforums that link to all threads...
+	Has a button to create new category, but you have to change the admin-variable to true for it to be accessible.
+	*/
     name: "CategoryView",
     kind: enyo.Control,
     tag: "div",
-    admin: true,
-
+    admin: false,
     classes: "categoryView",
 
     components: [
@@ -30,7 +33,7 @@ enyo.kind({
         title: "",
     },
 
-    //admin:
+    /*Upon clicking the newCategory - button it is allowed th create a new category.*/
     newCategory: function(){
         categoryTitle = window.prompt("Category title");
         categoryDescription = window.prompt("Category description");
@@ -41,6 +44,7 @@ enyo.kind({
         }
     },
 
+	/*Create the categoryView.*/
     create: function(){
         this.inherited(arguments);
         this.populate();
@@ -53,6 +57,7 @@ enyo.kind({
         }
     },
 
+	/*Sets content of standard-texts.*/
     setByLang: function () {
         this.$.posts.setContent(Language.l( "posts", enyo.application.language).capitalize());
         this.$.threads.setContent(Language.l( "threads", enyo.application.language).capitalize());
@@ -60,16 +65,20 @@ enyo.kind({
         this.$.btnNewCategory.setContent(Language.l( "newCategory", enyo.application.language).capitalize());
     },
 
+	/*Get all categories from the database.*/
     populate: function(){
         enyo.application.db.getCategories( enyo.bind(this, "gotCategories"), 999, 0);
     },
 
+	/*Recieived all categories from the database.*/
     gotCategories: function( list ) {
         if ( this.destroyed ) {
             list.close();
             return;
         }
         this.$.categories.destroyClientControls();
+		
+		/*Create a category-kind for each list-entry.*/
     	enyo.forEach( list.items(), function( category ) {
     		this.createComponent({
         		kind: "Category",

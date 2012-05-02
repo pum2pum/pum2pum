@@ -19,10 +19,7 @@
 	//-- Creates the app now instead of the earlier kinds --
 
 
-	/*enyo.application = {};
-	enyo.application.db = new forumDatabase();*/
-	//enyo.application.db.login(null, "temporary username"); // TODO enable proper logins
-	//new ForumApp().renderInto(document.body);
+	/*Checks for cookies, if there is one we can skip the login-screen.*/
 	function getCookie(c_name) {
 		var i,x,y,ARRcookies=document.cookie.split(";");
 		for (i=0;i<ARRcookies.length;i++) {
@@ -35,12 +32,13 @@
 		}
 	}
 
+	/*Logins and creates the forum.*/
 	var username = getCookie("username");
 	if (username == null || username == "") {
-		new Login().renderInto(document.body);
+		new Login().renderInto(document.body); /*No cookie found, request login*/
 	} else {
-		enyo.application.db.login(null, username);
-		new ForumApp().renderInto(document.body);
+		enyo.application.db.login(null, username); /*Cookie found, login with cookie*/
+		new ForumApp().renderInto(document.body); /*Create the forum.*/
 	}
     
     </script>

@@ -1,8 +1,10 @@
 enyo.kind({
+	/*The first post of the thread, containing the actual topic at hand.*/
     name: "ThreadPost",
     tag: "li",
     kind: enyo.Control,
 
+	/*Defines the components of the ThreadPost. Note the postButton and postBox where we can reply to the ThreadPost.*/
     components: [
         { tag: "div", classes: "threadPost", components: [
            { name: "avatar", classes: "avatar", tag: "img", src: "/images/icons/avatar.png"},
@@ -29,10 +31,10 @@ enyo.kind({
         datetime: "1970-13-37 00:00:00",
         node: null,
         dbparent: "",
-        hasClickedpost: false,
-        hasClickedPost: false
+        hasClickedPost: false /*Used to toggle css-class of the button.*/
     },
 
+	/*The ReplyBox have returned with the content of a reply-post to the topic. We know that the reply is non-empty.*/
     success: function (text) {
         enyo.application.db.newPost( null, this.dbparent, text);
 
@@ -44,6 +46,7 @@ enyo.kind({
         this.$.postBox.destroyComponents();            
     },
 
+	/*The ReplyBox have encountered some kind of error, so we toggle the post-button.*/
     abort: function () {
         console.log("Error!");
         this.hasClickedpost = !this.hasClickedpost;
@@ -55,6 +58,10 @@ enyo.kind({
         this.$.postBox.destroyComponents(); 
     },
 
+	/*
+	The post-button have been pressed, so we create a new ReplyBox where we can write the text of the post.
+	We also toggle between different content in the button aswell as different css-classes.
+	*/
     postTap: function () {
         this.hasClickedpost = !this.hasClickedpost;
 
@@ -67,7 +74,7 @@ enyo.kind({
             this.$.postBox.createComponent({
                 kind: "ReplyBox",
                 text: "Enter text here.",
-                cbSuccess: enyo.bind( this, "success" ),
+                cbSuccess: enyo.bind( this, "success" ), /*Callback function with the new text.*/
                 cbAbort: enyo.bind( this, "abort" ),
                 container: this.$.postBox
             }).render();
@@ -80,9 +87,9 @@ enyo.kind({
         }
     },
 
+	/*Creates a new ThreadPost.*/
     create: function () {
         this.inherited(arguments);
-        // enyo.application.tsToString( this.post.timestamp ));
 
         this.$.text.setContent(this.text);
         this.$.datetime.setContent( enyo.application.tsToString( this.dbparent.timestamp ));
@@ -90,10 +97,12 @@ enyo.kind({
         this.setByLang();
     },
 
+	/*Sets content of the button.*/
     setByLang: function () {
         this.$.postButton.setContent(Language.l ("post", enyo.application.language).capitalize());
     },
 
+	/*Changes from user-id to username.*/
     useridChanged: function () {
         var t = this;
         enyo.application.db.getUser(function (user){
