@@ -26,6 +26,7 @@
 	if (!document.cookie) {
 		new Login().renderInto(document.body);
 	} else {
+		enyo.application.db.login(null, document.cookie);
 		new ForumApp().renderInto(document.body);
 	}
     
