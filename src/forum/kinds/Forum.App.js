@@ -1,7 +1,10 @@
 enyo.kind({
 	name: "ForumApp",
-	kind: enyo.Control,
+	kind: enyo.Scroller,
 	tag: "div",
+
+	classes: "enyo-fit",
+
 	components: [
 		{ kind: "ForumMenu", name: "forumMenu" },
 		{ kind: "ForumView", name: "forumView", classes: "menuMargin" }

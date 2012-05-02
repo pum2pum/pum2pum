@@ -15,6 +15,7 @@ enyo.kind({
 		this.loginToForum();
 	},
 	destroyLoginPage: function(){
+		location.hash = "#";
 		App = new ForumApp();
 		App.renderInto(document.body);
 		this.destroy();
