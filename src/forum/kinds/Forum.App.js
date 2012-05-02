@@ -4,7 +4,7 @@ enyo.kind({
 	tag: "div",
 	components: [
 		{ kind: "ForumMenu", name: "forumMenu" },
-		{ kind: "ForumView", name: "forumView" }
+		{ kind: "ForumView", name: "forumView", classes: "menuMargin" }
 	],
 
 	handlers: {
@@ -77,10 +77,14 @@ enyo.kind({
 
 	hideMenu: function(){
 		this.$.forumMenu.hide();
+		this.$.forumView.removeClass("menuMargin");
+		this.$.forumView.addClass("menuNoMargin");
 	},
 
 	showMenu: function(){
 		this.$.forumMenu.show();
+		this.$.forumView.removeClass("menuNoMargin");
+		this.$.forumView.addClass("menuMargin");
 	},
 
 	create: function () {

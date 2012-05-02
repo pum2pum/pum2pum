@@ -362,3 +362,12 @@ li, ul {
     background-color: #91BA07; 
     color: #F1F1F1;
 }
+
+
+.menuMargin{
+    margin-top: 64px;
+}
+
+.menuNoMargin{
+    margin-top: 0px;
+}

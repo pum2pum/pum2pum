@@ -66,5 +66,9 @@ enyo.kind({
         this.posts += list.size( );
         this.$.posts.setContent( this.posts );
         this.$.posts.render( );
+
+        enyo.forEach( list.items(), function (post ) {
+
+        });
     }
 });

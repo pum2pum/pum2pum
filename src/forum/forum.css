@@ -2,6 +2,8 @@
 
 .forumMenu {
 	background-image: url(images/bgs/topmenubg.png);
+    position: fixed;
+    margin-left: -13px;
 	width: 100%;
 }
 
@@ -25,10 +27,12 @@
 }
 
 .forumMenu .normal-icon {
+    margin-left: 14px;
 	width: 70px;
 	height: 64px;
 }
 .forumMenu .small-icon {
+    margin-left: 56px;
 	width: 29px;
 	height: 18px;
 	position: absolute;
