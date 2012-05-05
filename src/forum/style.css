@@ -349,7 +349,7 @@ li, ul {
 .newThreadPostBox label{
     width: 100%;
 }
-.newThreadPostBox label textarea{
+.newThreadPostBox label div{
     width: 100%;
 }
 
