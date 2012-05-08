@@ -5,10 +5,10 @@ enyo.kind({
 	this.$.textArea.setContent(newText);
     },
     userCountCallback: function(users) {
-	if (users._list.length === 99) {
+	if (users.size() === 99) {
 	    this.setOverlayText("99+");
 	} else {
-	    this.setOverlayText(users._list.length);
+	    this.setOverlayText(users.size());
 	}
     },
     components: [

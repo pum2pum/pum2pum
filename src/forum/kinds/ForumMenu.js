@@ -6,9 +6,9 @@ enyo.kind({
     
     components: [
     { kind: "UsersMenuItem", name: "UsersMenuItem", src: "/images/icons/online.png", newKind: "UsersView", classes: "visibleItem normal-icon"},
-    { kind: "RepliesMenuItem", name: "RepliesMenuItem", src: "/images/icons/reply.png", newKind: "RepliesView",classes: "visibleItem normal-icon"},
-    { kind: "MenuItem", name: "MenuItem", src: "/images/icons/settings.png", newKind: "SettingsView",classes: "visibleItem normal-icon"},
-    { kind: "CollapseMenuItem", name:"CollapseMenuItem", src: "/images/icons/collapse.png",classes: "visibleItem normal-icon"},
+    { kind: "RepliesMenuItem", name: "RepliesMenuItem", src: "/images/icons/reply.png", newKind: "RepliesView", classes: "visibleItem normal-icon"},
+    { kind: "MenuItem", name: "MenuItem", src: "/images/icons/settings.png", newKind: "SettingsView", classes: "visibleItem normal-icon"},
+    { kind: "CollapseMenuItem", name:"CollapseMenuItem", src: "/images/icons/collapse.png", classes: "visibleItem normal-icon"},
     { kind: "ShowMenuItem", name:"ShowMenuItem", src: "/images/icons/show.png", classes: "hiddenItem small-icon"}
     ],
     create: function() {
