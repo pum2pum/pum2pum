@@ -10,12 +10,14 @@
 \usepackage[breakall]{truncate}
 
 \definecolor{red}{RGB}{180,0,0}
-\definecolor{green}{RGB}{0,180,0}
+\definecolor{green}{RGB}{0,150,0}
 
-%\renewcommand{\TruncateMarker}{\dots}
+\newcommand{\stestpass}[3]{
+	#1 & \truncate{80pt}{#2} & \textcolor{green}{#3 passed} \\
+}
 
 \newcommand{\testpass}[2]{
-	#1 & \truncate[\dots]{80pt}{#2} & \textcolor{green}{All tests passed} \\
+	#1 & \truncate{80pt}{#2} & \textcolor{green}{All tests passed} \\
 }
 
 \newcommand{\testfail}[3]{
@@ -36,7 +38,7 @@
 			
 			\vspace{0.5cm}
 			
-			\huge{2012-04-22} % Datum senast ändrad
+			\huge{2012-05-01} % Datum senast ändrad
 		\end{center}
 		
 	\end{titlepage}
@@ -52,11 +54,45 @@
 	The tests are for technical reasons separated into two different test environments, and the log for each environment is found in \autoref{sec:enyo} and \autoref{sec:node} respectively.\\
 
 
-	\section{Enyo tests}
-	\label{sec:enyo}
+	\section{System quality tests}
+	\label{sec:quality}
+	Manual system quality tests described in section 1 of the test case document.\\
 
 	\begin{tabular}{l l l}
 	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\stestpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{1.2.1}
+		\stestpass{2012-04-26}{3cc0e450428a18934d40ce4d2efaa737b8241ef3}{1.2.1}
+		\stestpass{2012-04-10}{866c9d65d059b9df43f2f8b5eb6a1e45a456fea9}{1.2.1}
+	\end{tabular}
+
+
+	\section{Server tests}
+	\label{sec:node}
+	Automated tests described in section 2 of the test case document.\\
+
+	\begin{tabular}{l l l}
+	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\testpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}
+		\testfail{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{Dependency initialization}
+		\testpass{2012-04-26}{3cc0e450428a18934d40ce4d2efaa737b8241ef3}
+		\testpass{2012-04-23}{3f09c5856f776e67b1a82e4dd9f3bbd51bf11269}
+		\testpass{2012-04-22}{de827763dcc83d25e93a64f7b674b1593a65b9b3}
+		\testpass{2012-04-15}{876c7c5e3720cc1f8f6350b45c3986b0b2717b4a}
+		\testfail{2012-04-14}{7c02e7b180e615cec2dcf9f328bba2dca6a7e7ec}{Test driver}
+		\testpass{2012-04-10}{866c9d65d059b9df43f2f8b5eb6a1e45a456fea9}
+
+	\end{tabular}
+
+
+	\section{Application tests}
+	\label{sec:enyo}
+	Automated tests described in sections 3 and 4 of the test case document.\\
+
+	\begin{tabular}{l l l}
+	\bf{Date} & \bf{Commit} & \bf{Status}\\
+	
+		\testpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}
+		\testfail{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{Dependency initialization}
 		\testpass{2012-04-26}{3cc0e450428a18934d40ce4d2efaa737b8241ef3}
 		\testpass{2012-04-23}{3f09c5856f776e67b1a82e4dd9f3bbd51bf11269}
 		\testpass{2012-04-22}{de827763dcc83d25e93a64f7b674b1593a65b9b3}
@@ -70,22 +106,5 @@
 		\testfail{2012-04-15}{76eb9f7ddd4bc4bd20a277d138f054da60e9ca88}{Test driver}
 
 	\end{tabular}
-
-
-	\section{Node tests}
-	\label{sec:node}
-
-	\begin{tabular}{l l l}
-	\bf{Date} & \bf{Commit} & \bf{Status}\\
-		\testpass{2012-04-26}{3cc0e450428a18934d40ce4d2efaa737b8241ef3}
-		\testpass{2012-04-23}{3f09c5856f776e67b1a82e4dd9f3bbd51bf11269}
-		\testpass{2012-04-22}{de827763dcc83d25e93a64f7b674b1593a65b9b3}
-		\testpass{2012-04-15}{876c7c5e3720cc1f8f6350b45c3986b0b2717b4a}
-		\testfail{2012-04-14}{7c02e7b180e615cec2dcf9f328bba2dca6a7e7ec}{Test driver}
-		\testpass{2012-04-10}{866c9d65d059b9df43f2f8b5eb6a1e45a456fea9}
-
-	\end{tabular}
-
-
 
 \end{document}

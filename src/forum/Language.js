@@ -27,6 +27,8 @@ Language.l = function( string, lang ) {
 
 Language.languages = {
     en: {
+    textHere: "enter text here",
+    post: "post",
 	reply: "reply",
     close: "close",
     placeholder: "enter text here.",
@@ -50,10 +52,12 @@ Language.languages = {
     newThread: "create new thread",
     abort: "abort",
     postThread: "post",
-    confirmAbortion: "really tabort? Filled in text is not saved!"
+    confirmAbortion: "really abort? Filled in text is not saved!"
     },
 
     sv: {
+    textHere: "skriv text här",
+    post: "posta",
 	reply: "svara",
     close: "stäng",
     placeholder: "skriv in text här.",

@@ -1,4 +1,5 @@
 enyo.kind({
+	/*This defines the answer to a post.*/
     name: "Answer",
     kind: enyo.Control,
     classes: "post",
@@ -9,22 +10,33 @@ enyo.kind({
         dbparent: "",
     },
 
+	/*The components include an avatar, a username, date and the actual text.*/
     components: [
-        { name: "avatar", classes: "avatar", tag: "img", src: "http://chzscience.files.wordpress.com/2011/11/funny-science-news-experiments-memes-dog-science-fuzzy-logic.jpg"},
+        { name: "avatar", classes: "avatar", tag: "img", src: "/images/icons/avatar.png"},
         { tag: "div", components: [
             {name: "username", tag: "p", classes: "username" },
             {name: "datetime", tag: "p", classes: "datetime" }
         ] },
 
-        { name: "text", tag: "p", classes: "text"},
+        { name: "text", tag: "p", classes: "text", allowHtml: true },
     ],
 
+	/*Creates the answer.*/
     create: function(){
         this.inherited(arguments);
 
         this.$.datetime.setContent(this.datetime);
-        this.$.username.setContent(this.username);
         this.$.text.setContent(this.text);
+
+        this.useridChanged();
+    },
+
+	/*Changes from a user-id to a username.*/
+    useridChanged: function () {
+        var t = this;
+        enyo.application.db.getUser(function (user){
+            t.$.username.setContent(user.item().name);
+        }, this.username);
     }
 
 });

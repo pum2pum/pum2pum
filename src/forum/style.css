@@ -1,6 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	background-color: #DCE4F2;
 }
 
 h1, h2, h3, p, ul, li {
@@ -119,25 +120,42 @@ li, ul {
 
 /************PostView*****************/
 
+.post, .threadPost {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    background-color: #FFFFFF;
+    
+}
+
 .post {
     border: 1px solid #1F54BC;
     border-radius: 12px;
     width: 95%;
-    margin-top: 20px;
-    margin-bottom: 0px;
     margin-left: 3%;
-    background-color: #DCE4F2;
 }
 
-.post .avatar {
+.threadPost {
+    border-bottom: 1px solid #1F54BC;
+}
+
+.post .avatar, .threadPost .avatar {
     border: 2 px solid #1F54BC;
     border-radius: 2px;
     float: left;
     clear: right;
-    height: 100px;
-    width: 62px;
+    height: 95px;
+    width: 79px;
+}
+
+.post .avatar {
     margin-left: -20px;
     margin-top: -20px;
+    margin-right: 6px;
+}
+
+.threadPost .avatar {
+    margin-left: 0px;
+    margin-top: 0px;
     margin-right: 6px;
 }
 
@@ -150,19 +168,32 @@ li, ul {
 
 }
 
-.post .text {
+.post .text, .threadPost .text {
     margin: 8px;
     padding: 6px;
-}
-
-.PostContainer {
-    background-color: #FFF000;
 }
 
 .answer{
     width: 95%;
     margin-left: 5%;
 }
+
+.threadPost .username{
+    font-weight: bold;
+}
+
+.threadPost {
+//    background-color: #FF0000;
+}
+/*.firstPost {
+    background-color: #FFFFFF;
+    border: 1px solid #1F54BC;
+    border-radius: 12px;
+    width: 95%;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 3%;
+}*/
 /*
 .PostContainer li:nth-child(even) {
 	background-image: url(images/bgs/forumbg2.png);
@@ -174,6 +205,9 @@ li, ul {
 
 
 /**** CategoryView *****/
+.categoryView {
+/*    margin-top: 64px;*/
+}
 .categoryContainerHead {
     background-image: url("images/bgs/headerbg.png");
     color: #FFFFFF;
@@ -304,6 +338,9 @@ li, ul {
 .newThreadTitleBox label{
     width: 100%;
 }
+.newThreadTitleBox label input{
+    width: 100%;
+}
 
 .newThreadPostBox{
     width: 95%;
@@ -312,10 +349,57 @@ li, ul {
 .newThreadPostBox label{
     width: 100%;
 }
-.newThreadPostBox label input{
+.newThreadPostBox label div{
     width: 100%;
 }
 
 .errorEmptyInput{
     background-color: red !important;
+}
+
+.newThreadAbortButton{
+    background-color: #C51616;
+    color: #F1F1F1;
+}
+
+.newThreadPostButton{
+    background-color: #91BA07; 
+    color: #F1F1F1;
+}
+
+.postButton{
+    float: right;
+}
+
+.login{
+
+/* IE10 */
+background-image: -ms-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/*Mozilla Firefox */
+background-image: -moz-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Opera */
+background-image: -o-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Webkit (Safari/Chrome 10) */
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00E8F7), color-stop(144px, #2884FE), color-stop(432px, #0757C1), color-stop(936px, #76F0FF), color-stop(1, #76F0FF));
+
+/* Webkit (Chrome 11+) */
+background-image: -webkit-linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+/* Proposed W3C Markup */
+background-image: linear-gradient(top, #00E8F7 0px, #2884FE 144px, #0757C1 432px, #76F0FF 936px);
+
+}
+.menuMargin{
+    margin-top: 64px;
+}
+
+.menuNoMargin{
+    margin-top: 0px;
+}
+
+.enyo-clip {
+    overflow: auto;
 }

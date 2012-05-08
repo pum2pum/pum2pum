@@ -2,6 +2,11 @@
 
 .forumMenu {
 	background-image: url(images/bgs/topmenubg.png);
+    position: fixed;
+    top: 0;
+    left 0;
+    margin-left: -13px;
+	width: 100%;
 }
 
 .menuItemFloatText {
@@ -9,8 +14,7 @@
     position: relative;
     font-size: 140%;
     font-weight: bold;
-    text-align: center;	
-    line-height: 64px;
+    text-align: center;
     text-shadow:
 	-1px 0px #006699,
 	1px 0px #006699,
@@ -25,15 +29,17 @@
 }
 
 .forumMenu .normal-icon {
+    margin-left: 14px;
 	width: 70px;
 	height: 64px;
 }
 .forumMenu .small-icon {
+    margin-left: 56px;
 	width: 29px;
 	height: 18px;
 	position: absolute;
 	top: 0%;
-	left: 223px;
+	left: 139px;
 }
 .forumMenu .onyx-icon:hover {
 	cursor: pointer;

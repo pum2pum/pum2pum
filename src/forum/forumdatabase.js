@@ -36,6 +36,10 @@ forumDatabase.prototype = {
 		}
 	},
 
+	isLoggedIn: function () {
+		return this.loggedIn;
+	},
+
 	/** Creates a new category
 	* A category contains a title and a description of the category
 	* -------

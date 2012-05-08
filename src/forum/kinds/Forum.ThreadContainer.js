@@ -32,34 +32,32 @@ enyo.kind({
         }
 
         this.$.threads.destroyClientControls();
-    	enyo.forEach( list.items(), function( thread ) {
-    		this.createComponent({
-    			kind: "ForumThread",
-    			container: this.$.threads,
-    			title: thread.title,
-    			thread: thread,
+        enyo.forEach( list.items(), function( thread ) {
+            this.createComponent({
+                kind: "ForumThread",
+                container: this.$.threads,
+                title: thread.title,
+                thread: thread,
                 userid: thread.user,
                 node: thread
-    		});
+            });
 
-    	}, this );
-		this.$.threads.render();
+        }, this );
+        this.$.threads.render();
     },
 
     create: function () {
-		this.inherited(arguments);
+        this.inherited(arguments);
         this.setByLang();
-		this.populate();
-		this.subForumChanged();
+        this.populate();
+        this.subForumChanged();
     },
     
     setByLang: function () {
-        
         this.$.topic.setContent( Language.l( "topic", enyo.application.language ).capitalize() + " / " + Language.l( "startedBy", enyo.application.language ).capitalize() );
         this.$.lastPost.setContent( Language.l( "lastPost", enyo.application.language ).capitalize() );
         this.$.posts.setContent( Language.l( "posts", enyo.application.language ).capitalize() );
         this.$.newThreadLink.setContent( Language.l( "newThread", enyo.application.language ).capitalize() );
-        
     },
 
     subForumChanged: function () {
@@ -67,7 +65,6 @@ enyo.kind({
     },
     
     createThread: function(){
-        
         this.$.newThreadHolder.destroyClientControls();
         
         this.createComponent({
@@ -82,11 +79,9 @@ enyo.kind({
     },
     
     success: function(title, post){
-        
         enyo.application.db.newThread(null, this.subForum, title, post);
         
         this.$.newThreadHolder.destroyClientControls();
-        
     },
     
     abort: function(){

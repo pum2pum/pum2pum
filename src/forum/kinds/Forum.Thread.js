@@ -18,13 +18,13 @@ enyo.kind({
     	{ tag: "div", classes: "posts",
     		components: [
     			{ tag: "p", name: "numPosts" }
-    	] }
-    
+    	] },    
     ],
     published: {
 		userid: "Default User",
 		title: "Default title",
         thread: null,
+        hasClicked: false
 	},
 
     create: function () {
@@ -32,7 +32,7 @@ enyo.kind({
 		this.titleChanged();
 		this.useridChanged();
 
-        enyo.application.db.getPosts( enyo.bind( this, "lastPost" ), this.thread, 100, 0 );
+        enyo.application.db.getPosts( enyo.bind( this, "lastPost" ), this.thread, 999, 0 );
     },
 
     lastPost: function( postslist ) {
@@ -42,6 +42,11 @@ enyo.kind({
         }
         var t = this;
         posts = postslist.items();
+
+
+        enyo.forEach( posts, function( post ) {
+            enyo.application.db.getAnswers( enyo.bind( t, "gotAnswers" ), post, 999, 0 );
+        });
 
         if( postslist.size() > 0 ) {
             post = postslist.items()[0];
@@ -63,7 +68,13 @@ enyo.kind({
         t.$.numPosts.setContent( postslist.size() );
     },
 
-
+    gotAnswers: function( list ) {
+        list.close();
+        var posts = this.$.numPosts.getContent();
+        posts += list.size();
+        this.$.numPosts.setContent( posts );
+        this.$.numPosts.render( );
+    },
 
     titleChanged: function() {
     	this.$.threadtitle.setContent( this.title );

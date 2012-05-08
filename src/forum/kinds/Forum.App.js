@@ -2,9 +2,10 @@ enyo.kind({
 	name: "ForumApp",
 	kind: enyo.Control,
 	tag: "div",
+
 	components: [
 		{ kind: "ForumMenu", name: "forumMenu" },
-		{ kind: "ForumView", name: "forumView" }
+		{ kind: "ForumView", name: "forumView", classes: "menuMargin" }
 	],
 
 	handlers: {
@@ -13,8 +14,14 @@ enyo.kind({
 		onhashchange: "hashchange"
 	},
 
+	showLoginView: function () {
+		this.$.forumView.createComponent({
+			kind: "Login"
+		});
+		this.render();
+	},
+
 	showCategoryView: function () {
-		console.log( "categoryview" );
 		this.$.forumView.createComponent({
 			kind: "CategoryView"
 		});
@@ -50,7 +57,6 @@ enyo.kind({
 	},
 
 	hashchange: function ( sender, event ) {
-		console.log("hashchange");
 		var hash = location.hash.substr( 1 );
 		var valuePairs = hash.split( "&" );
 		var tmpValue;
@@ -70,17 +76,33 @@ enyo.kind({
 				this.showThreadView( values["id"] );
 				break;
 			default:
-				this.showCategoryView();
+				var username = getCookie("username");
+				console.log(username);
+				if ( username === null || username === "" || username === undefined  ) {
+					this.showLoginView();
+				} else {
+					if ( !enyo.application.db.isLoggedIn() ) {
+						console.log("inte inloggad");
+						enyo.application.db.login( enyo.bind(this, "showCategoryView") , username);
+					} else {
+						console.log("inloggad");
+						this.showCategoryView();
+					}
+				}
 				break;
 		}
 	},
 
 	hideMenu: function(){
 		this.$.forumMenu.hide();
+		this.$.forumView.removeClass("menuMargin");
+		this.$.forumView.addClass("menuNoMargin");
 	},
 
 	showMenu: function(){
 		this.$.forumMenu.show();
+		this.$.forumView.removeClass("menuNoMargin");
+		this.$.forumView.addClass("menuMargin");
 	},
 
 	create: function () {

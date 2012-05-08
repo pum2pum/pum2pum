@@ -15,7 +15,8 @@ enyo.kind({
 	classes: "onyx-slider",
 	published: {
 		value: 0,
-		lockBar: true
+		lockBar: true,
+		tappable: true
 	},
 	events: {
 		onChange: "",
@@ -31,6 +32,7 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{classes: "onyx-slider-taparea"},
 		{name: "knob", classes: "onyx-slider-knob"}
 	],
 	create: function() {
@@ -55,7 +57,7 @@ enyo.kind({
 	},
 	dragstart: function(inSender, inEvent) {
 		if (inEvent.horizontal) {
-			inEvent.preventNativeDefault();
+			inEvent.preventDefault();
 			this.dragging = true;
 			return true;
 		}
@@ -75,10 +77,12 @@ enyo.kind({
 		return true;
 	},
 	tap: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		this.tapped = true;
-		this.animateTo(v);
-		return true;
+		if (this.tappable) {
+			var v = this.calcKnobPosition(inEvent);
+			this.tapped = true;
+			this.animateTo(v);
+			return true;
+		}
 	},
 	//* @public
 	//* Animate to the given value.

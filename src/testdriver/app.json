@@ -7,8 +7,11 @@
 	"dependencies":
 	[
 		"api.js",
+		"forum/kinds/package.js",
+		"forum/kinds/CollapseMenuItem.js",
 		"forum/forumdatabase.js",
-		"forum/init.js"
+		"forum/init.js",
+		"forum/kinds/"
 	],
 	
 	"settings":

@@ -1,3 +1,15 @@
+function getCookie(c_name) {
+        var i,x,y,ARRcookies=document.cookie.split(";");
+        for (i=0;i<ARRcookies.length;i++) {
+            x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+            y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+            x=x.replace(/^\s+|\s+$/g,"");
+            if (x==c_name) {
+                return unescape(y);
+            }
+        }
+    }
+
 enyo.dispatcher.listen( window, "hashchange" );
 enyo.master._bubbleDefault = enyo.master.bubble;
 enyo.master.bubble = function(inEventName, inEvent, inSender) {
@@ -11,7 +23,7 @@ enyo.master.bubble = function(inEventName, inEvent, inSender) {
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-
+//enyo.Scroller.touchScrolling = true; 
 enyo.application = {
 	db: new forumDatabase(),
 
