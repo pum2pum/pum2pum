@@ -89,18 +89,8 @@ enyo.kind({
 		
     },
 
-    postView: function(e) {
-	//changes the current view to the show the posts in this thread 
-    	thread = this.threadid;
-    	this.$.body.createComponent ({
-    	   kind: "ForumPostContainer",
-    	   threadid: thread
-    	}).renderInto(document.body);
-    },
-
     tap: function( sender, event ) {
         enyo.application.changeView( "thread", this.thread.id );
-        //this.bubble( "onChangeView", { kind: "ForumPostContainer", thread: this.thread } );
     }
 
 });

@@ -17,7 +17,6 @@ enyo.kind({
 	}, 
 	/*Logins to the database, given that a non-empty username was given.*/
 	loginToForum: function(){
-		console.log("loggar in....");
 		var name = this.$.nameField.getValue();
 		if (name != "") {
 			enyo.application.db.login(enyo.bind(this, "destroyLoginPage"), name); //shouldnt need to run any function in callback
