@@ -62,34 +62,23 @@ var startServer = function(readyCallback) {
         config.dependencies.forEach(function(elem){
 
             tmpPath = path.join(dependenciesRoot, elem);
-            elem = [elem];
 
             if(!path.existsSync(tmpPath)){
     /* As a secondary option, try to load dependencies from the folder with apps.
     Needed since the test driver-app has to access the other apps. */
-                tmpPath = path.join('..', elem[0]);
+                tmpPath = path.join('..', elem);
                 
                 if(!path.existsSync(tmpPath)){
                     return error("Couldn't find " + elem);
                 }
-                elem = elem[0].match( FILE_REGEX );
-
+                elem = elem.match( FILE_REGEX );
                 if(elem) {
-                    elem = [elem[1]];
-                } else {
-                    elem = fs.readdirSync(tmpPath);
-                    var baseTmpPath = tmpPath;
+                    elem = elem[1];
                 }
             }
 
-            elem.forEach(function(ename){
-                if(baseTmpPath) {
-                    tmpPath = path.join(baseTmpPath, ename);
-                }
-
-                depFiles[ename] = fs.readFileSync(tmpPath,"utf8");
-                console.log("added " + ename);
-            });
+            depFiles[elem] = fs.readFileSync(tmpPath,"utf8");
+            console.log("added " + elem);
         });
     }
     /******* /STARTUP *******/

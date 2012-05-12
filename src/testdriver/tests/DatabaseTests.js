@@ -1,14 +1,26 @@
-// If validate is true, insert-tests waits for error-callbacks before passing the test.
-// Timeout is the time to wait for the callback.
+/**
+ * This test suite tests the database helper functions which communicates with
+ * the livedb.io database functions in api.js
+ **/
+
+/**
+Config options:
+VALIDATE: If true, insert-tests waits for error-callbacks before passing the test.
+TIMEOUT: The time to wait for the callback.
+**/
 var VALIDATE = false, TIMEOUT = 1000;
 var count = 0;
 
 var gdb; // Global database variable
 var g = []; // Global array for data between tests
 
-/* Finishes a create-test with or without a validation-delay */
+/**
+ * Finishes a create-test with or without a validation-delay depending on config options 
+ **/
 function finishTest(test) {
 	if(VALIDATE) {
+		/* A bit ugly, but since database API does not always  send a callback, it's 
+		impossible to know when we safely can say that no error-callback will come */
 		setTimeout(function() { 
 			test.finish(); 
 		}, 
@@ -28,7 +40,7 @@ function failCallback(test) {
 /**
 * Returns a callback-function which checks if all items has the property values in names.
 * i.e. checkListCallback(test, ['a', 'b'], "name") will pass iff result["name"] contains
-* the objects "a" an "b", where result is the items returned from the query.
+* the objects "a" and/or "b", where result is the items returned from the query.
 **/
 function checkListCallback(test, names, property, setGlobal) {
 	return function(list) {
@@ -55,10 +67,11 @@ function checkListCallback(test, names, property, setGlobal) {
 				}
 
 				if(setGlobal) {
+					// Save the object as something global for future use
 					g[setGlobal] = items[0];
 					console.log(g[setGlobal]);
 				}
-
+				// Stop callback-prenumerations on the query
 				list.close();
 				test.finish();
 		}
@@ -144,7 +157,10 @@ enyo.kind({
 	testGetSubForum: function() {
 		var test = this;
 
-// Bortkommenterat: Grrr för osynkade databaser som dessutom inte skickar callbacks
+/* 
+Lines below is commented-out sine the database cannot handle multiple writes at the 
+same time. Yup, seems lite a quite hairy bug but it's out of scope for these tests.
+*/
 /*		gdb.newSubForum(
 			failCallback(test), g["cat"], "MySubForum 2", "SubForum description 2"
 		);
