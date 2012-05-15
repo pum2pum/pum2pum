@@ -1,0 +1,242 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{tabularx}
+\usepackage{listings}
+
+\lstset{ 
+	language=bash,
+	basicstyle=\footnotesize\ttfamily
+}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+	
+	% Framsidan
+	\begin{titlepage}
+		
+		\includegraphics[scale=0.4]{logoNormal.png}
+		
+		\vspace{6cm}
+		
+		\begin{center}
+			\Huge{\textbf{Installation and operation manual}} % Ändra dokumentets titel
+			
+			\vspace{0.5cm}
+			
+			\huge{2012-05-15} % Datum senast ändrad
+		\end{center}
+		
+	\end{titlepage}
+	
+	% Innehållsförteckning
+	\tableofcontents
+	\newpage
+	
+	% Versioner (lägg till ändringar ni gör som en ny rad i tabellen nedan).
+	% Under Utförda av anges LiU-id.
+	\section*{Versions}
+	\begin{tabularx}{1\textwidth}{|l|l|X|l|}
+		\hline
+		\bf{Version} & \bf{Date} & \bf{Changes} & \bf{By} \\
+		\hline
+		0.4 & 2012-05-15 & Corrections from feedback & nicol271 \\		
+		\hline 
+		0.3 & 2012-05-02 & Changed order of versions to newest on top & robud948 \\
+		\hline
+		0.2 & 2012-04-26 & Language corrections & oliuv486 \\		
+		\hline
+		0.1 & 2012-04-20 & First version & nicol271 \\
+		\hline
+	\end{tabularx}
+	\newpage
+	
+	% Dokumentets innehåll nedanför här.
+	% Exempel:
+	\section{Introduction}
+	pum2pum is a forum based on the livedb.io database aiming to be modern and user friendly. This manual is intended as a guide for installing, configuring and running the application. 
+
+	\section{Installation}
+	This section will help you install the forum application.
+
+	\subsection{Prerequesties}
+	This guide only covers installation on Unix-based platforms. The application might also work on Windows-based platforms, but it is not officially supported other than through a virtual environment.\\
+
+	The application has some dependencies, listed below. Installation of these for different platforms will be covered in \ref{sec:linuxinstall} and \ref{sec:osxinstall} respectively.
+
+	\begin{itemize}
+		\item node.js
+		\item socket.io
+		\item node-sqlite3
+	\end{itemize}
+
+	\subsection{Linux}
+	\label{sec:linuxinstall}
+	This guide is written for Debian-based flavours of Linux. However, the only differences compared to other Linux is the type of package manager and name of the package containing compiler tools.
+
+	\subsubsection{node.js and npm}
+	Open a new terminal window. The easiest approach is to install node.js by using a package manager.
+
+	\begin{lstlisting}
+	sudo apt-get install node
+	\end{lstlisting}
+
+	Optionally, you can get and compile the source from the www.nodejs.org website.\\
+
+	To install the dependencies, we will use Node Package Manager (\lstinline{npm}) which is included in recent versions of node.js. You can make sure you have it by running the command \lstinline{which npm}. If no path (some text ending with "npm") appears, you do not have npm installed. Either reinstall node.js from source, or install it by running
+
+	\begin{lstlisting}
+	wget http://npmjs.org/install.sh
+	sudo install.sh
+	\end{lstlisting}
+
+	This assumes that you have \lstinline{wget} installed, which can be installed by running \lstinline{sudo apt-get install wget}. It may be a good idea to examine the install.sh file before running it, to make sure that it does not do anything evil.\\
+
+	npm may also be installed by using \lstinline{apt} just like before. However, there is a risk that an outdated version of npm will be installed, which makes it impossible to install some of the dependencies. At the writing of this manual, npm version 1.1.16 was required to install the latest version of the dependencies.
+
+	\subsubsection{Build essential}
+	In order to be able to install dependencies, you need the Debian \lstinline{build-essential} package.
+
+	\begin{lstlisting}
+	sudo apt-get install build-essential
+	\end{lstlisting}
+
+
+	\subsubsection{Getting the forum application}
+
+	The preferred method to get the code if you have Git installed, is to clone our repository.
+	\begin{lstlisting}
+	git clone git://github.com/pum2pum/pum2pum.git
+	\end{lstlisting}
+
+	Alternative method: Navigate to the folder where you want the application to be installed. Download and unpack the forum application code from the pum2pum repository. You can do this in the terminal by running
+
+	\begin{lstlisting}
+	wget https://github.com/pum2pum/pum2pum/tarball/master
+	tar -xzf master
+	\end{lstlisting}
+
+
+	\subsubsection{Installing dependencies}
+	Open the folder containing the unpacked version of the forum (the folder name typically begins with pum2pum) and navigate to the \lstinline{src/server/} folder.\\
+	For example, if the folder name is pum2pum, this is done by running
+	\begin{lstlisting}
+	cd pum2pum/src/server/
+	\end{lstlisting}
+
+	Install socket.io in the directory by running
+
+	\begin{lstlisting}
+	npm install socket.io
+	\end{lstlisting}
+
+	Then install the final depencendy, node-sqlite3
+
+	\begin{lstlisting}
+	npm install sqlite3
+	\end{lstlisting}
+
+	That's it! You should now be able to run the forum application.
+
+
+
+	\subsection{Mac OS X Lion}
+	\label{sec:osxinstall}
+
+
+	\subsubsection{Xcode}
+	To be able to install some of the dependencies, you need to have the Apple developer software Xcode installed. Open App store, search for Xcode and install.
+
+
+	\subsubsection{node.js and npm}
+	Download the node.js macintosh installer from www.nodejs.org and launch.
+
+	\subsubsection{Getting the forum-application}
+	The preferred method to get the code if you have Git installed, is to clone our repository.
+	\begin{lstlisting}
+	git clone git://github.com/pum2pum/pum2pum.git
+	\end{lstlisting}
+
+	Alternative method: Download the application in zip-format from our Github website
+	\begin{quote}
+	https://github.com/pum2pum/pum2pum/downloads
+	\end{quote}
+	Open the file to unpack it. Move the folder containing the unpacked files to a suitable destination.\\
+
+	Alternatively, if you have Git installed, you can clone our repository.
+	\begin{lstlisting}
+	git clone git://github.com/pum2pum/pum2pum.git
+	\end{lstlisting}
+  
+
+	\subsubsection{Installing dependencies}
+	Open a terminal and change directory to the folder containing the unpacked version of the forum. The folder name typically begins with pum2pum. Navigate to the \lstinline{src/server/} folder.\\
+	For example, if the folder name is pum2pum, this is done by running
+	\begin{lstlisting}
+	cd pum2pum/src/server/
+	\end{lstlisting}
+
+	Install socket.io in the directory by running
+	\begin{lstlisting}
+	npm install socket.io
+	\end{lstlisting}
+
+	Then install the final depencendy, node-sqlite3
+	\begin{lstlisting}
+	npm install sqlite3
+	\end{lstlisting}
+
+	That's it! You should now be able to run the forum application.
+
+
+	\section{Running the application}
+	Open a terminal and navigate to the \lstinline{src/server/} folder in the forum application directory. Start the server by running
+	\begin{lstlisting}
+	node server.js forum
+	\end{lstlisting}
+
+	Visit http://localhost:8124 in your browser. The forum application should now be displayed. You can stop the server at any time by pressing Ctrl + C in the terminal window.
+
+
+	\section{Running tests}
+	After modifing the source code of the application, or to just see if it seems to operate correctly after install, it is good to run the tests that come with the application.\\
+
+	There are two kinds of tests. One kind of test for the server which runs the application, and another for the application itself. These will be referred to as server tests and application tests.
+
+	\subsection{Server tests}
+	Open the folder containing the application and change directory to \lstinline{test/node/} (by using \lstinline{cd test/node/}). Make sure that no instances of the server are already running on the same machine, in this case some of the tests will fail.\\
+
+	The tests can be run by running
+
+	\begin{lstlisting}
+	node server.test.js
+	\end{lstlisting}
+
+	If everything is ok, you should see that no test suites fails and a green result saying that all test suites passed. Otherwise, you will see a (hopefully) helpful error message and a stacktrace from the server.
+
+	\subsection{Application tests}
+	Open the folder containing the application and change directory to \lstinline{src/server/}. Make sure that no instances of the server are already running on the same machine, in this case the server running the tests will not start.\\
+
+	Start the test server by running \lstinline{./test.sh}. If you have trouble running the script, you may need to give the file executable permissions (\lstinline{chmod +x test.sh}).\\
+
+	The terminal will now look about the same as when running the application itself. To run the tests, visit http://localhost:8124/ in a web browser. The result should look something like
+
+	\begin{lstlisting}
+	testLogin: PASSED
+	testGetUsers: PASSED
+	testNewCategory: PASSED
+	\end{lstlisting}
+
+	All tests should pass - no tests should time out or fail. If a test does not pass, something is wrong. A traceback or error-message will be shown to make it easier to debug the error. All test suites are located in the \lstinline{src/testdriver/tests/} folder. 
+
+	\section{Miscellaneous}
+	\subsection{Database files}
+	The database files are stored in a new folder in the same directory as the server with the same name as the application. Thus, the forum database files will be stored in the \lstinline{src/server/forum/} folder.
+
+	\subsection{Updating the application}
+	If the application is installed using Git to fetch the code (as preferred above), update to the latest version of the code by pulling the changes from Github. This is performed bu running the \lstinline{git pull} command from within the application-directory.
+
+\end{document}
