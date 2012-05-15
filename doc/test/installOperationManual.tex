@@ -107,16 +107,16 @@
 
 	\subsubsection{Getting the forum application}
 
-	Navigate to the folder where you want the application to be installed. Download and unpack the forum application code from the pum2pum repository. You can do this in the terminal by running
+	The preferred method to get the code if you have Git installed, is to clone our repository.
+	\begin{lstlisting}
+	git clone git://github.com/pum2pum/pum2pum.git
+	\end{lstlisting}
+
+	Alternative method: Navigate to the folder where you want the application to be installed. Download and unpack the forum application code from the pum2pum repository. You can do this in the terminal by running
 
 	\begin{lstlisting}
 	wget https://github.com/pum2pum/pum2pum/tarball/master
 	tar -xzf master
-	\end{lstlisting}
-
-	Alternatively, if you have Git installed, you can clone our repository.
-	\begin{lstlisting}
-	git clone git://github.com/pum2pum/pum2pum.git
 	\end{lstlisting}
 
 
@@ -155,7 +155,12 @@
 	Download the node.js macintosh installer from www.nodejs.org and launch.
 
 	\subsubsection{Getting the forum-application}
-	Download the application in zip-format from our Github website
+	The preferred method to get the code if you have Git installed, is to clone our repository.
+	\begin{lstlisting}
+	git clone git://github.com/pum2pum/pum2pum.git
+	\end{lstlisting}
+
+	Alternative method: Download the application in zip-format from our Github website
 	\begin{quote}
 	https://github.com/pum2pum/pum2pum/downloads
 	\end{quote}
@@ -226,5 +231,12 @@
 	\end{lstlisting}
 
 	All tests should pass - no tests should time out or fail. If a test does not pass, something is wrong. A traceback or error-message will be shown to make it easier to debug the error. All test suites are located in the \lstinline{src/testdriver/tests/} folder. 
+
+	\section{Miscellaneous}
+	\subsection{Database files}
+	The database files are stored in a new folder in the same directory as the server with the same name as the application. Thus, the forum database files will be stored in the \lstinline{src/server/forum/} folder.
+
+	\subsection{Updating the application}
+	If the application is installed using Git to fetch the code (as preferred above), update to the latest version of the code by pulling the changes from Github. This is performed bu running the \lstinline{git pull} command from within the application-directory.
 
 \end{document}

@@ -8,6 +8,12 @@
 \usepackage{tabularx}
 \usepackage{color}
 \usepackage[breakall]{truncate}
+\usepackage{listings}
+
+\lstset{ 
+	language=bash,
+	basicstyle=\footnotesize\ttfamily
+}
 
 \definecolor{red}{RGB}{180,0,0}
 \definecolor{green}{RGB}{0,150,0}
@@ -53,6 +59,8 @@
 	https://github.com/pum2pum/pum2pum/commits/\\\\
 	The tests are for technical reasons separated into two different test environments, and the log for each environment is found in \autoref{sec:enyo} and \autoref{sec:node} respectively.\\
 
+	If an entry in the log says \emph{All tests passed}, this means that all tests implemented at that stage passed. To further examine which tests that was added between which entry in the log, please refer to the commit-history.
+
 
 	\section{System quality tests}
 	\label{sec:quality}
@@ -60,6 +68,7 @@
 
 	\begin{tabular}{l l l}
 	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\stestpass{2012-05-15}{a4371c94dd93120a622e8f9b7d2d1f598fddd4e6}{1.1.1}
 		\stestpass{2012-05-12}{397bf8d36b6e1aa8302e0033f4d54db37504aa04}{1.2.1}
 		\stestpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{1.2.1}
 		\stestpass{2012-04-26}{3cc0e450428a18934d40ce4d2efaa737b8241ef3}{1.2.1}
@@ -70,9 +79,11 @@
 	\section{Server tests}
 	\label{sec:node}
 	Automated tests described in section 2 of the test case document.\\
+	Test scripts for this tests can be found in \lstinline{test/node/server.test.js}. For information on running test scripts, please consult the \emph{Installation and operation manual}. \\
 
 	\begin{tabular}{l l l}
 	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\testpass{2012-05-15}{a4371c94dd93120a622e8f9b7d2d1f598fddd4e6}
 		\testpass{2012-05-12}{397bf8d36b6e1aa8302e0033f4d54db37504aa04}
 		\testpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}
 		\testfail{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{Dependency initialization}
@@ -89,9 +100,11 @@
 	\section{Application tests}
 	\label{sec:enyo}
 	Automated tests described in sections 3 and 4 of the test case document.\\
+	Test scripts for this tests can be found in \lstinline{src/testdriver/tests/}. For information on running test scripts, please consult the \emph{Installation and operation manual}. \\
 
 	\begin{tabular}{l l l}
 	\bf{Date} & \bf{Commit} & \bf{Status}\\
+		\testpass{2012-05-15}{a4371c94dd93120a622e8f9b7d2d1f598fddd4e6}
 		\testpass{2012-05-12}{397bf8d36b6e1aa8302e0033f4d54db37504aa04}
 		\testpass{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}
 		\testfail{2012-05-01}{404f59e541084f825efe2c36a9a57900a25e2a31}{Dependency initialization}
