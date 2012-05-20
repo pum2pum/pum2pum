@@ -1,8 +1,15 @@
+/**
+* This is the "main" kind in the Forum. This is the first thing that is being rendered.
+**/
+
 enyo.kind({
 	name: "ForumApp",
 	kind: enyo.Control,
 	tag: "div",
 
+	/**
+	* It holds the menu and the view where the different parts of the forum is being shown.
+	**/
 	components: [
 		{ kind: "ForumMenu", name: "forumMenu" },
 		{ kind: "ForumView", name: "forumView", classes: "menuMargin" }
@@ -11,24 +18,24 @@ enyo.kind({
 	handlers: {
 		onHideMenu: "hideMenu",
 		onShowMenu: "showMenu",
-		onhashchange: "hashchange"
+		onhashchange: "hashchange" // When the hash changes the function "hashchange" is being called
 	},
 
-	showLoginView: function () {
+	showLoginView: function () { // Show the loginview
 		this.$.forumView.createComponent({
 			kind: "Login"
 		});
 		this.render();
 	},
 
-	showCategoryView: function () {
+	showCategoryView: function () { // Show the categoryview
 		this.$.forumView.createComponent({
 			kind: "CategoryView"
 		});
 		this.render();
 	},
 
-	showSubForumView: function ( id ) {
+	showSubForumView: function ( id ) { // Show the subforumview
 		var that = this;
 		id = parseInt( id );
 		function gotItem ( item ) {
@@ -42,7 +49,7 @@ enyo.kind({
 		enyo.application.db.getSubForum( gotItem, id );
 	},
 
-	showThreadView: function ( id ) {
+	showThreadView: function ( id ) { // Show the threadview
 		var that = this;
 		id = parseInt( id );
 		function gotItem ( item ) {
@@ -55,9 +62,12 @@ enyo.kind({
 
 		enyo.application.db.getThread( gotItem, id );
 	},
-
+	/**
+	* This function is begin called when the hash changes.
+	* It decides which view that should be displayed.
+	**/
 	hashchange: function ( sender, event ) {
-		var hash = location.hash.substr( 1 );
+		var hash = location.hash.substr( 1 ); // Get the hash without #
 		var valuePairs = hash.split( "&" );
 		var tmpValue;
 		var values = { };
@@ -68,24 +78,22 @@ enyo.kind({
 
 		this.$.forumView.destroyClientControls();
 
-		switch ( values["kind"] ) {
+		switch ( values["kind"] ) { // Decide which view
 			case "subForum":
 				this.showSubForumView( values["id"] );
 				break;
 			case "thread":
 				this.showThreadView( values["id"] );
 				break;
-			default:
+			default: // no special view
+				// See if the user is logged in
 				var username = getCookie("username");
-				console.log(username);
-				if ( username === null || username === "" || username === undefined  ) {
+				if ( username === null || username === "" || username === undefined  ) { // Not logged in, show login view
 					this.showLoginView();
-				} else {
-					if ( !enyo.application.db.isLoggedIn() ) {
-						console.log("inte inloggad");
+				} else { // Login to the database
+					if ( !enyo.application.db.isLoggedIn() ) { 
 						enyo.application.db.login( enyo.bind(this, "showCategoryView") , username);
 					} else {
-						console.log("inloggad");
 						this.showCategoryView();
 					}
 				}
@@ -108,6 +116,6 @@ enyo.kind({
 	create: function () {
 		this.inherited( arguments );
 
-		this.hashchange();
+		this.hashchange(); // Show the first view
 	}
 });

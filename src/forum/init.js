@@ -10,6 +10,7 @@ function getCookie(c_name) {
         }
     }
 
+/* Make enyo listen to hashchange */
 enyo.dispatcher.listen( window, "hashchange" );
 enyo.master._bubbleDefault = enyo.master.bubble;
 enyo.master.bubble = function(inEventName, inEvent, inSender) {
@@ -23,7 +24,8 @@ enyo.master.bubble = function(inEventName, inEvent, inSender) {
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
-//enyo.Scroller.touchScrolling = true; 
+
+/* Create the application object */
 enyo.application = {
 	db: new forumDatabase(),
 
@@ -44,6 +46,7 @@ enyo.application = {
 	language: "en"
 }
 
+/* function to chage the view of the forum, this will make so that hashchanged is being called. */
 enyo.application.changeView = function( kind, id ) {
     var hash = "kind=" + kind + "&id=" + id;
     location.hash = hash;    
