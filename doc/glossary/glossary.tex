@@ -1,0 +1,109 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{tabularx}
+\usepackage{changebar}
+
+\setcounter{changebargrey}{70} % make bars 70% black
+
+\begin{document}
+	
+	% Framsidan
+	\begin{titlepage}
+		
+		\includegraphics[scale=0.4]{logoNormal.png}
+		
+		\vspace{6cm}
+		
+		\begin{center}
+			\Huge{\textbf{Glossary}}
+			
+			\vspace{0.5cm}
+			
+			\huge{2012-05-20} % Datum senast ändrad
+		\end{center}
+		
+	\end{titlepage}
+	
+	% Innehållsförteckning
+	\tableofcontents
+	\newpage
+	
+	% Versioner
+	\section*{Versions}
+	\begin{tabularx}{1\textwidth}{|l|l|X|l|}
+		\hline
+		\bf{Version} & \bf{Date} & \bf{Changes} & \bf{By} \\
+		\hline
+		1.5 & 2012-05-20 & Changed the formulation of the \emph{peer to peer} explanation & robud948 \\
+		\hline
+		1.4 & 2012-05-18 & Fixed spelling. & jonka293 \\
+		\hline
+		1.3 & 2012-05-09 & Added some words. & jonka293 \\
+		\hline
+		1.2 & 2012-02-21 & Added projectspecific terms. & jonhe863 \\
+		\hline
+		1.1 & 2012-02-16 & Changed the layout according to document standard. & petla778 \\
+		\hline
+		1.0 & 2012-02-03 & First version. & jonka293 \\
+		\hline
+	\end{tabularx}
+	\newpage
+
+\section{Introduction}
+This document intends to explain difficult words and terms central to the project. It is essential to understand these terms to get a better hold on what the project is really about.
+
+\section{Difficult words and terms}
+
+\begin{itemize}
+  \item[peer to peer] Connections goes directly to the device you want to connect with	 instead of using the standard way where you connect to an internet server.
+  \item[shoutbox] A small chat embedded on a website. 
+  \item[Node.js] A software system designed for writing higly-scalable internet applications. Programs are written using JavaScript, using event-driven, asynchronous I/O to minimize overhead and maximize scalability. Node.js contains Google's V8 javaScript engine plus built-in libraries.
+	\item [kind] Kinds are our framework's analogue to object oriented prototypes.
+	\item[git] Version handling software.
+	\item[JavaScript] The programming language used to create the forum.
+  	\item[Server and client] A client is any device connected to a server, could be a laptop or a mobile phone. The server handles each client and responds to requests made from the client, this project will use a web-server, meaning that it creates a web-page for 	the client.
+
+\end{itemize}
+\section{Terms specific to the project}
+
+\begin{itemize}
+	\item[LiveDB] The database given by the customer.
+	\item[Category] The forum is divided into different categories. This means that threads are separated from each other depending on subject.
+	\item [Thread] Within a thread a special subject is discussed that is specified as the topic.
+	\item [Response] A thread usually consist of a topic and its body along with several responses.
+	\item [User] To be able to write anything on the message board it is necessary to register a user account.\\
+		
+\end{itemize}
+	\newpage
+	\textit{Swedish translation} 
+		
+\section{Svåra termer och ord}
+
+\begin{itemize}
+	\item[peer to peer] Anslutningar går direkt till enheten som vill ansluta och inte som den vanliga standarden genom en server på internet.
+	\item[shoutbox] En liten ruta där man kan chatta med inloggade användare på hemsidan.
+	\item[Node.js] En programvara som utformats för att skriva skalbara internetapplikationer. Program skrivs med hjälp av JavaScript, med hjälp av händelsestyrd, asynkron I / O för att minimera overhead och maximera skalbarhet. Node.js innehåller Googles V8 JavaScript-motor plus inbyggd bibliotek.
+	\item[kind] Kinds är vårt frameworks motsvarighet till objektorienterade prototyper.
+	\item[git] Versionshanteringssystem	
+	\item[JavaScript] Programmeringsspråket använt för att skapa forumet.
+  	\item[Server och klient] En klient är en enhet som är ansluten till en server, det kan vara en bärbar dator eller en mobiltelefon. Servern hanterar varje klient och svarar på förfrågningar från klienten, kommer detta projekt att använda en web-server, vilket innebär att det skapar en web-sida för kunden.
+
+\end{itemize}
+
+\section{Termer specifika för projektet}
+
+\begin{itemize}
+	\item[LiveDB] Databasen given av kunden.
+	\item [Kategorier] Forumet delas upp i olika kategorier. Detta innebär att alla trådar inte ligger på samma ställe vilket skapar en bra överblick och struktur över vad för typer av diskussionsämnen som är önskvärda.
+	\item [Trådar] Inom en tråd diskuteras ett speciellt ämne som specifieras som rubrik till tråden.
+	\item [Inlägg] En tråd består i det generella fallet av ett antal inlägg som innefattar en trådstart samt svar och diskussion kring ämnet.
+	\item [Användare] För att kunna skriva inlägg krävs det att man skapat en
+användare på forumet.
+	
+\end{itemize}
+
+\end{document}
